@@ -1,0 +1,12 @@
+.container {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	gap: 12px;
+}
+
+.radio {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}

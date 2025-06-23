@@ -1,0 +1,114 @@
+export const jmdictToMecabPOS: Record<string, string[]> = {
+	n: ['名詞'],
+	'n-adv': ['名詞'],
+	'n-pr': ['名詞'],
+	'n-suf': ['接尾', '名詞'],
+	'n-pref': ['接頭詞'],
+	'n-t': ['名詞'],
+	adj: ['形容詞'],
+	'adj-i': ['形容詞'],
+	'adj-na': ['名詞'],
+	'adj-no': ['名詞'],
+	'adj-pn': ['連体詞'],
+	'adj-f': ['連体詞'],
+	adv: ['副詞'],
+	'adv-to': ['副詞'],
+	conj: ['接続詞'],
+	prt: ['助詞'],
+	cop: ['助動詞'],
+	vs: ['名詞'],
+	'vs-s': ['名詞'],
+	'vs-i': ['名詞'],
+	v1: ['動詞'],
+	'v1-s': ['動詞'],
+	v5u: ['動詞'],
+	v5k: ['動詞'],
+	v5s: ['動詞'],
+	v5t: ['動詞'],
+	v5r: ['動詞'],
+	v5m: ['動詞'],
+	v5n: ['動詞'],
+	v5b: ['動詞'],
+	v5g: ['動詞'],
+	v5aru: ['動詞'],
+	'v5r-i': ['動詞'],
+	'v5u-s': ['動詞'],
+	'v5k-s': ['動詞'],
+	vz: ['動詞'],
+	vi: ['動詞'],
+	vt: ['動詞'],
+	vk: ['動詞'],
+	vn: ['動詞'],
+	'aux-v': ['助動詞'],
+	'aux-adj': ['助動詞'],
+	int: ['感動詞'],
+	pn: ['代名詞'],
+	exp: ['名詞', '連語'],
+	suf: ['接尾', '名詞'],
+	pref: ['接頭詞'],
+	'adj-ku': ['形容詞'],
+	'adj-t': ['名詞'],
+	'adj-nari': ['名詞'],
+	'adj-kari': ['形容詞'],
+	'adj-shiku': ['形容詞'],
+	num: ['名詞'],
+	'on-mim': ['名詞', '副詞'],
+	slang: ['名詞', '名詞'],
+	proverb: ['名詞', '連語'],
+	yoji: ['名詞'],
+	symbol: ['記号'],
+	'net-sl': ['名詞'],
+	unc: ['名詞'],
+	ctr: ['接尾'],
+	v4r: ['動詞'],
+	'v2y-s': ['動詞'],
+	'vs-c': ['名詞'],
+	'adj-ix': ['形容詞'],
+	aux: ['助動詞'],
+	v4k: ['動詞'],
+	'v2r-s': ['動詞'],
+	'v2m-s': ['動詞'],
+	v4s: ['動詞'],
+	'v2h-k': ['動詞'],
+	'v2b-k': ['動詞'],
+	v4t: ['動詞'],
+	'v2s-s': ['動詞'],
+	'v2a-s': ['動詞'],
+	v4m: ['動詞'],
+	'v2r-k': ['動詞'],
+	vr: ['動詞'],
+	'v2k-s': ['動詞'],
+	'v2t-k': ['動詞'],
+	v4h: ['動詞'],
+	v4g: ['動詞'],
+	'v2g-s': ['動詞'],
+	v4b: ['動詞'],
+	'v2d-s': ['動詞'],
+	'v2y-k': ['動詞'],
+	'v2z-s': ['動詞'],
+	'v2n-s': ['動詞'],
+	'v2h-s': ['動詞'],
+	'v2k-k': ['動詞'],
+	'v2g-k': ['動詞'],
+	'v2t-s': ['動詞'],
+	'v2w-s': ['動詞']
+}
+type Id = string
+export type jmDictIndex = Record<string, Id[]>
+
+export interface Word {
+	id: string
+	kana: string[]
+	kanji: string[]
+	mecabPos: string[]
+	sense: Sense[]
+}
+
+export interface Sense {
+	pos: string[]
+	gloss: string[]
+}
+
+export type DictWords = Record<Id, Word>
+
+export type Tags = Record<string, string>

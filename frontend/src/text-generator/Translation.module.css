@@ -1,0 +1,18 @@
+.translation {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	max-height: fit-content;
+}
+
+.translation > p {
+	padding: 0;
+	margin: 0;
+}
+
+@media (max-width: 950px) {
+	.translation {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}

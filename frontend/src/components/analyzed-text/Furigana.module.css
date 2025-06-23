@@ -1,0 +1,22 @@
+.furigana {
+	font-size: 0.8rem;
+	user-select: none;
+}
+
+.disabled {
+	.furigana {
+		opacity: 0;
+	}
+}
+
+.hover {
+	&:hover {
+		.furigana {
+			opacity: 1;
+		}
+	}
+
+	.furigana {
+		opacity: 0;
+	}
+}

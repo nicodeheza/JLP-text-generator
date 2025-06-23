@@ -1,0 +1,56 @@
+.children[data-state='open'] {
+	background-color: white;
+	color: black;
+}
+
+.children:hover {
+	background-color: white;
+	color: black;
+}
+
+.children > ruby > rt {
+	color: white;
+}
+
+.card {
+	background-color: black;
+	border: solid 1px white;
+	padding: 24px;
+	border-radius: 6px;
+
+	max-height: 25vh;
+	max-width: 80vw;
+	overflow-y: auto;
+}
+
+.kanasContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+
+	padding-bottom: 12px;
+}
+
+.kanji {
+	font-weight: 700;
+
+	color: rgb(254, 179, 103);
+	font-size: 1.3rem;
+}
+
+.sense {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 12px;
+}
+
+.pos {
+	font-style: italic;
+	font-size: 0.8rem;
+}
+
+.glossList {
+	margin: 0;
+	padding: 0;
+	padding-left: 12px;
+}
