@@ -1,4 +1,4 @@
-import {Db} from './dict/db/db.dict.js'
+import {DictDb} from './dict/db/db.dict.js'
 import {Ai} from './generator/Ai.js'
 import express from 'express'
 import cors from 'cors'
@@ -13,7 +13,7 @@ function onExit() {
 	signals.forEach((signal) => {
 		process.on(signal, async () => {
 			try {
-				await Db.close()
+				await DictDb.close()
 			} catch (e) {
 				console.error(e)
 			} finally {
@@ -24,7 +24,7 @@ function onExit() {
 }
 
 async function setup() {
-	Db.open(true)
+	DictDb.open(true)
 	await Ai.setup()
 	onExit()
 }

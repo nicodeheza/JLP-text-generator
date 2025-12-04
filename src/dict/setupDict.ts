@@ -1,16 +1,13 @@
 import {join} from 'path'
 import {loadDictionary} from '@scriptin/jmdict-simplified-loader'
-import {Db} from './db/db.dict.js'
-import {createTables, insertToDict} from './db/queries.dict.js'
+import {DictDb} from './db/db.dict.js'
+import {insertToDict} from './db/setupInserts.dict.js'
 
 const __dirname = import.meta.dirname
 
 async function setupDict(file: string) {
 	console.log('open db')
-	Db.open()
-
-	console.log('Creating tables')
-	await createTables()
+	DictDb.open()
 
 	const path = join(__dirname, file)
 
@@ -30,7 +27,7 @@ async function setupDict(file: string) {
 					console.log('Done!')
 				})
 				.catch(console.error)
-				.finally(async () => await Db.close())
+				.finally(async () => await DictDb.close())
 		})
 }
 
