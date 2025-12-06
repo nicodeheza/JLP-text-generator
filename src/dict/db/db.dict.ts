@@ -1,12 +1,13 @@
 import {drizzle} from 'drizzle-orm/better-sqlite3'
 import {join} from 'path'
 import Database from 'better-sqlite3'
+import * as schema from './schema.dict'
 
 export const DB_PATH = join(__dirname, '../../../jmDict/dictDb.db')
 
 export class DictDb {
 	private static db: Database.Database | undefined
-	private static drizzleDB: ReturnType<typeof drizzle> | undefined
+	private static drizzleDB: ReturnType<typeof drizzle<typeof schema>> | undefined
 
 	static open(readonly?: boolean) {
 		if (DictDb.db) return

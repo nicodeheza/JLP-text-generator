@@ -1,47 +1,60 @@
-import {Word} from '../types.dict'
+import {and, eq} from 'drizzle-orm'
 import {DictDb} from './db.dict'
+import {
+	glosses,
+	kanas,
+	kanjis,
+	mecabPos,
+	sense,
+	senseToMecabPos,
+	senseToPos,
+	tags,
+	words
+} from './schema.dict'
 
 const db = DictDb.getDb()
 
-const getByKanaAndMecabPosQuery = /*sql */ `SELECT id, kana, kanji, sense FROM dict WHERE
-EXISTS ( SELECT 1 FROM json_each(dict.kana) WHERE json_each.value = ?) 
-AND
-EXISTS (SELECT 2 FROM json_each(dict.mecabPos) WHERE json_each.value = ?);
-`
-const getByKanjiAndMecabPosQuery = /*sql */ `SELECT id, kana, kanji, sense FROM dict WHERE
-EXISTS ( SELECT 1 FROM json_each(dict.kanji) WHERE json_each.value = ?) 
-AND
-EXISTS (SELECT 2 FROM json_each(dict.mecabPos) WHERE json_each.value = ?);
-`
-
-interface LookupRes {
-	id: string
-	kana: string
-	kanji: string
-	sense: string
-}
-export async function getByKanaAndMecabPos(
-	kana: string,
-	mecabPos: string
-): Promise<Omit<Word, 'mecabPos'>[]> {
-	const res = await DictDb.all<LookupRes>(getByKanaAndMecabPosQuery, [kana, mecabPos])
-	return res.map((r) => ({
-		id: r.id,
-		kana: JSON.parse(r.kana),
-		kanji: JSON.parse(r.kanji),
-		sense: JSON.parse(r.sense)
-	}))
+// TODO - add return type and test
+export async function getByKanaAndMecabPos(kana: string, mecabPosText: string) {
+	return db
+		.select({
+			id: words.id,
+			kanas: kanas.text,
+			kanjis: kanjis.text,
+			sense: glosses.text,
+			pos: tags.text,
+			mecab: mecabPos.text
+		})
+		.from(words)
+		.innerJoin(kanjis, eq(kanjis.wordId, words.id))
+		.innerJoin(kanas, eq(kanas.wordId, words.id))
+		.innerJoin(sense, eq(sense.wordId, words.id))
+		.innerJoin(glosses, eq(glosses.senseId, sense.id))
+		.innerJoin(senseToPos, eq(senseToPos.senseId, sense.id))
+		.innerJoin(tags, eq(tags.id, senseToPos.tagId))
+		.innerJoin(senseToMecabPos, eq(senseToMecabPos.senseId, sense.id))
+		.innerJoin(mecabPos, eq(mecabPos.id, senseToMecabPos.mecabPosId))
+		.where(and(eq(kanas.text, kana), eq(mecabPos.text, mecabPosText)))
 }
 
-export async function getByKanjiAndMecabPos(
-	kanji: string,
-	mecabPos: string
-): Promise<Omit<Word, 'mecabPos'>[]> {
-	const res = await DictDb.all<LookupRes>(getByKanjiAndMecabPosQuery, [kanji, mecabPos])
-	return res.map((r) => ({
-		id: r.id,
-		kana: JSON.parse(r.kana),
-		kanji: JSON.parse(r.kanji),
-		sense: JSON.parse(r.sense)
-	}))
+export async function getByKanjiAndMecabPos(kanji: string, mecabPosText: string) {
+	return db
+		.select({
+			id: words.id,
+			kanas: kanas.text,
+			kanjis: kanjis.text,
+			sense: glosses.text,
+			pos: tags.text,
+			mecab: mecabPos.text
+		})
+		.from(words)
+		.innerJoin(kanjis, eq(kanjis.wordId, words.id))
+		.innerJoin(kanas, eq(kanas.wordId, words.id))
+		.innerJoin(sense, eq(sense.wordId, words.id))
+		.innerJoin(glosses, eq(glosses.senseId, sense.id))
+		.innerJoin(senseToPos, eq(senseToPos.senseId, sense.id))
+		.innerJoin(tags, eq(tags.id, senseToPos.tagId))
+		.innerJoin(senseToMecabPos, eq(senseToMecabPos.senseId, sense.id))
+		.innerJoin(mecabPos, eq(mecabPos.id, senseToMecabPos.mecabPosId))
+		.where(and(eq(kanjis.text, kanji), eq(mecabPos.text, mecabPosText)))
 }

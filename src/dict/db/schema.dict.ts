@@ -6,7 +6,8 @@ export const words = table('words', {
 })
 export const wordsRelations = relations(words, ({many}) => ({
 	kanjis: many(kanjis),
-	kanas: many(kanas)
+	kanas: many(kanas),
+	sense: many(sense)
 }))
 
 export const kanjis = table('kanjis', {
@@ -64,12 +65,16 @@ export const sense = table('sense', {
 	id: int().primaryKey({autoIncrement: true}),
 	wordId: int('word_id').notNull()
 })
-export const senseRelations = relations(sense, ({many}) => ({
+export const senseRelations = relations(sense, ({many, one}) => ({
+	words: one(words, {
+		fields: [sense.wordId],
+		references: [words.id]
+	}),
 	glosses: many(glosses),
-	senseToPos: many(senseToPos),
-	senseToKana: many(senseToKana),
-	senseToKanji: many(senseToKanji),
-	senseToMecabPos: many(senseToMecabPos)
+	pos: many(senseToPos),
+	kanas: many(senseToKana),
+	kanjis: many(senseToKanji),
+	mecabPos: many(senseToMecabPos)
 }))
 
 export const senseToKana = table('sense_kana', {
@@ -91,17 +96,17 @@ export const senseToKanaRelations = relations(senseToKana, ({one}) => ({
 	})
 }))
 
-export const senseToKanji = table('sense_kana', {
+export const senseToKanji = table('sense_kanji', {
 	senseId: int('sense_id')
 		.notNull()
 		.references(() => sense.id),
-	kanjiId: int('kana_id')
+	kanjiId: int('kanji_id')
 		.notNull()
 		.references(() => kanjis.id)
 })
 export const senseToKanjiRelations = relations(senseToKanji, ({one}) => ({
 	sense: one(sense, {
-		fields: [senseToKana.senseId],
+		fields: [senseToKanji.senseId],
 		references: [sense.id]
 	}),
 	kanji: one(kanjis, {
@@ -116,9 +121,10 @@ export const glosses = table('glosses', {
 	senseId: int('sense_id').notNull()
 })
 export const glossesRelations = relations(glosses, ({one}) => ({
-	sense: one(glosses, {
+	// Fix: relate glosses to sense by senseId -> sense.id
+	sense: one(sense, {
 		fields: [glosses.senseId],
-		references: [glosses.id]
+		references: [sense.id]
 	})
 }))
 
@@ -132,7 +138,7 @@ export const tagsRelations = relations(tags, ({many}) => ({
 }))
 
 export const senseToPos = table(
-	'kanas_kanjis',
+	'sense_pos',
 	{
 		senseId: int('sense_id')
 			.notNull()
@@ -175,7 +181,7 @@ export const senseToMecabPos = table(
 	(t) => [primaryKey({columns: [t.mecabPosId, t.senseId]})]
 )
 
-export const senseToMecaPosRelations = relations(senseToMecabPos, ({one}) => ({
+export const senseToMecabPosRelations = relations(senseToMecabPos, ({one}) => ({
 	mecabPos: one(mecabPos, {
 		fields: [senseToMecabPos.mecabPosId],
 		references: [mecabPos.id]

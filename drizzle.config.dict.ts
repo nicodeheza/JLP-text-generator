@@ -9,5 +9,3 @@ export default defineConfig({
 		url: DB_PATH
 	}
 })
-
-//TODO . fix connection
