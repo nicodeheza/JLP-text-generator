@@ -25,7 +25,7 @@ async function setupDict(file: string) {
 					console.log('Done!')
 				})
 				.catch(console.error)
-				.finally(async () => await DictDb.close())
+				.finally(() => DictDb.close())
 		})
 }
 

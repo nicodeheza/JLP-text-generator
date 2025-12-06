@@ -1,41 +1,26 @@
 import {drizzle} from 'drizzle-orm/better-sqlite3'
 import {join} from 'path'
-import sqlite3 from 'sqlite3'
-
-const __dirname = import.meta.dirname
+import Database from 'better-sqlite3'
 
 export const DB_PATH = join(__dirname, '../../../jmDict/dictDb.db')
 
 export class DictDb {
-	private static db: sqlite3.Database | undefined
+	private static db: Database.Database | undefined
 	private static drizzleDB: ReturnType<typeof drizzle> | undefined
 
 	static open(readonly?: boolean) {
 		if (DictDb.db) return
-		DictDb.db = new sqlite3.Database(
-			DB_PATH,
-			readonly ? sqlite3.OPEN_READONLY : undefined
-		)
-		if (!DictDb.drizzleDB) DictDb.drizzleDB = drizzle(DictDb.db)
+		DictDb.db = new Database(DB_PATH, readonly ? {readonly: true} : undefined)
+		if (!DictDb.drizzleDB) DictDb.drizzleDB = drizzle({client: DictDb.db})
 	}
 
 	static close() {
 		const db = DictDb.db
 		if (!db) throw new Error('no db instance')
 
-		return new Promise((resolve, reject) => {
-			db.close((e) => {
-				if (e) reject(e)
-				DictDb.db = undefined
-				resolve(undefined)
-			})
-		})
-	}
-
-	static closeSync() {
-		const db = DictDb.db
-		if (!db) throw new Error('no db instance')
 		db.close()
+		DictDb.db = undefined
+		DictDb.drizzleDB = undefined
 	}
 
 	static getDb() {

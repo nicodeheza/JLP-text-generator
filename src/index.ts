@@ -6,14 +6,12 @@ import routes from './routes'
 import {CONFIG} from './config'
 import {join} from 'path'
 
-const __dirname = import.meta.dirname
-
 function onExit() {
 	const signals = ['SIGINT', 'SIGUSR1', 'SIGUSR2', 'uncaughtException', 'SIGTERM']
 	signals.forEach((signal) => {
-		process.on(signal, async () => {
+		process.on(signal, () => {
 			try {
-				await DictDb.close()
+				DictDb.close()
 			} catch (e) {
 				console.error(e)
 			} finally {
