@@ -1,9 +1,7 @@
 import {join} from 'path'
 import {loadDictionary} from '@scriptin/jmdict-simplified-loader'
-import {DictDb} from './db/db.dict.js'
-import {insertToDict} from './db/setupInserts.dict.js'
-
-const __dirname = import.meta.dirname
+import {DictDb} from './db/db.dict'
+import {insertToDict} from './db/setupInserts.dict'
 
 async function setupDict(file: string) {
 	console.log('open db')

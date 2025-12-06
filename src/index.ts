@@ -1,9 +1,9 @@
-import {DictDb} from './dict/db/db.dict.js'
-import {Ai} from './generator/Ai.js'
+import {DictDb} from './dict/db/db.dict'
+import {Ai} from './generator/Ai'
 import express from 'express'
 import cors from 'cors'
-import routes from './routes.js'
-import {CONFIG} from './config.js'
+import routes from './routes'
+import {CONFIG} from './config'
 import {join} from 'path'
 
 const __dirname = import.meta.dirname

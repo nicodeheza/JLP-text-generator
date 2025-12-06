@@ -1,6 +1,6 @@
-import {Dict, Token, TokenizationRes, tokenizeText} from '../analyzer/tokenizer.js'
-import {aiSteamResponse} from './Ai.js'
-import {getGenerateStoryPrompt} from './prompts.js'
+import {Dict, Token, TokenizationRes, tokenizeText} from '../analyzer/tokenizer'
+import {aiSteamResponse} from './Ai'
+import {getGenerateStoryPrompt} from './prompts'
 
 interface AnalyzedStoryChunk {
 	paragraph: {

@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import {generateStoryHandler} from './handlers.generator.js'
+import {generateStoryHandler} from './handlers.generator'
 
 const router = Router()
 

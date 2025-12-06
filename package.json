@@ -7,7 +7,8 @@
   "scripts": {
     "start": "tsc && NODE_ENV=production node --env-file=.env ./dist/index ",
     "dev": "tsc -w & node --env-file=.env --watch ./dist/index",
-    "setup": "tsc && node ./dist/dict/setupDict"
+    "setup": "tsc && node ./dist/dict/setupDict",
+    "push:dict": "drizzle-kit push --config drizzle.config.dict.ts"
   },
   "devDependencies": {
     "@scriptin/jmdict-simplified-loader": "^3.6.1",

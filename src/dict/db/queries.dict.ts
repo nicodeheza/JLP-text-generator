@@ -1,7 +1,7 @@
-import {Word} from '../types.dict.js'
-import {DictDb} from './db.dict.js'
+import {Word} from '../types.dict'
+import {DictDb} from './db.dict'
 
-const insertToDictQuery = /*sql*/ `INSERT INTO dict (id, mecabPos, kana, kanji, sense) VALUES (?,?,?,?,?);`
+const db = DictDb.getDb()
 
 const getByKanaAndMecabPosQuery = /*sql */ `SELECT id, kana, kanji, sense FROM dict WHERE
 EXISTS ( SELECT 1 FROM json_each(dict.kana) WHERE json_each.value = ?) 
