@@ -22,7 +22,10 @@ import {
 	tags as tagsTable
 } from './schema.dict'
 
-const db = DictDb.getDb()
+function db() {
+	return DictDb.getDb()
+}
+
 const tagsMap: Record<string, number> = {}
 const mecabPosMap: Record<string, number> = {}
 
@@ -33,7 +36,7 @@ function getMecabPosList(): string[] {
 function insertTags(tags: Record<string, string>) {
 	return Promise.all(
 		Object.keys(tags).map(async (t) => {
-			const res = await db
+			const res = await db()
 				.insert(tagsTable)
 				.values({
 					abbreviation: t,
@@ -49,7 +52,7 @@ function insertTags(tags: Record<string, string>) {
 function insertMecabPos() {
 	return Promise.all(
 		getMecabPosList().map(async (p) => {
-			const res = await db
+			const res = await db()
 				.insert(mecabPos)
 				.values({
 					text: p
@@ -67,7 +70,7 @@ async function insertKanjis(
 	const kanjiMap: Record<string, number> = {}
 	await Promise.all(
 		kanjisData.map(async (k) => {
-			const res = await db
+			const res = await db()
 				.insert(kanjis)
 				.values({
 					common: k.common,
@@ -90,7 +93,7 @@ async function insertKana(
 	const kanaMap: Record<string, number> = {}
 	const kanasInsertData = await Promise.all(
 		kanasData.map(async (k) => {
-			const res = await db
+			const res = await db()
 				.insert(kanas)
 				.values({
 					common: k.common,
@@ -124,7 +127,7 @@ async function insertKana(
 function insertSenseKanji(senseId: number, kanjisIds: number[]) {
 	return Promise.all(
 		kanjisIds.map((id) => {
-			return db.insert(senseToKanji).values({
+			return db().insert(senseToKanji).values({
 				senseId,
 				kanjiId: id
 			})
@@ -134,7 +137,7 @@ function insertSenseKanji(senseId: number, kanjisIds: number[]) {
 function insertSenseKana(senseId: number, kanasIds: number[]) {
 	return Promise.all(
 		kanasIds.map((id) => {
-			return db.insert(senseToKana).values({
+			return db().insert(senseToKana).values({
 				senseId,
 				kanaId: id
 			})
@@ -143,7 +146,7 @@ function insertSenseKana(senseId: number, kanasIds: number[]) {
 }
 function insertKanaKanji(kanaId: number, kanjisIds: number[]) {
 	return Promise.all(
-		kanjisIds.map((id) => db.insert(kanasToKanjis).values({kanaId, kanjisId: id}))
+		kanjisIds.map((id) => db().insert(kanasToKanjis).values({kanaId, kanjisId: id}))
 	)
 }
 
@@ -161,7 +164,7 @@ function insertSense(
 ): Promise<SenseInsertRes[]> {
 	return Promise.all(
 		senseData.map(async (s) => {
-			const res = await db.insert(sense).values({wordId}).returning({id: sense.id})
+			const res = await db().insert(sense).values({wordId}).returning({id: sense.id})
 			return {
 				id: res[0].id,
 				kanjis: s.appliesToKanji,
@@ -208,7 +211,7 @@ function insertAllSenseKana(
 function insertGlosses(senseId: number, senseGlosses: JMdictGloss[]) {
 	return Promise.all(
 		senseGlosses.map((g) => {
-			return db.insert(glosses).values({
+			return db().insert(glosses).values({
 				text: g.text,
 				senseId
 			})
@@ -227,7 +230,7 @@ function insertAllGlosses(senseData: SenseInsertRes[]) {
 function insertSensePos(senseId: number, tagIds: number[]) {
 	return Promise.all(
 		tagIds.map((id) =>
-			db.insert(senseToPos).values({
+			db().insert(senseToPos).values({
 				senseId,
 				tagId: id
 			})
@@ -249,7 +252,7 @@ function insertAllSensePos(senseData: SenseInsertRes[]) {
 function insertSenseMecab(senseId: number, mecabIds: number[]) {
 	return Promise.all(
 		mecabIds.map((id) => {
-			return db.insert(senseToMecabPos).values({
+			return db().insert(senseToMecabPos).values({
 				senseId,
 				mecabPosId: id
 			})
@@ -276,7 +279,7 @@ export async function insertToDict(jmdictWord: JMdictWord, tags: Record<string, 
 
 	if (Object.keys(mecabPosMap).length === 0) await insertMecabPos()
 
-	const [{id: wordId}] = await db.insert(words).values({}).returning({id: words.id})
+	const [{id: wordId}] = await db().insert(words).values({}).returning({id: words.id})
 
 	const kanjiMap = await insertKanjis(jmdictWord.kanji, wordId)
 

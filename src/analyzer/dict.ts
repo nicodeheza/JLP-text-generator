@@ -1,4 +1,4 @@
-import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../dict/db/queries.dict'
+import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../dict/service.dict'
 import {Word} from '../dict/types.dict'
 import {haveKanji} from './utils'
 

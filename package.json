@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "start": "tsc && NODE_ENV=production node --env-file=.env ./dist/index ",
     "dev": "tsc -w & node --env-file=.env --watch ./dist/index",

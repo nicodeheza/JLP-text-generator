@@ -25,7 +25,7 @@ export class DictDb {
 	}
 
 	static getDb() {
-		if (!DictDb.db || !DictDb.drizzleDB) throw new Error('on db instance')
+		if (!DictDb.db || !DictDb.drizzleDB) throw new Error('no db instance')
 		return DictDb.drizzleDB
 	}
 }

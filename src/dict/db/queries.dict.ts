@@ -12,16 +12,30 @@ import {
 	words
 } from './schema.dict'
 
-const db = DictDb.getDb()
+const db = () => DictDb.getDb()
 
-// TODO - add return type and test
-export async function getByKanaAndMecabPos(kana: string, mecabPosText: string) {
-	return db
+export interface DbWord {
+	id: number
+	kana: string
+	kanji: string
+	senseId: number
+	gloss: string
+	pos: string
+	mecab: string
+}
+
+// TODO -add return type and test
+export async function getByKanaAndMecabPosQuery(
+	kana: string,
+	mecabPosText: string
+): Promise<DbWord[]> {
+	return db()
 		.select({
 			id: words.id,
-			kanas: kanas.text,
-			kanjis: kanjis.text,
-			sense: glosses.text,
+			kana: kanas.text,
+			kanji: kanjis.text,
+			senseId: sense.id,
+			gloss: glosses.text,
 			pos: tags.text,
 			mecab: mecabPos.text
 		})
@@ -30,20 +44,22 @@ export async function getByKanaAndMecabPos(kana: string, mecabPosText: string) {
 		.innerJoin(kanas, eq(kanas.wordId, words.id))
 		.innerJoin(sense, eq(sense.wordId, words.id))
 		.innerJoin(glosses, eq(glosses.senseId, sense.id))
-		.innerJoin(senseToPos, eq(senseToPos.senseId, sense.id))
 		.innerJoin(tags, eq(tags.id, senseToPos.tagId))
-		.innerJoin(senseToMecabPos, eq(senseToMecabPos.senseId, sense.id))
 		.innerJoin(mecabPos, eq(mecabPos.id, senseToMecabPos.mecabPosId))
 		.where(and(eq(kanas.text, kana), eq(mecabPos.text, mecabPosText)))
 }
 
-export async function getByKanjiAndMecabPos(kanji: string, mecabPosText: string) {
-	return db
+export async function getByKanjiAndMecabPosQuery(
+	kanji: string,
+	mecabPosText: string
+): Promise<DbWord[]> {
+	return db()
 		.select({
 			id: words.id,
-			kanas: kanas.text,
-			kanjis: kanjis.text,
-			sense: glosses.text,
+			kana: kanas.text,
+			kanji: kanjis.text,
+			senseId: sense.id,
+			gloss: glosses.text,
 			pos: tags.text,
 			mecab: mecabPos.text
 		})
@@ -52,9 +68,7 @@ export async function getByKanjiAndMecabPos(kanji: string, mecabPosText: string)
 		.innerJoin(kanas, eq(kanas.wordId, words.id))
 		.innerJoin(sense, eq(sense.wordId, words.id))
 		.innerJoin(glosses, eq(glosses.senseId, sense.id))
-		.innerJoin(senseToPos, eq(senseToPos.senseId, sense.id))
 		.innerJoin(tags, eq(tags.id, senseToPos.tagId))
-		.innerJoin(senseToMecabPos, eq(senseToMecabPos.senseId, sense.id))
 		.innerJoin(mecabPos, eq(mecabPos.id, senseToMecabPos.mecabPosId))
 		.where(and(eq(kanjis.text, kanji), eq(mecabPos.text, mecabPosText)))
 }
