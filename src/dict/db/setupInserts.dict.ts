@@ -33,7 +33,7 @@ function getMecabPosList(): string[] {
 	return Array.from(new Set(Object.values(jmdictToMecabPOS).flat()))
 }
 
-function insertTags(tags: Record<string, string>) {
+export function insertTags(tags: Record<string, string>) {
 	return Promise.all(
 		Object.keys(tags).map(async (t) => {
 			const res = await db()
@@ -49,7 +49,7 @@ function insertTags(tags: Record<string, string>) {
 	)
 }
 
-function insertMecabPos() {
+export function insertMecabPos() {
 	return Promise.all(
 		getMecabPosList().map(async (p) => {
 			const res = await db()
@@ -275,10 +275,6 @@ function insertAllSenseMecab(senseData: SenseInsertRes[]) {
 }
 
 export async function insertToDict(jmdictWord: JMdictWord, tags: Record<string, string>) {
-	if (Object.keys(tagsMap).length === 0) await insertTags(tags)
-
-	if (Object.keys(mecabPosMap).length === 0) await insertMecabPos()
-
 	const [{id: wordId}] = await db().insert(words).values({}).returning({id: words.id})
 
 	const kanjiMap = await insertKanjis(jmdictWord.kanji, wordId)
@@ -296,4 +292,5 @@ export async function insertToDict(jmdictWord: JMdictWord, tags: Record<string, 
 	await insertAllSensePos(senseInsertData)
 
 	await insertAllSenseMecab(senseInsertData)
+	console.log(jmdictWord.id, 'inserted')
 }

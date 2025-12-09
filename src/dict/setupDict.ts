@@ -1,26 +1,42 @@
 import {join} from 'path'
 import {loadDictionary} from '@scriptin/jmdict-simplified-loader'
 import {DictDb} from './db/db.dict'
-import {insertToDict} from './db/setupInserts.dict'
+import {insertMecabPos, insertTags, insertToDict} from './db/setupInserts.dict'
 
+const BATCH_SIZE = 100
 async function setupDict(file: string) {
 	console.log('open db')
 	DictDb.open()
 
 	const path = join(__dirname, file)
 
-	const promises: Promise<void>[] = []
+	let promises: Promise<void>[] = []
+	let metadataReady: Promise<void> = Promise.resolve()
+	let currentBatchPromise: Promise<void[]> = Promise.resolve([])
 
 	loadDictionary('jmdict', path)
-		.onMetadata(() => {})
+		.onMetadata((metadata) => {
+			console.log('inserting metadata')
+			metadataReady = (async () => {
+				await insertTags(metadata.tags)
+				await insertMecabPos()
+			})()
+		})
 		.onEntry((entry, metadata) => {
 			console.log(`Adding ${entry.id} record`)
 
-			promises.push(insertToDict(entry, metadata.tags))
+			const p = Promise.all([metadataReady, currentBatchPromise]).then(() =>
+				insertToDict(entry, metadata.tags)
+			)
+			promises.push(p)
+
+			if (promises.length >= BATCH_SIZE) {
+				currentBatchPromise = Promise.all(promises)
+				promises = []
+			}
 		})
 		.onEnd(() => {
-			console.log('Saving Records')
-			Promise.all(promises)
+			Promise.all([metadataReady, currentBatchPromise, ...promises])
 				.then(() => {
 					console.log('Done!')
 				})
