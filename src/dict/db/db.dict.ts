@@ -16,6 +16,7 @@ export class DictDb {
 	static open(readonly?: boolean) {
 		if (DictDb.db) return
 		DictDb.db = new Database(DB_PATH, readonly ? {readonly: true} : undefined)
+		if (!readonly) DictDb.db.pragma('journal_mode = WAL')
 		if (!DictDb.drizzleDB) DictDb.drizzleDB = drizzle({client: DictDb.db})
 	}
 

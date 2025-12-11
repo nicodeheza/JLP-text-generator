@@ -26,15 +26,15 @@ function db() {
 	return DictDb.getDb()
 }
 
-const tagsMap: Record<string, number> = {}
-const mecabPosMap: Record<string, number> = {}
-
 function getMecabPosList(): string[] {
 	return Array.from(new Set(Object.values(jmdictToMecabPOS).flat()))
 }
 
-export function insertTags(tags: Record<string, string>) {
-	return Promise.all(
+export async function insertTags(
+	tags: Record<string, string>
+): Promise<Record<string, number>> {
+	const tagsMap: Record<string, number> = {}
+	await Promise.all(
 		Object.keys(tags).map(async (t) => {
 			const res = await db()
 				.insert(tagsTable)
@@ -47,10 +47,13 @@ export function insertTags(tags: Record<string, string>) {
 			tagsMap[t] = res[0].id
 		})
 	)
+
+	return tagsMap
 }
 
-export function insertMecabPos() {
-	return Promise.all(
+export async function insertMecabPos(): Promise<Record<string, number>> {
+	const mecabPosMap: Record<string, number> = {}
+	await Promise.all(
 		getMecabPosList().map(async (p) => {
 			const res = await db()
 				.insert(mecabPos)
@@ -61,6 +64,8 @@ export function insertMecabPos() {
 			mecabPosMap[p] = res[0].id
 		})
 	)
+
+	return mecabPosMap
 }
 
 async function insertKanjis(
@@ -238,7 +243,7 @@ function insertSensePos(senseId: number, tagIds: number[]) {
 	)
 }
 
-function insertAllSensePos(senseData: SenseInsertRes[]) {
+function insertAllSensePos(senseData: SenseInsertRes[], tagsMap: Record<string, number>) {
 	return Promise.all(
 		senseData.map(({id, pos}) => {
 			return insertSensePos(
@@ -260,21 +265,31 @@ function insertSenseMecab(senseId: number, mecabIds: number[]) {
 	)
 }
 
-function getMecabPosFormTags(tags: string[]): number[] {
+function getMecabPosFormTags(
+	tags: string[],
+	mecabPosMap: Record<string, number>
+): number[] {
 	const posList = tags.map((p) => jmdictToMecabPOS[p]).flat()
 	const noDuplicateList = Array.from(new Set(posList))
 	return noDuplicateList.map((p) => mecabPosMap[p])
 }
 
-function insertAllSenseMecab(senseData: SenseInsertRes[]) {
+function insertAllSenseMecab(
+	senseData: SenseInsertRes[],
+	mecabPosMap: Record<string, number>
+) {
 	return Promise.all(
 		senseData.map(({id, pos}) => {
-			return insertSenseMecab(id, getMecabPosFormTags(pos))
+			return insertSenseMecab(id, getMecabPosFormTags(pos, mecabPosMap))
 		})
 	)
 }
 
-export async function insertToDict(jmdictWord: JMdictWord, tags: Record<string, string>) {
+export async function insertToDict(
+	jmdictWord: JMdictWord,
+	mecabPosMap: Record<string, number>,
+	tagsMap: Record<string, number>
+) {
 	const [{id: wordId}] = await db().insert(words).values({}).returning({id: words.id})
 
 	const kanjiMap = await insertKanjis(jmdictWord.kanji, wordId)
@@ -289,8 +304,8 @@ export async function insertToDict(jmdictWord: JMdictWord, tags: Record<string, 
 
 	await insertAllGlosses(senseInsertData)
 
-	await insertAllSensePos(senseInsertData)
+	await insertAllSensePos(senseInsertData, tagsMap)
 
-	await insertAllSenseMecab(senseInsertData)
+	await insertAllSenseMecab(senseInsertData, mecabPosMap)
 	console.log(jmdictWord.id, 'inserted')
 }
