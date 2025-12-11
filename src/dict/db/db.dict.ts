@@ -1,7 +1,11 @@
 import {drizzle} from 'drizzle-orm/better-sqlite3'
-import {join} from 'path'
+import {join, dirname} from 'path'
+import {fileURLToPath} from 'url'
 import Database from 'better-sqlite3'
-import * as schema from './schema.dict'
+import * as schema from './schema.dict.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export const DB_PATH = join(__dirname, '../../../jmDict/dictDb.db')
 

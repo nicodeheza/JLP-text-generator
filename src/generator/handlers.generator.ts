@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
-import {generateAnalizadStoryStream} from './service.generator'
-import {getSseMessage} from '../utils/utils'
+import {generateAnalizadStoryStream} from './service.generator.js'
+import {getSseMessage} from '../utils/utils.js'
 
 export async function generateStoryHandler(req: Request, res: Response) {
 	const {p: prompt} = req.query as Record<string, string>

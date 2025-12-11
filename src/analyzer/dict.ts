@@ -1,6 +1,6 @@
-import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../dict/service.dict'
-import {Word} from '../dict/types.dict'
-import {haveKanji} from './utils'
+import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../dict/service.dict.js'
+import {Word} from '../dict/types.dict.js'
+import {haveKanji} from './utils.js'
 
 export type DictWord = Omit<Word, 'mecabPos'>
 

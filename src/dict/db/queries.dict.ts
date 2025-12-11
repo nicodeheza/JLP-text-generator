@@ -1,5 +1,5 @@
 import {and, eq} from 'drizzle-orm'
-import {DictDb} from './db.dict'
+import {DictDb} from './db.dict.js'
 import {
 	glosses,
 	kanas,
@@ -10,7 +10,7 @@ import {
 	senseToPos,
 	tags,
 	words
-} from './schema.dict'
+} from './schema.dict.js'
 
 const db = () => DictDb.getDb()
 

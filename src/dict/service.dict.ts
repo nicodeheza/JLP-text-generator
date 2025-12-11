@@ -2,8 +2,8 @@ import {
 	DbWord,
 	getByKanaAndMecabPosQuery,
 	getByKanjiAndMecabPosQuery
-} from './db/queries.dict'
-import {Word} from './types.dict'
+} from './db/queries.dict.js'
+import {Word} from './types.dict.js'
 
 function mapDbRes(dbRes: DbWord[]): Word[] {
 	let map: Record<

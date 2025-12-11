@@ -1,10 +1,14 @@
-import {DictDb} from './dict/db/db.dict'
-import {Ai} from './generator/Ai'
+import {DictDb} from './dict/db/db.dict.js'
+import {Ai} from './generator/Ai.js'
 import express from 'express'
 import cors from 'cors'
-import routes from './routes'
-import {CONFIG} from './config'
-import {join} from 'path'
+import routes from './routes.js'
+import {CONFIG} from './config.js'
+import {join, dirname} from 'path'
+import {fileURLToPath} from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 function onExit() {
 	const signals = ['SIGINT', 'SIGUSR1', 'SIGUSR2', 'uncaughtException', 'SIGTERM']

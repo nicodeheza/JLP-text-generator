@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import generatorRoutes from './generator/routes.generator'
+import generatorRoutes from './generator/routes.generator.js'
 
 const router = Router()
 

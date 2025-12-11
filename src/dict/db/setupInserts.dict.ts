@@ -5,8 +5,8 @@ import {
 	JMdictKana,
 	JMdictSense
 } from '@scriptin/jmdict-simplified-types'
-import {jmdictToMecabPOS} from '../types.dict'
-import {DictDb} from './db.dict'
+import {jmdictToMecabPOS} from '../types.dict.js'
+import {DictDb} from './db.dict.js'
 import {
 	mecabPos,
 	words,
@@ -20,7 +20,7 @@ import {
 	senseToPos,
 	senseToMecabPos,
 	tags as tagsTable
-} from './schema.dict'
+} from './schema.dict.js'
 
 function db() {
 	return DictDb.getDb()

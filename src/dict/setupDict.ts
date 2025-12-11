@@ -1,7 +1,11 @@
-import {join} from 'path'
+import {join, dirname} from 'path'
+import {fileURLToPath} from 'url'
 import {loadDictionary} from '@scriptin/jmdict-simplified-loader'
-import {DictDb} from './db/db.dict'
-import {insertMecabPos, insertTags, insertToDict} from './db/setupInserts.dict'
+import {DictDb} from './db/db.dict.js'
+import {insertMecabPos, insertTags, insertToDict} from './db/setupInserts.dict.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const BATCH_SIZE = 100
 async function setupDict(file: string) {

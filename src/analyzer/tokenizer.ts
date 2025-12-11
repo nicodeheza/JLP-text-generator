@@ -1,6 +1,6 @@
 import {tokenize, Token as MecabToken} from '@enjoyjs/node-mecab'
-import {getFurigana, haveKanji, katakaToHiragana} from './utils'
-import {dictLookup, DictWord} from './dict'
+import {getFurigana, haveKanji, katakaToHiragana} from './utils.js'
+import {dictLookup, DictWord} from './dict.js'
 
 const noWord = new Set(['記号', 'BOS/EOS'])
 
