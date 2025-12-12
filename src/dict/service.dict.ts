@@ -5,32 +5,48 @@ import {
 } from './db/queries.dict.js'
 import {Word} from './types.dict.js'
 
-function mapDbRes(dbRes: DbWord[]): Word[] {
-	let map: Record<
+interface WordReducerMap {
+	id: number
+	kana: Set<string>
+	kanji: Set<string>
+	mecab: Set<string>
+	sense: Record<
 		number,
 		{
-			id: number
-			kana: Set<string>
-			kanji: Set<string>
-			mecab: Set<string>
-			sense: Record<
-				number,
-				{
-					gloss: Set<string>
-					pos: Set<string>
-				}
-			>
+			gloss: Set<string>
+			pos: Set<string>
 		}
-	> = {}
+	>
+}
+
+function getNewReducerSense(
+	res: DbWord,
+	last?: WordReducerMap['sense']
+): WordReducerMap['sense'] {
+	return {
+		...(last ?? {}),
+		[res.senseId]: {
+			gloss: new Set<string>().add(res.gloss),
+			pos: new Set<string>().add(res.pos)
+		}
+	}
+}
+
+function mapDbRes(dbRes: DbWord[]): Word[] {
+	let map: Record<number, WordReducerMap> = {}
 
 	map = dbRes.reduce((acc, r) => {
 		if (acc[r.id]) {
 			acc[r.id].kana.add(r.kana)
 			acc[r.id].kanji.add(r.kanji)
 			acc[r.id].mecab.add(r.mecab)
-			acc[r.id].sense[r.senseId].gloss.add(r.gloss)
-			acc[r.id].sense[r.senseId].gloss.add(r.gloss)
-			acc[r.id].sense[r.senseId].pos.add(r.pos)
+
+			if (acc[r.id].sense[r.senseId]) {
+				acc[r.id].sense[r.senseId].gloss.add(r.gloss)
+				acc[r.id].sense[r.senseId].pos.add(r.pos)
+			} else {
+				acc[r.id].sense = getNewReducerSense(r, acc[r.id].sense)
+			}
 
 			return acc
 		}
@@ -42,12 +58,7 @@ function mapDbRes(dbRes: DbWord[]): Word[] {
 				kana: new Set<string>().add(r.kana),
 				kanji: new Set<string>().add(r.kanji),
 				mecab: new Set<string>().add(r.mecab),
-				sense: {
-					[r.senseId]: {
-						gloss: new Set<string>().add(r.gloss),
-						pos: new Set<string>().add(r.pos)
-					}
-				}
+				sense: getNewReducerSense(r)
 			}
 		}
 	}, map)

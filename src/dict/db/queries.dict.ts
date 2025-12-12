@@ -44,7 +44,9 @@ export async function getByKanaAndMecabPosQuery(
 		.innerJoin(kanas, eq(kanas.wordId, words.id))
 		.innerJoin(sense, eq(sense.wordId, words.id))
 		.innerJoin(glosses, eq(glosses.senseId, sense.id))
+		.innerJoin(senseToPos, eq(sense.id, senseToPos.senseId))
 		.innerJoin(tags, eq(tags.id, senseToPos.tagId))
+		.innerJoin(senseToMecabPos, eq(sense.id, senseToMecabPos.senseId))
 		.innerJoin(mecabPos, eq(mecabPos.id, senseToMecabPos.mecabPosId))
 		.where(and(eq(kanas.text, kana), eq(mecabPos.text, mecabPosText)))
 }
@@ -68,7 +70,9 @@ export async function getByKanjiAndMecabPosQuery(
 		.innerJoin(kanas, eq(kanas.wordId, words.id))
 		.innerJoin(sense, eq(sense.wordId, words.id))
 		.innerJoin(glosses, eq(glosses.senseId, sense.id))
+		.innerJoin(senseToPos, eq(sense.id, senseToPos.senseId))
 		.innerJoin(tags, eq(tags.id, senseToPos.tagId))
+		.innerJoin(senseToMecabPos, eq(sense.id, senseToMecabPos.senseId))
 		.innerJoin(mecabPos, eq(mecabPos.id, senseToMecabPos.mecabPosId))
 		.where(and(eq(kanjis.text, kanji), eq(mecabPos.text, mecabPosText)))
 }
