@@ -21,7 +21,8 @@ This project provides an interface to generate bigener friendly Japanese text, i
   - @enjoyjs/node-mecab
   - Furigana
   - Wanakana
-  - Sqlite3
+  - better-sqlite3
+  - Drizzle orm
 - **Frontend:**
   - React
   - Vite
@@ -45,6 +46,7 @@ Also, you need to set up the dictionary
 3. Run the script to generate the dictionary database
 
 ```bash
+yarn push:dict
 yarn setup
 ```
 
