@@ -8,7 +8,8 @@
     "start": "tsc && NODE_ENV=production node --env-file=.env ./dist/index ",
     "dev": "tsc -w & node --env-file=.env --watch ./dist/index",
     "setup": "tsc && node ./dist/dict/setup/setupDict",
-    "push:dict": "drizzle-kit push --config drizzle.config.dict.ts"
+    "push:dict": "drizzle-kit push --config drizzle.config.dict.ts",
+    "test": "vitest"
   },
   "devDependencies": {
     "@scriptin/jmdict-simplified-loader": "^3.6.1",
@@ -19,8 +20,11 @@
     "@types/leveldown": "^4.0.6",
     "@types/levelup": "^5.1.5",
     "@types/node": "^22.15.2",
+    "@types/supertest": "^6.0.3",
     "drizzle-kit": "^0.31.7",
-    "typescript": "^5.8.3"
+    "supertest": "^7.1.4",
+    "typescript": "^5.8.3",
+    "vitest": "^4.0.16"
   },
   "dependencies": {
     "@enjoyjs/node-mecab": "^0.5.0",
