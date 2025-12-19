@@ -1,6 +1,6 @@
-import {tokenize, Token as MecabToken} from '@enjoyjs/node-mecab'
 import {getFurigana, haveKanji, katakaToHiragana} from './utils.js'
 import {dictLookup, DictWord} from './dict.js'
+import {MecabToken, tokenize} from '../tokenizer/tokenizer.js'
 
 const noWord = new Set(['記号', 'BOS/EOS'])
 
@@ -20,12 +20,12 @@ export type Token =
 
 export type Dict = {[id: string]: Omit<DictWord, 'id'>}
 
-export interface TokenizationRes {
+export interface AnalyzeRes {
 	tokens: Token[]
 	dict: Dict
 }
 
-export async function tokenizeText(text: string): Promise<TokenizationRes> {
+export async function analyzeText(text: string): Promise<AnalyzeRes> {
 	const result: MecabToken[] = await tokenize(text)
 
 	let dict: Dict = {}

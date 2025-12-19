@@ -1,4 +1,4 @@
-import {Dict, Token, TokenizationRes, tokenizeText} from '../analyzer/tokenizer.js'
+import {Dict, Token, AnalyzeRes, analyzeText} from '../analyzer/analyzer.js'
 import {aiSteamResponse} from './Ai.js'
 import {getGenerateStoryPrompt} from './prompts.js'
 
@@ -15,7 +15,7 @@ function getAnalyzedStoryChunk(
 	text: string,
 	translation: string,
 	globalDict: Dict,
-	tokenRes: TokenizationRes
+	tokenRes: AnalyzeRes
 ): AnalyzedStoryChunk {
 	const {dict: resDict, tokens} = tokenRes
 	let currentDict: Dict = {}
@@ -55,15 +55,15 @@ export async function* generateAnalizadStoryStream(
 			}
 			if (char === ')') {
 				inText = true
-				const tokenRes = await tokenizeText(currentText)
+				const analyzeRes = await analyzeText(currentText)
 
 				const res = getAnalyzedStoryChunk(
 					currentText,
 					currentTranslation,
 					globalDict,
-					tokenRes
+					analyzeRes
 				)
-				globalDict = {...globalDict, ...tokenRes.dict}
+				globalDict = {...globalDict, ...analyzeRes.dict}
 				currentText = ''
 				currentTranslation = ''
 
