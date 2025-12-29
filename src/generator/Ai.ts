@@ -56,7 +56,7 @@ export function aiDirectResponse(args: RespondArgs) {
 	return Ai.directRespond(args)
 }
 
-export async function* aiSteamResponse(args: RespondArgs): AsyncGenerator<string> {
+export async function* aiStreamResponse(args: RespondArgs): AsyncGenerator<string> {
 	const res = Ai.streamingResponse(args)
 
 	for await (const chunk of res) {

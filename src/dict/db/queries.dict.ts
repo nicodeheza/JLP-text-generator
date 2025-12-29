@@ -24,7 +24,6 @@ export interface DbWord {
 	mecab: string
 }
 
-// TODO -add return type and test
 export async function getByKanaAndMecabPosQuery(
 	kana: string,
 	mecabPosText: string

@@ -17,7 +17,7 @@ vi.mock('./generator/Ai.js', () => {
 	return {
 		Ai: AiClassMock,
 		aiDirectResponse: vi.fn().mockResolvedValue(''),
-		aiSteamResponse: vi.fn(async function* () {
+		aiStreamResponse: vi.fn(async function* () {
 			yield ''
 			yield ''
 		})
