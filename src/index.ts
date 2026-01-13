@@ -1,11 +1,11 @@
 import {DictDb} from './dict/db/db.dict.js'
-import {Ai} from './generator/Ai.js'
 import express from 'express'
 import cors from 'cors'
 import routes from './routes.js'
 import {CONFIG} from './config.js'
 import {join, dirname} from 'path'
 import {fileURLToPath} from 'url'
+import {setupAi} from './infrastructure/Ai/index.ai.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -27,7 +27,7 @@ function onExit() {
 
 async function setup() {
 	DictDb.open(true)
-	await Ai.setup()
+	await setupAi()
 	onExit()
 }
 

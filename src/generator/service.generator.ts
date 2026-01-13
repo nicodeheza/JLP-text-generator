@@ -1,6 +1,6 @@
 import {Dict, Token, AnalyzeRes, analyzeText} from '../analyzer/analyzer.js'
-import {aiStreamResponse} from './Ai.js'
-import {getGenerateStoryPrompt} from './prompts.js'
+import {generateText} from './infrastructure/ai.generator.js'
+import {generateStoryInstructions} from './prompts.generator.js'
 
 interface AnalyzedStoryChunk {
 	paragraph: {
@@ -38,8 +38,9 @@ function getAnalyzedStoryChunk(
 export async function* generateAnalizadStoryStream(
 	prompt: string
 ): AsyncGenerator<AnalyzedStoryChunk> {
-	const generated = aiStreamResponse({
-		prompt: getGenerateStoryPrompt(prompt)
+	const generated = generateText({
+		prompt,
+		systemInstructions: generateStoryInstructions
 	})
 	let currentText = ''
 	let currentTranslation = ''

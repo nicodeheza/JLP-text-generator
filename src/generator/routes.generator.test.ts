@@ -2,9 +2,13 @@ import {describe, expect, it, vi} from 'vitest'
 import express from 'express'
 import routes from './routes.generator.js'
 import request from 'supertest'
-import * as aiModule from './Ai.js'
+import * as aiModule from '../infrastructure/Ai/index.ai.js'
 import * as tokenizeModule from '../tokenizer/tokenizer.js'
 import * as dictDbQueriesModule from '../dict/db/queries.dict.js'
+
+vi.mock('../infrastructure/Ai/index.ai.js')
+vi.mock('../tokenizer/tokenizer.js')
+vi.mock('../dict/db/queries.dict.js')
 
 const app = express()
 app.use(routes)
@@ -19,8 +23,7 @@ describe('Generator Routes', () => {
 				yield 'is John)\n'
 			})
 
-			// First yield: '私の名前'
-			vi.mocked(tokenizeModule.tokenize).mockResolvedValueOnce([
+			vi.mocked(tokenizeModule.tokenize).mockResolvedValue([
 				{
 					id: 0,
 					surface: '私',
@@ -59,13 +62,9 @@ describe('Generator Routes', () => {
 						reading: 'ナマエ',
 						pronunciation: 'ナマエ'
 					}
-				}
-			])
-
-			// Second yield: 'はジョンです\n'
-			vi.mocked(tokenizeModule.tokenize).mockResolvedValueOnce([
+				},
 				{
-					id: 0,
+					id: 3,
 					surface: 'は',
 					feature: {
 						pos: '助詞',
@@ -78,7 +77,7 @@ describe('Generator Routes', () => {
 					}
 				},
 				{
-					id: 1,
+					id: 4,
 					surface: 'ジョン',
 					feature: {
 						pos: '名詞',
@@ -91,7 +90,7 @@ describe('Generator Routes', () => {
 					}
 				},
 				{
-					id: 2,
+					id: 5,
 					surface: 'です',
 					feature: {
 						pos: '助動詞',
@@ -104,7 +103,7 @@ describe('Generator Routes', () => {
 					}
 				},
 				{
-					id: 3,
+					id: 6,
 					surface: '\n',
 					feature: {
 						pos: '記号',
@@ -301,6 +300,31 @@ describe('Generator Routes', () => {
 								basicForm: '名前',
 								furigana: '名[な] 前[まえ]',
 								dictIds: ['1002']
+							},
+							{
+								isWord: true,
+								original: 'は',
+								mecabPos: '助詞',
+								basicForm: 'は',
+								dictIds: ['1003']
+							},
+							{
+								isWord: true,
+								original: 'ジョン',
+								mecabPos: '名詞',
+								basicForm: 'ジョン',
+								dictIds: []
+							},
+							{
+								isWord: true,
+								original: 'です',
+								mecabPos: '助動詞',
+								basicForm: 'です',
+								dictIds: ['1004']
+							},
+							{
+								isWord: false,
+								original: '\n'
 							}
 						]
 					},
@@ -324,6 +348,31 @@ describe('Generator Routes', () => {
 								{
 									gloss: ['name', 'full name'],
 									pos: ['n']
+								}
+							]
+						},
+						'1003': {
+							kana: ['は'],
+							kanji: [''],
+							mecabPos: ['助詞'],
+							sense: [
+								{
+									gloss: [
+										'topic marker particle',
+										'indicates contrast with another option'
+									],
+									pos: ['prt']
+								}
+							]
+						},
+						'1004': {
+							kana: ['です'],
+							kanji: [''],
+							mecabPos: ['助動詞'],
+							sense: [
+								{
+									gloss: ['be', 'is'],
+									pos: ['cop']
 								}
 							]
 						},
