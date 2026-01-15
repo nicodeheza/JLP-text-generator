@@ -1,8 +1,6 @@
-import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../dict/service.dict.js'
-import {Word} from '../dict/types.dict.js'
-import {haveKanji} from './utils.js'
-
-export type DictWord = Omit<Word, 'mecabPos'>
+import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../../dict/service.dict.js'
+import {DictWord} from '../types.analyzer.js'
+import {haveKanji} from '../utils.analyzer.js'
 
 export async function dictLookup(text: string, mecabPos: string): Promise<DictWord[]> {
 	if (haveKanji(text)) {

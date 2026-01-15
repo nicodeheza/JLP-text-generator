@@ -1,32 +1,12 @@
-import {getFurigana, haveKanji, katakaToHiragana} from './utils.js'
-import {dictLookup, DictWord} from './dict.js'
-import {MecabToken, tokenize} from '../tokenizer/tokenizer.js'
+import {getFurigana, haveKanji, katakaToHiragana} from './utils.analyzer.js'
+import {AnalyzeRes, Dict, Token, TokenizerToken} from './types.analyzer.js'
+import {tokenizeText} from './infrastructure/tokenizer.analyzer.js'
+import {dictLookup} from './infrastructure/dict.analyzer.js'
 
 const noWord = new Set(['記号', 'BOS/EOS'])
 
-export type Token =
-	| {
-			original: string
-			isWord: true
-			basicForm: string
-			mecabPos: string
-			furigana?: string
-			dictIds: string[]
-	  }
-	| {
-			original: string
-			isWord: false
-	  }
-
-export type Dict = {[id: string]: Omit<DictWord, 'id'>}
-
-export interface AnalyzeRes {
-	tokens: Token[]
-	dict: Dict
-}
-
 export async function analyzeText(text: string): Promise<AnalyzeRes> {
-	const result: MecabToken[] = await tokenize(text)
+	const result: TokenizerToken[] = await tokenizeText(text)
 
 	let dict: Dict = {}
 	const tokens: Token[] = []
@@ -34,7 +14,7 @@ export async function analyzeText(text: string): Promise<AnalyzeRes> {
 	for (const mecabToken of result) {
 		const {basicForm} = mecabToken.feature
 		const pos = getPos(mecabToken)
-		const isWord = mecabToken.feature.pos && pos && !noWord.has(mecabToken.feature.pos)
+		const isWord = pos && !noWord.has(pos)
 
 		if (isWord) {
 			const {ids, dict: dictRes} = await getDictWords(
@@ -66,9 +46,15 @@ export async function analyzeText(text: string): Promise<AnalyzeRes> {
 	return {dict, tokens}
 }
 
-function getPos(token: MecabToken) {
+function getPos(token: TokenizerToken) {
 	if (!token.feature.pos) return
 	return token.feature.pos
+}
+
+function mecabToFurigana(original: string, katakana: string): string | undefined {
+	if (!haveKanji(original)) return
+	const reading = katakaToHiragana(katakana)
+	return getFurigana(original, reading)
 }
 
 async function getDictWords(word: string, pos: string) {
@@ -82,13 +68,7 @@ async function getDictWords(word: string, pos: string) {
 			...acc,
 			[r.id]: rest
 		}
-	}, {} as Dict)
+	}, {} satisfies Dict)
 
 	return {ids, dict}
-}
-
-function mecabToFurigana(original: string, katakana: string): string | undefined {
-	if (!haveKanji(original)) return
-	const reading = katakaToHiragana(katakana)
-	return getFurigana(original, reading)
 }
