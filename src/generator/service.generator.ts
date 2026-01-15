@@ -1,38 +1,31 @@
-import {Dict, Token, AnalyzeRes, analyzeText} from '../analyzer/analyzer.js'
 import {generateText} from './infrastructure/ai.generator.js'
+import {analyzeText} from './infrastructure/analyzer.generator.js'
 import {generateStoryInstructions} from './prompts.generator.js'
-
-interface AnalyzedStoryChunk {
-	paragraph: {
-		text: string
-		translation: string
-		tokens: Token[]
-	}
-	dict: Dict
-}
+import {Analyzed, AnalyzedStoryChunk, Dict} from './types.generator.js'
 
 function getAnalyzedStoryChunk(
 	text: string,
 	translation: string,
 	globalDict: Dict,
-	tokenRes: AnalyzeRes
+	tokenRes: Analyzed
 ): AnalyzedStoryChunk {
 	const {dict: resDict, tokens} = tokenRes
-	let currentDict: Dict = {}
-
-	for (const prop in resDict) {
-		if (globalDict[prop]) continue
-		currentDict = {...currentDict, [prop]: resDict[prop]}
-	}
-
 	return {
 		paragraph: {
 			text,
 			translation,
 			tokens
 		},
-		dict: currentDict
+		dict: {...globalDict, ...resDict}
 	}
+}
+
+function isTranslationStart(char: string): boolean {
+	return char === '('
+}
+
+function isEndOfSentence(char: string): boolean {
+	return char === ')'
 }
 
 export async function* generateAnalizadStoryStream(
@@ -50,11 +43,11 @@ export async function* generateAnalizadStoryStream(
 	for await (const chunk of generated) {
 		for (const char of chunk) {
 			if (char === '\n') continue
-			if (char === '(') {
+			if (isTranslationStart(char)) {
 				inText = false
 				continue
 			}
-			if (char === ')') {
+			if (isEndOfSentence(char)) {
 				inText = true
 				const analyzeRes = await analyzeText(currentText)
 
@@ -64,7 +57,7 @@ export async function* generateAnalizadStoryStream(
 					globalDict,
 					analyzeRes
 				)
-				globalDict = {...globalDict, ...analyzeRes.dict}
+				globalDict = res.dict
 				currentText = ''
 				currentTranslation = ''
 
