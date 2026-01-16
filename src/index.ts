@@ -35,6 +35,8 @@ async function main() {
 	await setup()
 	const app = express()
 
+	app.use(express.json())
+
 	if (!CONFIG.IS_PROD) {
 		app.use(cors())
 	}
