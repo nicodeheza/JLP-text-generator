@@ -13,5 +13,5 @@
 		"noImplicitAny": true,
 		"skipLibCheck": true
 	},
-	"exclude": ["frontend", "drizzle.config.dict.ts"]
+	"exclude": ["frontend", "drizzle.config.dict.ts", "**/*.test.ts"]
 }
