@@ -3,11 +3,11 @@ import express from 'express'
 import routes from './routes.generator.js'
 import request from 'supertest'
 import * as aiModule from '../infrastructure/Ai/index.ai.js'
-import * as tokenizeModule from '../tokenizer/tokenizer.js'
+import * as tokenizeModule from '../infrastructure/tokenizer/index.tokenizer.js'
 import * as dictDbQueriesModule from '../dict/db/queries.dict.js'
 
 vi.mock('../infrastructure/Ai/index.ai.js')
-vi.mock('../tokenizer/tokenizer.js')
+vi.mock('../infrastructure/tokenizer/index.tokenizer.js')
 vi.mock('../dict/db/queries.dict.js')
 
 const app = express()

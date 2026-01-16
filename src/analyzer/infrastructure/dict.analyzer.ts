@@ -1,4 +1,4 @@
-import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../../dict/service.dict.js'
+import {getByKanaAndMecabPos, getByKanjiAndMecabPos} from '../../dict/index.dict.js'
 import {DictWord} from '../types.analyzer.js'
 import {haveKanji} from '../utils.analyzer.js'
 
