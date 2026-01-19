@@ -2,13 +2,13 @@ import {useCallback, useEffect, useState} from 'react'
 import {
 	isEventError,
 	isEventFinished,
-	type CachedEvent,
 	type ConnectionState,
 	type EventData,
 	type Paragraph
 } from './TextGenerator.types'
 import type {Dict} from '../types/analyzedText.types'
-import {CONFIG} from '../config'
+import {generateEvent} from '../api/generator.api'
+import {GeneratedTextStorage} from './TextGenerator.storage'
 
 export function useGenerateText() {
 	const [userPrompt, setUserPrompt] = useState('')
@@ -20,12 +20,12 @@ export function useGenerateText() {
 
 	useEffect(() => {
 		if (!saveCache) return
-		EventCache.saveEventData(paragraphs, dict, userPrompt)
+		GeneratedTextStorage.saveEventData(paragraphs, dict, userPrompt)
 		setSaveCache(false)
 	}, [dict, paragraphs, saveCache, userPrompt])
 
 	const setFromCache = useCallback(() => {
-		const res = EventCache.getEventData()
+		const res = GeneratedTextStorage.getEventData()
 		if (!res) return false
 		setParagraphs(res.paragraphs)
 		setDict(res.dict)
@@ -40,8 +40,7 @@ export function useGenerateText() {
 		setError(undefined)
 		setConnectionState('loading')
 
-		const params = new URLSearchParams({p: userPrompt})
-		const event = new EventSource(`${CONFIG.API_URL}/generate/story?${params}`)
+		const event = generateEvent(userPrompt)
 
 		event.onopen = () => {
 			setConnectionState('connected')
@@ -91,20 +90,5 @@ export function useGenerateText() {
 		userPrompt,
 		setUserPrompt,
 		setFromCache
-	}
-}
-
-class EventCache {
-	private static key = '_event_cache'
-
-	static getEventData(): CachedEvent | undefined {
-		const storage = localStorage.getItem(EventCache.key)
-		if (!storage) return
-		return JSON.parse(storage)
-	}
-
-	static saveEventData(paragraphs: Paragraph[], dict: Dict, prompt: string) {
-		const data: CachedEvent = {paragraphs, dict, prompt}
-		localStorage.setItem(EventCache.key, JSON.stringify(data))
 	}
 }
