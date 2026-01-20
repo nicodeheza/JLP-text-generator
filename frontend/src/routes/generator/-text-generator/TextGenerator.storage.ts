@@ -1,4 +1,4 @@
-import type {Dict} from '../types/analyzedText.types'
+import type {Dict} from '../../../types/analyzedText.types'
 import type {CachedEvent, Paragraph} from './TextGenerator.types'
 
 export class GeneratedTextStorage {

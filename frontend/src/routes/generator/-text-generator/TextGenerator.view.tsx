@@ -1,10 +1,10 @@
 import {useEffect, type FC, type FormEvent} from 'react'
 import {useGenerateText} from './TextGenerator.service'
-import {AnalyzedText} from '../components/analyzed-text/AnalyzedText.component'
 import styles from './TextGenerator.module.css'
-import {Translation} from './Translation.component'
-import {Button} from '../components/Button/Button.component'
-import {FuriganaSettings} from '../components/settings/FuriganaSettings.component'
+import {FuriganaSettings} from '../../../components/settings/FuriganaSettings.component'
+import {AnalyzedText} from '../../../components/analyzed-text/AnalyzedText.component'
+import {Button} from '../../../components/Button/Button.component'
+import {Translation} from './components/translation/Translation.component'
 
 export const TextGenerator: FC = () => {
 	const {

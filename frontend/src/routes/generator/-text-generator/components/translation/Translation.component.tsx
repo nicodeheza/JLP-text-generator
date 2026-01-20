@@ -1,6 +1,6 @@
 import {useState, type FC} from 'react'
-import {Button} from '../components/Button/Button.component'
 import styles from './Translation.module.css'
+import {Button} from '../../../../../components/Button/Button.component'
 
 interface Props {
 	translation: string

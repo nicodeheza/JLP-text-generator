@@ -1,4 +1,4 @@
-import type {Dict, Token} from '../types/analyzedText.types'
+import type {Dict, Token} from '../../../types/analyzedText.types'
 
 export interface Paragraph {
 	text: string

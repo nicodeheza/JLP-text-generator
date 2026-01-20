@@ -2,12 +2,12 @@ import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {render, waitFor, screen, cleanup, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {TextGenerator} from './TextGenerator.view'
-import * as generatorApi from '../api/generator.api'
+import * as generatorApi from '../../../api/generator.api'
 import {GeneratedTextStorage} from './TextGenerator.storage'
 import type {EventData, Paragraph} from './TextGenerator.types'
-import type {Dict} from '../types/analyzedText.types'
+import type {Dict} from '../../../types/analyzedText.types'
 
-vi.mock('../api/generator.api')
+vi.mock('../../../api/generator.api')
 vi.mock('./TextGenerator.storage')
 
 describe('Text Generator', () => {

@@ -6,9 +6,9 @@ import {
 	type EventData,
 	type Paragraph
 } from './TextGenerator.types'
-import type {Dict} from '../types/analyzedText.types'
-import {generateEvent} from '../api/generator.api'
 import {GeneratedTextStorage} from './TextGenerator.storage'
+import type {Dict} from '../../../types/analyzedText.types'
+import {generateEvent} from '../../../api/generator.api'
 
 export function useGenerateText() {
 	const [userPrompt, setUserPrompt] = useState('')
