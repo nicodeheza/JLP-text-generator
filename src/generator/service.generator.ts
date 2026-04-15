@@ -1,7 +1,7 @@
 import {generateText} from './infrastructure/ai.generator.js'
 import {analyzeText} from './infrastructure/analyzer.generator.js'
 import {generateStoryInstructions} from './prompts.generator.js'
-import {Analyzed, AnalyzedStoryChunk, Dict} from './types.generator.js'
+import {Analyzed, AnalyzedStoryChunk, Dict, JLPTLevel} from './types.generator.js'
 
 function getAnalyzedStoryChunk(
 	text: string,
@@ -29,11 +29,12 @@ function isEndOfSentence(char: string): boolean {
 }
 
 export async function* generateAnalizadStoryStream(
-	prompt: string
+	prompt: string,
+	level: JLPTLevel
 ): AsyncGenerator<AnalyzedStoryChunk> {
 	const generated = generateText({
 		prompt,
-		systemInstructions: generateStoryInstructions
+		systemInstructions: generateStoryInstructions(level)
 	})
 	let currentText = ''
 	let currentTranslation = ''

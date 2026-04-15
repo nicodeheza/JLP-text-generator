@@ -44,3 +44,6 @@ export interface AnalyzedStoryChunk {
 	}
 	dict: Dict
 }
+
+export const VALID_LEVELS = ['N1', 'N2', 'N3', 'N4', 'N5'] as const
+export type JLPTLevel = (typeof VALID_LEVELS)[number]

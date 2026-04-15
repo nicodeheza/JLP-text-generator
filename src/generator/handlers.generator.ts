@@ -1,15 +1,22 @@
 import {Request, Response} from 'express'
 import {generateAnalizadStoryStream} from './service.generator.js'
 import {getSseMessage} from '../utils/utils.js'
+import {isValidJLPTLevel} from './validations.generator.js'
 
 export async function generateStoryHandler(req: Request, res: Response) {
-	const {p: prompt} = req.query as Record<string, string>
+	const {p: prompt, l: level} = req.query as Record<string, string>
+
+	if (!isValidJLPTLevel(level)) {
+		res.status(400).json({message: 'Invalid level'})
+		return
+	}
+
 	res.setHeader('Content-Type', 'text/event-stream')
 	res.setHeader('Cache-Control', 'no-cache')
 	res.setHeader('Connection', 'keep-alive')
 
 	try {
-		const storyRes = generateAnalizadStoryStream(prompt)
+		const storyRes = generateAnalizadStoryStream(prompt, level)
 
 		for await (const chunk of storyRes) {
 			res.write(getSseMessage(JSON.stringify(chunk)))

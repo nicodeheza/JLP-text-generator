@@ -249,10 +249,10 @@ describe('Generator Routes', () => {
 				}
 			)
 
-			const response = await request(app)
-				.get('/story')
-				.query({p: 'test prompt'})
-				.buffer(true)
+		const response = await request(app)
+			.get('/story')
+			.query({p: 'test prompt', l: 'N5'})
+			.buffer(true)
 				.parse((res, callback) => {
 					let data = ''
 					res.on('data', (chunk) => {
@@ -398,6 +398,24 @@ describe('Generator Routes', () => {
 					message: 'done'
 				}
 			])
+		})
+
+		it('should return 400 when level is invalid', async () => {
+			const response = await request(app)
+				.get('/story')
+				.query({p: 'test prompt', l: 'X9'})
+
+			expect(response.status).toEqual(400)
+			expect(response.body).toEqual({message: 'Invalid level'})
+		})
+
+		it('should return 400 when level is missing', async () => {
+			const response = await request(app)
+				.get('/story')
+				.query({p: 'test prompt'})
+
+			expect(response.status).toEqual(400)
+			expect(response.body).toEqual({message: 'Invalid level'})
 		})
 	})
 })
