@@ -2,6 +2,14 @@
 	padding: 24px;
 }
 
+.settings {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	column-gap: 24px;
+}
+
 .paragraph {
 	text-align: left;
 }

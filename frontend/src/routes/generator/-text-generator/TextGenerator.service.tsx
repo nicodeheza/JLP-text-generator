@@ -9,6 +9,7 @@ import {
 import {GeneratedTextStorage} from './TextGenerator.storage'
 import type {Dict} from '../../../types/analyzedText.types'
 import {generateEvent} from '../../../api/generator.api'
+import {useSelectedLevel} from './useSelectedLevel'
 
 export function useGenerateText() {
 	const [userPrompt, setUserPrompt] = useState('')
@@ -17,6 +18,7 @@ export function useGenerateText() {
 	const [connectionState, setConnectionState] = useState<ConnectionState>('disconnected')
 	const [error, setError] = useState<string>()
 	const [saveCache, setSaveCache] = useState(false)
+	const [level, setLevel] = useSelectedLevel()
 
 	useEffect(() => {
 		if (!saveCache) return
@@ -40,7 +42,7 @@ export function useGenerateText() {
 		setError(undefined)
 		setConnectionState('loading')
 
-		const event = generateEvent(userPrompt)
+		const event = generateEvent(userPrompt, level)
 
 		event.onopen = () => {
 			setConnectionState('connected')
@@ -79,7 +81,7 @@ export function useGenerateText() {
 			event.close()
 			setConnectionState('disconnected')
 		}
-	}, [userPrompt])
+	}, [userPrompt, level])
 
 	return {
 		generateText,
@@ -89,6 +91,8 @@ export function useGenerateText() {
 		error,
 		userPrompt,
 		setUserPrompt,
-		setFromCache
+		setFromCache,
+		level,
+		setLevel
 	}
 }

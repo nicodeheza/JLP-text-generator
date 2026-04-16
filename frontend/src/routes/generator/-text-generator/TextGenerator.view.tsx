@@ -2,6 +2,7 @@ import {useEffect, type FC, type FormEvent} from 'react'
 import {useGenerateText} from './TextGenerator.service'
 import styles from './TextGenerator.module.css'
 import {FuriganaSettings} from '../../../components/settings/FuriganaSettings.component'
+import {LevelSettings} from '../../../components/settings/LevelSettings.component'
 import {AnalyzedText} from '../../../components/analyzed-text/AnalyzedText.component'
 import {Button} from '../../../components/Button/Button.component'
 import {Translation} from './components/translation/Translation.component'
@@ -15,7 +16,9 @@ export const TextGenerator: FC = () => {
 		dict,
 		setFromCache,
 		userPrompt,
-		setUserPrompt
+		setUserPrompt,
+		level,
+		setLevel
 	} = useGenerateText()
 
 	useEffect(() => {
@@ -38,7 +41,10 @@ export const TextGenerator: FC = () => {
 
 	return (
 		<div className={styles.result}>
-			<FuriganaSettings />
+			<div className={styles.settings}>
+				<LevelSettings value={level} onChange={setLevel} />
+				<FuriganaSettings />
+			</div>
 			<div>
 				{paragraphs.map((p, i) => (
 					<div className={styles.paragraph} key={i}>

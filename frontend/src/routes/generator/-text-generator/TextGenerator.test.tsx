@@ -3,12 +3,23 @@ import {render, waitFor, screen, cleanup, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {TextGenerator} from './TextGenerator.view'
 import * as generatorApi from '../../../api/generator.api'
-import {GeneratedTextStorage} from './TextGenerator.storage'
+import {GeneratedTextStorage, SelectedLevelStorage} from './TextGenerator.storage'
 import type {EventData, Paragraph} from './TextGenerator.types'
 import type {Dict} from '../../../types/analyzedText.types'
 
 vi.mock('../../../api/generator.api')
-vi.mock('./TextGenerator.storage')
+vi.mock('./TextGenerator.storage', () => ({
+	GeneratedTextStorage: {
+		getData: vi.fn(),
+		saveData: vi.fn(),
+		removeData: vi.fn()
+	},
+	SelectedLevelStorage: {
+		getData: vi.fn(),
+		saveData: vi.fn(),
+		removeData: vi.fn()
+	}
+}))
 
 describe('Text Generator', () => {
 	const mockEventSource: EventSource = {
@@ -31,6 +42,9 @@ describe('Text Generator', () => {
 
 		vi.mocked(GeneratedTextStorage.getData).mockReturnValue(undefined)
 		vi.mocked(GeneratedTextStorage.saveData).mockImplementation(() => {})
+
+		vi.mocked(SelectedLevelStorage.getData).mockReturnValue(undefined)
+		vi.mocked(SelectedLevelStorage.saveData).mockImplementation(() => {})
 	})
 	afterEach(() => {
 		cleanup()
@@ -389,7 +403,7 @@ describe('Text Generator', () => {
 		await user.type(textarea, 'Test prompt')
 		await user.click(submitButton)
 
-		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith('Test prompt')
+		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith('Test prompt', 'N5')
 
 		// Simulate connection opened
 		mockEventSource.onopen?.({} as Event)
@@ -527,5 +541,52 @@ describe('Text Generator', () => {
 		await user.type(textarea, 'My custom prompt')
 
 		expect(textarea).toHaveValue('My custom prompt')
+	})
+
+	it('renders LevelSettings with default N5 selected', () => {
+		render(<TextGenerator />)
+
+		const n5Radio = screen.getByRole('radio', {name: 'N5'})
+		expect(n5Radio).toBeInTheDocument()
+		expect(n5Radio).toBeChecked()
+	})
+
+	it('uses default level N5 when storage is empty', () => {
+		vi.mocked(SelectedLevelStorage.getData).mockReturnValue(undefined)
+
+		render(<TextGenerator />)
+
+		expect(screen.getByRole('radio', {name: 'N5'})).toBeChecked()
+	})
+
+	it('loads level from storage on mount', () => {
+		vi.mocked(SelectedLevelStorage.getData).mockReturnValue('N3')
+
+		render(<TextGenerator />)
+
+		expect(screen.getByRole('radio', {name: 'N3'})).toBeChecked()
+		expect(screen.getByRole('radio', {name: 'N5'})).not.toBeChecked()
+	})
+
+	it('calls generateEvent with the selected level', async () => {
+		const user = userEvent.setup()
+		render(<TextGenerator />)
+
+		await user.click(screen.getByRole('radio', {name: 'N2'}))
+
+		const textarea = screen.getByPlaceholderText('Ex: Create a story abut a cat.')
+		await user.type(textarea, 'Test prompt')
+		await user.click(screen.getByRole('button', {name: 'Generate new text'}))
+
+		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith('Test prompt', 'N2')
+	})
+
+	it('saves level to storage when level changes', async () => {
+		const user = userEvent.setup()
+		render(<TextGenerator />)
+
+		await user.click(screen.getByRole('radio', {name: 'N2'}))
+
+		expect(vi.mocked(SelectedLevelStorage.saveData)).toHaveBeenCalledWith('N2')
 	})
 })
