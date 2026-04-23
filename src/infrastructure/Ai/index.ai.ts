@@ -8,27 +8,21 @@ interface RespondArgs {
 }
 
 const MODELS_WITH_NOT_SYSTEM_INSTRUCTIONS = new Set(['gemma-3-27b-it'])
+const DEFAULT_MODEL = 'gemma-3-27b-it'
 
 class Ai {
-	private static models: Models | undefined
-	private static defaultModel = 'gemma-3-27b-it'
+	private models: Models
 
-	static async setup() {
-		if (Ai.models) return
-		const client = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY})
-		Ai.models = client.models
+	constructor(apiKey: string) {
+		const client = new GoogleGenAI({apiKey})
+		this.models = client.models
 	}
 
-	private static getModel() {
-		if (!Ai.models) throw new Error('No model, run setup')
-		return Ai.models
-	}
-
-	private static supportSystemInstructions(model: string): boolean {
+	private supportSystemInstructions(model: string): boolean {
 		return !MODELS_WITH_NOT_SYSTEM_INSTRUCTIONS.has(model)
 	}
 
-	private static concatenatePromptWithSystem(prompt: string, system?: string): string {
+	private concatenatePromptWithSystem(prompt: string, system?: string): string {
 		if (!system) return prompt
 
 		return `${system}
@@ -37,17 +31,15 @@ class Ai {
 		`
 	}
 
-	private static getParameters(args: RespondArgs): GenerateContentParameters {
-		const model = args.model ?? Ai.defaultModel
-		const supportSystemInstructions = Ai.supportSystemInstructions(model)
-		const systemInstruction = supportSystemInstructions
-			? args.systemInstructions
-			: undefined
+	private getParameters(args: RespondArgs): GenerateContentParameters {
+		const model = args.model ?? DEFAULT_MODEL
+		const supportSystemInstructions = this.supportSystemInstructions(model)
+		const systemInstruction = supportSystemInstructions ? args.systemInstructions : undefined
 		return {
 			model,
 			contents: supportSystemInstructions
 				? args.prompt
-				: Ai.concatenatePromptWithSystem(args.prompt, args.systemInstructions),
+				: this.concatenatePromptWithSystem(args.prompt, args.systemInstructions),
 			config: {
 				temperature: args.temperature,
 				systemInstruction
@@ -55,35 +47,61 @@ class Ai {
 		}
 	}
 
-	//no stream
-	static async directRespond(args: RespondArgs): Promise<string> {
-		const models = Ai.getModel()
-		const res = await models.generateContent(Ai.getParameters(args))
+	async directRespond(args: RespondArgs): Promise<string> {
+		const res = await this.models.generateContent(this.getParameters(args))
 		return res.text || ''
 	}
 
-	static async *streamingResponse(args: RespondArgs): AsyncGenerator<string> {
-		const models = Ai.getModel()
-		const res = await models.generateContentStream(Ai.getParameters(args))
+	async *streamingResponse(args: RespondArgs): AsyncGenerator<string> {
+		const res = await this.models.generateContentStream(this.getParameters(args))
 
 		for await (const chunk of res) {
 			yield chunk.text || ''
 		}
 	}
+
+	async validateApiKey(): Promise<boolean> {
+		try {
+			await this.models.countTokens({model: DEFAULT_MODEL, contents: 'test'})
+			return true
+		} catch (error: unknown) {
+			if (isRateLimitError(error)) return true
+			return false
+		}
+	}
 }
 
-export async function setupAi() {
-	await Ai.setup()
+function isRateLimitError(error: unknown): boolean {
+	if (!error || typeof error !== 'object') return false
+	// @google/genai surfaces the HTTP status on the error object
+	if ('status' in error && error.status === 429) return true
+	if ('message' in error && typeof error.message === 'string' && error.message.includes('429'))
+		return true
+	return false
+}
+
+// TODO: remove createAi and update aiDirectResponse/aiStreamResponse to receive apiKey
+// once all callers are updated to pass the key through the new flow
+function createAi(): Ai {
+	const apiKey = process.env.GEMINI_API_KEY
+	if (!apiKey) throw new Error('GEMINI_API_KEY is not set')
+	return new Ai(apiKey)
 }
 
 export function aiDirectResponse(args: RespondArgs) {
-	return Ai.directRespond(args)
+	return createAi().directRespond(args)
 }
 
 export async function* aiStreamResponse(args: RespondArgs): AsyncGenerator<string> {
-	const res = Ai.streamingResponse(args)
+	const ai = createAi()
+	const res = ai.streamingResponse(args)
 
 	for await (const chunk of res) {
 		yield chunk
 	}
+}
+
+export function validateApiKey(apiKey: string): Promise<boolean> {
+	const ai = new Ai(apiKey)
+	return ai.validateApiKey()
 }

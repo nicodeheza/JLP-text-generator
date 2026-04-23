@@ -5,8 +5,6 @@ import routes from './routes.js'
 import {CONFIG} from './config.js'
 import {join, dirname} from 'path'
 import {fileURLToPath} from 'url'
-import {setupAi} from './infrastructure/Ai/index.ai.js'
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -25,14 +23,13 @@ function onExit() {
 	})
 }
 
-async function setup() {
+function setup() {
 	DictDb.open(true)
-	await setupAi()
 	onExit()
 }
 
 async function main() {
-	await setup()
+	setup()
 	const app = express()
 
 	app.use(express.json())
