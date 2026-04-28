@@ -1,8 +1,9 @@
 import {Router} from 'express'
-import {aiAuthHandler} from './handlers.user.js'
+import {aiAuthHandler, getAiAuthHandler} from './handlers.user.js'
 
 const router = Router()
 
 router.post('/ai-auth', aiAuthHandler)
+router.get('/ai-auth', getAiAuthHandler)
 
 export default router

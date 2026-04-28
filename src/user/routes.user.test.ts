@@ -1,5 +1,6 @@
 import {describe, expect, it, vi, afterEach} from 'vitest'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import request from 'supertest'
 import routes from './routes.user.js'
 import * as aiUserInfra from './infrastructure/ai.user.js'
@@ -8,6 +9,7 @@ vi.mock('./infrastructure/ai.user.js')
 
 const app = express()
 app.use(express.json())
+app.use(cookieParser())
 app.use(routes)
 
 describe('User Routes', () => {
@@ -89,6 +91,24 @@ describe('User Routes', () => {
 
 			expect(response.status).toEqual(400)
 			expect(response.body).toEqual({error: 'apiKey is required'})
+		})
+	})
+
+	describe('GET /ai-auth', () => {
+		it('should return auth:true when ai_key cookie is present', async () => {
+			const response = await request(app)
+				.get('/ai-auth')
+				.set('Cookie', 'ai_key=someencryptedvalue')
+
+			expect(response.status).toEqual(200)
+			expect(response.body).toEqual({auth: true})
+		})
+
+		it('should return auth:false when ai_key cookie is absent', async () => {
+			const response = await request(app).get('/ai-auth')
+
+			expect(response.status).toEqual(200)
+			expect(response.body).toEqual({auth: false})
 		})
 	})
 })

@@ -1,6 +1,7 @@
 import {DictDb} from './dict/db/db.dict.js'
 import express from 'express'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import routes from './routes.js'
 import {CONFIG} from './config.js'
 import {join, dirname} from 'path'
@@ -33,6 +34,7 @@ async function main() {
 	const app = express()
 
 	app.use(express.json())
+	app.use(cookieParser())
 
 	if (!CONFIG.IS_PROD) {
 		app.use(cors())

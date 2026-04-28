@@ -28,3 +28,8 @@ export async function aiAuthHandler(req: Request, res: Response): Promise<void> 
 
 	res.status(200).json({success: true})
 }
+
+export function getAiAuthHandler(req: Request, res: Response): void {
+	const auth = !!req.cookies?.ai_key
+	res.status(200).json({auth})
+}
