@@ -16,3 +16,7 @@ const useStore = create<UserStore>((set) => ({
 export function useUserStore() {
 	return useStore((store) => store)
 }
+
+export function clearUserStore() {
+	useStore.setState({aiEnabled: undefined})
+}
