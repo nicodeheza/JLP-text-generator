@@ -3,6 +3,16 @@ interface ErrorsMap {
 	[status: number]: string
 }
 
+export async function get<T>(url: string, errorMap: ErrorsMap): Promise<T> {
+	const res = await fetch(url)
+	return getData(res, errorMap)
+}
+
+export async function del<T>(url: string, errorMap: ErrorsMap): Promise<T> {
+	const res = await fetch(url, {method: 'DELETE'})
+	return getData(res, errorMap)
+}
+
 export async function post<T>(
 	url: string,
 	body: object,
