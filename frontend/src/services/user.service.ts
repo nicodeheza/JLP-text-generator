@@ -3,7 +3,12 @@ import type {IsAiSetup} from '../types/user.types'
 import type {AsyncData} from '../types/asyncData.types'
 
 import {useUserStore} from '../store/User.store'
-import {getIdleState, getLoadingState, getSuccessState, getErrorState} from '../helpers/async.helpers'
+import {
+	getIdleState,
+	getLoadingState,
+	getSuccessState,
+	getErrorState
+} from '../helpers/async.helpers'
 import {getAiAuth, setAiAuth, deleteAiAuth} from '../api/user.api'
 import type {IdleAsyncData} from '../types/asyncData.types'
 
@@ -27,7 +32,7 @@ export function useGetIsAiSetUp() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	return res
+	return aiEnabled ? getSuccessState(aiEnabled) : res
 }
 
 export function useSetAiKey() {
