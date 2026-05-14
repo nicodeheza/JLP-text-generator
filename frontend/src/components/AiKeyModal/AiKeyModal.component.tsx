@@ -16,7 +16,7 @@ export const AiKeyModal = forwardRef<AiKeyModalHandle>((_, ref) => {
 
 	useImperativeHandle(ref, () => ({
 		open: () => dialogRef.current?.showModal(),
-		close: () => dialogRef.current?.close(),
+		close: () => dialogRef.current?.close()
 	}))
 
 	const isAiSetUpRes = useGetIsAiSetUp()
@@ -63,7 +63,7 @@ export const AiKeyModal = forwardRef<AiKeyModalHandle>((_, ref) => {
 	}, [setRes, deleteRes])
 
 	return (
-		<Modal ref={dialogRef} onClose={handleClose}>
+		<Modal ref={dialogRef} onClose={handleClose} className={styles.modal}>
 			<div className={styles.header}>
 				<h2 className={styles.title}>AI API Key</h2>
 				<button className={styles.closeButton} onClick={handleClose} aria-label="Close">
@@ -87,7 +87,10 @@ export const AiKeyModal = forwardRef<AiKeyModalHandle>((_, ref) => {
 			</div>
 
 			<div className={styles.footer}>
-				<Button onClick={handleSave} disabled={isLoading || !inputValue || inputValue === PLACEHOLDER_KEY}>
+				<Button
+					onClick={handleSave}
+					disabled={isLoading || !inputValue || inputValue === PLACEHOLDER_KEY}
+				>
 					Save
 				</Button>
 				{isAiSetUp && (

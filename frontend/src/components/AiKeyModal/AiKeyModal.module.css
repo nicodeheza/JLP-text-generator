@@ -1,3 +1,8 @@
+.modal {
+	background-color: black;
+	border-radius: 10px;
+	border: solid gray 1px;
+}
 .header {
 	display: flex;
 	align-items: center;
@@ -70,4 +75,3 @@
 	display: flex;
 	gap: 8px;
 }
-
