@@ -34,7 +34,9 @@ class Ai {
 	private getParameters(args: RespondArgs): GenerateContentParameters {
 		const model = args.model ?? DEFAULT_MODEL
 		const supportSystemInstructions = this.supportSystemInstructions(model)
-		const systemInstruction = supportSystemInstructions ? args.systemInstructions : undefined
+		const systemInstruction = supportSystemInstructions
+			? args.systemInstructions
+			: undefined
 		return {
 			model,
 			contents: supportSystemInstructions
@@ -62,7 +64,7 @@ class Ai {
 
 	async validateApiKey(): Promise<boolean> {
 		try {
-			await this.models.countTokens({model: DEFAULT_MODEL, contents: 'test'})
+			await this.models.list()
 			return true
 		} catch (error: unknown) {
 			if (isRateLimitError(error)) return true
@@ -75,7 +77,11 @@ function isRateLimitError(error: unknown): boolean {
 	if (!error || typeof error !== 'object') return false
 	// @google/genai surfaces the HTTP status on the error object
 	if ('status' in error && error.status === 429) return true
-	if ('message' in error && typeof error.message === 'string' && error.message.includes('429'))
+	if (
+		'message' in error &&
+		typeof error.message === 'string' &&
+		error.message.includes('429')
+	)
 		return true
 	return false
 }
