@@ -7,5 +7,6 @@ function requireEnv(name: string): string {
 export const CONFIG = {
 	PORT: process.env.NODE_ENV === 'production' ? process.env.PORT : '4000',
 	IS_PROD: process.env.NODE_ENV === 'production',
-	COOKIE_SECRET: requireEnv('COOKIE_SECRET')
+	COOKIE_SECRET: requireEnv('COOKIE_SECRET'),
+	FRONTEND_URL: process.env.FRONTEND_URL ?? 'http://localhost:5173'
 } as const

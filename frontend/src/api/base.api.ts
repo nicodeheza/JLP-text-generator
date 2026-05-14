@@ -4,12 +4,12 @@ interface ErrorsMap {
 }
 
 export async function get<T>(url: string, errorMap: ErrorsMap): Promise<T> {
-	const res = await fetch(url)
+	const res = await fetch(url, {credentials: 'include'})
 	return getData(res, errorMap)
 }
 
 export async function del<T>(url: string, errorMap: ErrorsMap): Promise<T> {
-	const res = await fetch(url, {method: 'DELETE'})
+	const res = await fetch(url, {method: 'DELETE', credentials: 'include'})
 	return getData(res, errorMap)
 }
 
@@ -23,7 +23,8 @@ export async function post<T>(
 		body: JSON.stringify(body),
 		headers: {
 			'Content-Type': 'application/json'
-		}
+		},
+		credentials: 'include'
 	})
 
 	return getData(res, errorMap)
