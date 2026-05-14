@@ -6,7 +6,7 @@ This project offers different tools to help with the study of the Japanese langu
 
 ## Features
 
-- **AI-Powered Text Generation:** Generates beginner-friendly Japanese text based on user prompts, with furigana annotation and streaming responses.
+- **AI-Powered Text Generation:** Generates Japanese text based on user prompts, with selectable difficulty level, furigana annotation, streaming responses, and dictionary definitions on word click.
 - **Text Analyzer:** Accepts any Japanese text and returns a tokenized, annotated version. Furigana can be displayed above each word, and clicking on a word shows its dictionary definition (kana, kanji, part-of-speech, and English glosses).
 - **PDF OCR:** Upload a scanned PDF document and run OCR on any selected page. Hovering over detected text regions displays an analyzed overlay with the same furigana and dictionary features as the Text Analyzer.
 - **Furigana Support:** Automatically adds furigana (reading aids) above kanji across all tools.
