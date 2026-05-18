@@ -17,7 +17,11 @@ export const AiPage: FC<Props> = ({explanation, children}) => {
 		return <p className={styles.loading}>Loading...</p>
 	}
 
-	if (isAiSetUpRes.status === 'success' && isAiSetUpRes.data === true) {
+	if (isAiSetUpRes.status === 'error') {
+		return <p className={styles.error}>Something went wrong. Please try again later.</p>
+	}
+
+	if (isAiSetUpRes.data === true) {
 		return <>{children}</>
 	}
 
@@ -26,7 +30,9 @@ export const AiPage: FC<Props> = ({explanation, children}) => {
 			<div className={styles.explanation}>{explanation}</div>
 
 			<div className={styles.instructions}>
-				<h3 className={styles.instructionsTitle}>Set up your free Google Gemini API key</h3>
+				<h3 className={styles.instructionsTitle}>
+					Set up your free Google Gemini API key
+				</h3>
 
 				<ol className={styles.steps}>
 					<li>
@@ -46,12 +52,13 @@ export const AiPage: FC<Props> = ({explanation, children}) => {
 
 				<div className={styles.notes}>
 					<p>
-						<strong>Privacy:</strong> Your key is saved in a secure encrypted cookie. Only our server
-						can read it — we never store or log it anywhere.
+						<strong>Privacy:</strong> Your key is saved in a secure encrypted cookie. Only
+						our server can read it — we never store or log it anywhere.
 					</p>
 					<p>
-						<strong>Cost:</strong> We only use free Google AI models, so you won't be charged. Google
-						applies usage limits to free keys, but for normal use you won't hit them.
+						<strong>Cost:</strong> We only use free Google AI models, so you won't be
+						charged. Google applies usage limits to free keys, but for normal use you
+						won't hit them.
 					</p>
 				</div>
 

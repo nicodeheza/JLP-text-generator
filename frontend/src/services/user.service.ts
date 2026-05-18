@@ -32,7 +32,7 @@ export function useGetIsAiSetUp() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	return aiEnabled ? getSuccessState(aiEnabled) : res
+	return aiEnabled !== undefined ? getSuccessState(aiEnabled) : res
 }
 
 export function useSetAiKey() {
@@ -51,7 +51,10 @@ export function useSetAiKey() {
 			})
 	}
 
-	return {res, setKey}
+	function reset() {
+		setRes(getIdleState())
+	}
+	return {res, setKey, reset}
 }
 
 export function useDeleteAiKey() {
@@ -70,5 +73,9 @@ export function useDeleteAiKey() {
 			})
 	}
 
-	return {res, deleteKey}
+	function reset() {
+		setRes(getIdleState())
+	}
+
+	return {res, deleteKey, reset}
 }

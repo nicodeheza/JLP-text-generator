@@ -67,3 +67,9 @@
 	font-size: 0.9rem;
 	padding: 24px;
 }
+
+.error {
+	color: #d9534f;
+	font-size: 0.9rem;
+	padding: 24px;
+}

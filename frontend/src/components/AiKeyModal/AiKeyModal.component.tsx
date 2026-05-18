@@ -1,4 +1,11 @@
-import {forwardRef, useRef, useImperativeHandle, useState, useMemo} from 'react'
+import {
+	forwardRef,
+	useRef,
+	useImperativeHandle,
+	useState,
+	useMemo,
+	useEffect
+} from 'react'
 import {Modal} from '../Modal/Modal.component'
 import {Button} from '../Button/Button.component'
 import {useGetIsAiSetUp, useSetAiKey, useDeleteAiKey} from '../../services/user.service'
@@ -16,25 +23,31 @@ export const AiKeyModal = forwardRef<AiKeyModalHandle>((_, ref) => {
 
 	useImperativeHandle(ref, () => ({
 		open: () => dialogRef.current?.showModal(),
-		close: () => dialogRef.current?.close()
+		close: () => handleClose()
 	}))
 
 	const isAiSetUpRes = useGetIsAiSetUp()
-	const {res: setRes, setKey} = useSetAiKey()
-	const {res: deleteRes, deleteKey} = useDeleteAiKey()
+	const {res: setRes, setKey, reset: resetSet} = useSetAiKey()
+	const {res: deleteRes, deleteKey, reset: resetDelete} = useDeleteAiKey()
 
 	const isAiSetUp = isAiSetUpRes.status === 'success' && isAiSetUpRes.data === true
 	const isLoading = setRes.status === 'loading' || deleteRes.status === 'loading'
 
 	const [inputValue, setInputValue] = useState(isAiSetUp ? PLACEHOLDER_KEY : '')
+	useEffect(() => {
+		setInputValue(isAiSetUp ? PLACEHOLDER_KEY : '')
+	}, [isAiSetUp])
 
 	function handleClose() {
 		dialogRef.current?.close()
+		resetDelete()
+		resetSet()
 	}
 
 	function handleSave() {
 		if (inputValue && inputValue !== PLACEHOLDER_KEY) {
 			setKey(inputValue)
+			setInputValue(PLACEHOLDER_KEY)
 		}
 	}
 

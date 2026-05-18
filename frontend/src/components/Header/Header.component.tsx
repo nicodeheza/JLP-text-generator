@@ -1,8 +1,14 @@
 import {Link} from '@tanstack/react-router'
 import styles from './Header.module.css'
 import type {ComponentProps, FC} from 'react'
+import {useRef} from 'react'
+import {AiKeyModal} from '../AiKeyModal/AiKeyModal.component'
+import type {AiKeyModalHandle} from '../AiKeyModal/AiKeyModal.component'
+import {Button} from '../Button/Button.component'
 
 export const Header: FC = () => {
+	const aiKeyModalRef = useRef<AiKeyModalHandle>(null)
+
 	return (
 		<header className={styles.header}>
 			<nav className={styles.nav}>
@@ -10,6 +16,10 @@ export const Header: FC = () => {
 				<NavLink to={'/analyze'}>Analyze Text</NavLink>
 				<NavLink to={'/pdf-ocr'}>PDF OCR</NavLink>
 			</nav>
+			<Button variant="secondary" onClick={() => aiKeyModalRef.current?.open()}>
+				AI Settings
+			</Button>
+			<AiKeyModal ref={aiKeyModalRef} />
 		</header>
 	)
 }
