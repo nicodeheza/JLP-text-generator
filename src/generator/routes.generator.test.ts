@@ -1,5 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import routes from './routes.generator.js'
 import request from 'supertest'
 import * as aiModule from '../infrastructure/Ai/index.ai.js'
@@ -7,13 +8,17 @@ import * as tokenizeModule from '../infrastructure/tokenizer/index.tokenizer.js'
 import * as dictDbQueriesModule from '../dict/db/queries.dict.js'
 import {beforeEach} from 'node:test'
 import {dictCache} from '../analyzer/infrastructure/dict.analyzer.js'
+import {encryptApiKey} from '../user/service.user.js'
 
 vi.mock('../infrastructure/Ai/index.ai.js')
 vi.mock('../infrastructure/tokenizer/index.tokenizer.js')
 vi.mock('../dict/db/queries.dict.js')
 
 const app = express()
+app.use(cookieParser())
 app.use(routes)
+
+const validCookie = `ai_key=${encryptApiKey('test-api-key')}`
 
 describe('Generator Routes', () => {
 	beforeEach(() => {
@@ -252,6 +257,7 @@ describe('Generator Routes', () => {
 		const response = await request(app)
 			.get('/story')
 			.query({p: 'test prompt', l: 'N5'})
+			.set('Cookie', validCookie)
 			.buffer(true)
 				.parse((res, callback) => {
 					let data = ''
@@ -403,6 +409,7 @@ describe('Generator Routes', () => {
 		it('should return 400 when level is invalid', async () => {
 			const response = await request(app)
 				.get('/story')
+				.set('Cookie', validCookie)
 				.query({p: 'test prompt', l: 'X9'})
 
 			expect(response.status).toEqual(400)
@@ -412,6 +419,7 @@ describe('Generator Routes', () => {
 		it('should return 400 when level is missing', async () => {
 			const response = await request(app)
 				.get('/story')
+				.set('Cookie', validCookie)
 				.query({p: 'test prompt'})
 
 			expect(response.status).toEqual(400)

@@ -30,12 +30,13 @@ function isEndOfSentence(char: string): boolean {
 
 export async function* generateAnalizadStoryStream(
 	prompt: string,
-	level: JLPTLevel
+	level: JLPTLevel,
+	apiKey: string
 ): AsyncGenerator<AnalyzedStoryChunk> {
-	const generated = generateText({
-		prompt,
-		systemInstructions: generateStoryInstructions(level)
-	})
+	const generated = generateText(
+		{prompt, systemInstructions: generateStoryInstructions(level)},
+		apiKey
+	)
 	let currentText = ''
 	let currentTranslation = ''
 	let inText = true

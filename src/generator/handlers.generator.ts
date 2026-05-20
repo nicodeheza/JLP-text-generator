@@ -2,8 +2,9 @@ import {Request, Response} from 'express'
 import {generateAnalizadStoryStream} from './service.generator.js'
 import {getSseMessage} from '../utils/utils.js'
 import {isValidJLPTLevel} from './validations.generator.js'
+import {AiKeyLocals} from '../middleware/decrypt-ai-key.middleware.js'
 
-export async function generateStoryHandler(req: Request, res: Response) {
+export async function generateStoryHandler(req: Request, res: Response<any, AiKeyLocals>) {
 	const {p: prompt, l: level} = req.query as Record<string, string>
 
 	if (!isValidJLPTLevel(level)) {
@@ -16,7 +17,7 @@ export async function generateStoryHandler(req: Request, res: Response) {
 	res.setHeader('Connection', 'keep-alive')
 
 	try {
-		const storyRes = generateAnalizadStoryStream(prompt, level)
+		const storyRes = generateAnalizadStoryStream(prompt, level, res.locals.aiKey)
 
 		for await (const chunk of storyRes) {
 			res.write(getSseMessage(JSON.stringify(chunk)))

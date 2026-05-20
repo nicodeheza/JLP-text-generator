@@ -86,21 +86,12 @@ function isRateLimitError(error: unknown): boolean {
 	return false
 }
 
-// TODO: remove createAi and update aiDirectResponse/aiStreamResponse to receive apiKey
-// once all callers are updated to pass the key through the new flow
-function createAi(): Ai {
-	const apiKey = process.env.GEMINI_API_KEY
-	if (!apiKey) throw new Error('GEMINI_API_KEY is not set')
-	return new Ai(apiKey)
+export function aiDirectResponse(args: RespondArgs, apiKey: string) {
+	return new Ai(apiKey).directRespond(args)
 }
 
-export function aiDirectResponse(args: RespondArgs) {
-	return createAi().directRespond(args)
-}
-
-export async function* aiStreamResponse(args: RespondArgs): AsyncGenerator<string> {
-	const ai = createAi()
-	const res = ai.streamingResponse(args)
+export async function* aiStreamResponse(args: RespondArgs, apiKey: string): AsyncGenerator<string> {
+	const res = new Ai(apiKey).streamingResponse(args)
 
 	for await (const chunk of res) {
 		yield chunk
