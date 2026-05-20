@@ -8,7 +8,7 @@ interface RespondArgs {
 }
 
 const MODELS_WITH_NOT_SYSTEM_INSTRUCTIONS = new Set(['gemma-3-27b-it'])
-const DEFAULT_MODEL = 'gemma-3-27b-it'
+const DEFAULT_MODEL = 'gemma-4-31b-it'
 
 class Ai {
 	private models: Models
@@ -90,7 +90,10 @@ export function aiDirectResponse(args: RespondArgs, apiKey: string) {
 	return new Ai(apiKey).directRespond(args)
 }
 
-export async function* aiStreamResponse(args: RespondArgs, apiKey: string): AsyncGenerator<string> {
+export async function* aiStreamResponse(
+	args: RespondArgs,
+	apiKey: string
+): AsyncGenerator<string> {
 	const res = new Ai(apiKey).streamingResponse(args)
 
 	for await (const chunk of res) {
