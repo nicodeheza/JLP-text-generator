@@ -34,7 +34,7 @@ async function main() {
 	const app = express()
 
 	app.use(express.json())
-	app.use(cookieParser(CONFIG.COOKIE_SECRET))
+	app.use(cookieParser())
 
 	if (!CONFIG.IS_PROD) {
 		app.use(cors({origin: CONFIG.FRONTEND_URL, credentials: true}))
