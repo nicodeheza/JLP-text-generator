@@ -20,18 +20,20 @@ export const Header: FC = () => {
 				<NavLink to={'/analyze'}>Analyze Text</NavLink>
 				<NavLink to={'/pdf-ocr'}>PDF OCR</NavLink>
 			</nav>
-			<Button variant="secondary" onClick={() => aiKeyModalRef.current?.open()}>
-				<Icon icon="gear" /> AI Settings
-			</Button>
-			<ThemeToggle />
-			<a
-				href="https://github.com/nicodeheza/ja-tools"
-				target="_blank"
-				rel="noopener noreferrer"
-				className={styles.gitHub}
-			>
-				<Icon icon="github" />
-			</a>
+			<div className={styles.right}>
+				<Button variant="secondary" onClick={() => aiKeyModalRef.current?.open()}>
+					<Icon icon="gear" /> AI Settings
+				</Button>
+				<ThemeToggle />
+				<a
+					href="https://github.com/nicodeheza/ja-tools"
+					target="_blank"
+					rel="noopener noreferrer"
+					className={styles.gitHub}
+				>
+					<Icon icon="github" />
+				</a>
+			</div>
 			<AiKeyModal ref={aiKeyModalRef} />
 		</header>
 	)

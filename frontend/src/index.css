@@ -17,10 +17,14 @@
 
 	--selected-ocr-z-index: 1;
 	--dict-tooltip-z-index: 2;
+
+	transition:
+		background-color 0.2s linear,
+		color 0.2s linear;
 }
 
 body {
 	margin: 0;
-	padding: 0;
+	padding: 0 5%;
 	font-family: 'Inter', 'Noto Sans JP', sans-serif;
 }
