@@ -5,8 +5,6 @@
 	justify-content: space-between;
 }
 
-
-
 .nav {
 	display: flex;
 	gap: 24px;
@@ -14,9 +12,11 @@
 .link {
 	font-style: normal;
 	text-decoration: none;
-	color: #c1c1c1;
+	color: var(--text);
+	padding-bottom: 0.3rem;
 }
 .active {
 	font-weight: 700;
-	color: white;
+	color: var(--text-accent);
+	border-bottom: solid;
 }
