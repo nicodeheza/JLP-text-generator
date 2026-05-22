@@ -6,6 +6,7 @@ import {AiKeyModal} from '../AiKeyModal/AiKeyModal.component'
 import type {AiKeyModalHandle} from '../AiKeyModal/AiKeyModal.component'
 import {Button} from '../Button/Button.component'
 import {Logo} from '../Logo/Logo'
+import {Icon} from '../Icon/Icons.component'
 
 export const Header: FC = () => {
 	const aiKeyModalRef = useRef<AiKeyModalHandle>(null)
@@ -19,8 +20,16 @@ export const Header: FC = () => {
 				<NavLink to={'/pdf-ocr'}>PDF OCR</NavLink>
 			</nav>
 			<Button variant="secondary" onClick={() => aiKeyModalRef.current?.open()}>
-				AI Settings
+				<Icon icon="gear" /> AI Settings
 			</Button>
+			<a
+				href="https://github.com/nicodeheza/ja-tools"
+				target="_blank"
+				rel="noopener noreferrer"
+				className={styles.gitHub}
+			>
+				<Icon icon="github" />
+			</a>
 			<AiKeyModal ref={aiKeyModalRef} />
 		</header>
 	)
