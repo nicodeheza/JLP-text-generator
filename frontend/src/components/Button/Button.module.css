@@ -1,10 +1,12 @@
 .button {
 	border-radius: 6px;
-	padding: 4px 8px;
+	padding: 4px 16px;
 	cursor: pointer;
 
 	white-space: nowrap;
 	width: fit-content;
+
+	font-weight: 600;
 }
 
 .button:disabled {
@@ -15,13 +17,13 @@
 }
 
 .primary {
-	background: #5a008b;
-	color: white;
-	border: solid 1px #e696ff;
+	background-color: var(--button-primary-bg);
+	color: var(--button-primary-color);
+	border: none;
 }
 
 .secondary {
-	background-color: #232121;
-	color: white;
-	border: solid 1px #6d6a6a;
+	background: var(--button-secondary-bg);
+	color: var(--button-secondary-color);
+	border: solid 1px var(--button-secondary-border);
 }
