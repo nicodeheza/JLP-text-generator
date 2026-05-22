@@ -10,7 +10,7 @@ import {FaRegTrashAlt} from 'react-icons/fa'
 import {BsLightningCharge} from 'react-icons/bs'
 import {MdOutlineUploadFile} from 'react-icons/md'
 
-type IconName =
+export type IconName =
 	| 'gear'
 	| 'github'
 	| 'moon'

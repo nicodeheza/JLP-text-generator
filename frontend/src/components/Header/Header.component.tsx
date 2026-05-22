@@ -7,6 +7,7 @@ import type {AiKeyModalHandle} from '../AiKeyModal/AiKeyModal.component'
 import {Button} from '../Button/Button.component'
 import {Logo} from '../Logo/Logo'
 import {Icon} from '../Icon/Icons.component'
+import {ThemeToggle} from '../ThemeToggel/ThemToggle.component'
 
 export const Header: FC = () => {
 	const aiKeyModalRef = useRef<AiKeyModalHandle>(null)
@@ -22,6 +23,7 @@ export const Header: FC = () => {
 			<Button variant="secondary" onClick={() => aiKeyModalRef.current?.open()}>
 				<Icon icon="gear" /> AI Settings
 			</Button>
+			<ThemeToggle />
 			<a
 				href="https://github.com/nicodeheza/ja-tools"
 				target="_blank"
