@@ -5,12 +5,14 @@ import {useRef} from 'react'
 import {AiKeyModal} from '../AiKeyModal/AiKeyModal.component'
 import type {AiKeyModalHandle} from '../AiKeyModal/AiKeyModal.component'
 import {Button} from '../Button/Button.component'
+import {Logo} from '../Logo/Logo'
 
 export const Header: FC = () => {
 	const aiKeyModalRef = useRef<AiKeyModalHandle>(null)
 
 	return (
 		<header className={styles.header}>
+			<Logo />
 			<nav className={styles.nav}>
 				<NavLink to={'/generator'}>Generate Text</NavLink>
 				<NavLink to={'/analyze'}>Analyze Text</NavLink>

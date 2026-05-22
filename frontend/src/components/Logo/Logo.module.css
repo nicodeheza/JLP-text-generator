@@ -1,0 +1,30 @@
+.logo {
+	position: relative;
+	font-family: Noto Serif;
+	font-size: 2rem;
+	font-weight: 600;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	gap: 1rem;
+	color: var(--text-accent);
+}
+
+.ja {
+	color: white;
+}
+
+.circle {
+	background-color: red;
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+
+	position: absolute;
+	left: -0.7rem;
+	top: 0.1rem;
+
+	z-index: -1;
+}

@@ -749,10 +749,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-jp/-/noto-sans-jp-5.2.9.tgz#c43fcabb8b674171af46da59e228f5f4086988ec"
   integrity sha512-6yVGiofnrnbiJjU8ch4JGSs2HqyozxMvsVyVmFwOnDH3u//qQKLqmKM4n0lqN0637uaJNzUW9nIJqbbMgHVQzw==
 
-"@fontsource/noto-serif-jp@^5.2.8":
-  version "5.2.8"
-  resolved "https://registry.yarnpkg.com/@fontsource/noto-serif-jp/-/noto-serif-jp-5.2.8.tgz#e345ab506c24f900b3b8f8aa71d28da2ec6fec91"
-  integrity sha512-x+tGrrK+4t/hoHLxAl7Ry5nN8CVPermqz0fD7HtCXzBJSxzFKxNH9y+cuOD3gZW0tyKZ2CD7WvuAfHbISvjL5Q==
+"@fontsource/noto-serif@^5.2.9":
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-serif/-/noto-serif-5.2.9.tgz#55d0b1382c753863dfa3f5c9b3b8649680df5aab"
+  integrity sha512-A2b7XBo0dSxxTZg95Ap/HLinXq1pEM8PzSvbBFtPMZM5/1BLKEU1dR+PBnLixvOdcC7mup+/NjmyLryQ1E9WeA==
 
 "@gutenye/ocr-browser@^1.4.8":
   version "1.4.8"
