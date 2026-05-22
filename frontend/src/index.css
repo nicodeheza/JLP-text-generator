@@ -1,6 +1,17 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/noto-serif-jp/400.css';
+@import '@fontsource/noto-serif-jp/500.css';
+@import '@fontsource/noto-serif-jp/700.css';
+@import '@fontsource/noto-sans-jp/400.css';
+@import '@fontsource/noto-sans-jp/500.css';
+@import '@fontsource/noto-sans-jp/700.css';
+@import './theme.css';
+
 :root {
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+	color: --text;
+	background-color: --gb;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -14,4 +25,5 @@
 body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Inter', 'Noto Sans JP', sans-serif;
 }

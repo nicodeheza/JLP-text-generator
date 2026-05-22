@@ -11,6 +11,9 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/noto-sans-jp": "^5.2.9",
+    "@fontsource/noto-serif-jp": "^5.2.8",
     "@gutenye/ocr-browser": "^1.4.8",
     "@radix-ui/react-popover": "^1.1.14",
     "@tanstack/react-router": "^1.153.2",
