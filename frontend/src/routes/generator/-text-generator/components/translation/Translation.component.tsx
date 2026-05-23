@@ -1,6 +1,7 @@
 import {useState, type FC} from 'react'
 import styles from './Translation.module.css'
 import {Button} from '../../../../../components/Button/Button.component'
+import {Icon} from '../../../../../components/Icon/Icons.component'
 
 interface Props {
 	translation: string
@@ -17,8 +18,8 @@ export const Translation: FC<Props> = ({translation}) => {
 
 	return (
 		<div className={styles.translation}>
-			<Button onClick={onToggle} variant="secondary">
-				{buttonLabel}
+			<Button onClick={onToggle} variant="transparent">
+				<Icon icon="translate" /> {buttonLabel}
 			</Button>
 			{show && <p>{translation}</p>}
 		</div>

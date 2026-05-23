@@ -3,7 +3,7 @@ import type {FC, ButtonHTMLAttributes} from 'react'
 import styles from './Button.module.css'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-	variant?: 'primary' | 'secondary'
+	variant?: 'primary' | 'secondary' | 'transparent'
 }
 
 export const Button: FC<Props> = (props) => {
@@ -11,7 +11,8 @@ export const Button: FC<Props> = (props) => {
 
 	const variantClass = {
 		[styles.primary]: variant === 'primary',
-		[styles.secondary]: variant === 'secondary'
+		[styles.secondary]: variant === 'secondary',
+		[styles.transparent]: variant === 'transparent'
 	}
 
 	return (

@@ -7,6 +7,7 @@ import {AnalyzedText} from '../../../components/analyzed-text/AnalyzedText.compo
 import {Button} from '../../../components/Button/Button.component'
 import {Translation} from './components/translation/Translation.component'
 import {ToolDescription} from '../../../components/ToolDesciption/ToolDescription.component'
+import {Card} from '../../../components/Card/Card.component'
 
 export const TextGenerator: FC = () => {
 	const {
@@ -52,16 +53,18 @@ export const TextGenerator: FC = () => {
 					<FuriganaSettings />
 				</div>
 			</div>
-			<div>
-				{paragraphs.map((p, i) => (
-					<div className={styles.paragraph} key={i}>
-						<p className={styles.text}>
-							<AnalyzedText tokens={p.tokens} dict={dict} />
-						</p>
-						<Translation translation={p.translation} />
-					</div>
-				))}
-			</div>
+			<Card>
+				<div className={styles.cardContent}>
+					{paragraphs.map((p, i) => (
+						<div className={styles.paragraph} key={i}>
+							<p className={styles.text}>
+								<AnalyzedText tokens={p.tokens} dict={dict} />
+							</p>
+							<Translation translation={p.translation} />
+						</div>
+					))}
+				</div>
+			</Card>
 			{isLoading && (
 				<div>
 					<p>Connecting...</p>

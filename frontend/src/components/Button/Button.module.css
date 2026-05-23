@@ -31,3 +31,9 @@
 	color: var(--button-secondary-color);
 	border: solid 1px var(--button-secondary-border);
 }
+
+.transparent {
+	background-color: transparent;
+	border: none;
+	color: var(--text-label);
+}

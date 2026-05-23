@@ -8,10 +8,6 @@
 	color: black;
 }
 
-.children > ruby > rt {
-	color: white;
-}
-
 .content {
 	z-index: var(--dict-tooltip-z-index);
 }

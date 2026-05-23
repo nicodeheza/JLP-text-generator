@@ -1,12 +1,14 @@
 .translation {
 	display: flex;
 	gap: 12px;
-	align-items: center;
+	align-items: flex-start;
 	max-height: fit-content;
+
+	min-height: 2rem;
 }
 
 .translation > p {
-	padding: 0;
+	padding: 4px;
 	margin: 0;
 }
 
