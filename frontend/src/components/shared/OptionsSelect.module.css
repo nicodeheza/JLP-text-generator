@@ -54,6 +54,7 @@
 	border: 1px solid var(--pill-border);
 	border-radius: 8px;
 	padding: 3px;
+	width: fit-content;
 }
 
 .rectangle .option {

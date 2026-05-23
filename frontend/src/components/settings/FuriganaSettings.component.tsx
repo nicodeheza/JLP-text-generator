@@ -2,7 +2,7 @@ import type {FC} from 'react'
 import {useStingsStore} from '../../store/Settings.store'
 import type {FuriganaValues} from '../../types/Settings.types'
 import {OptionsSelect} from '../shared/OptionsSelect.component'
-import styles from './FuriganaSettinga.module.css'
+import {SettingLabel} from './SettingLabel/SettigLabel.component'
 
 const FURIGANA_OPTIONS: Record<string, FuriganaValues> = {
 	Show: 'enable',
@@ -14,8 +14,7 @@ export const FuriganaSettings: FC = () => {
 	const {updateFurigana, furigana} = useStingsStore()
 
 	return (
-		<div className={styles.container}>
-			<p>Furigana</p>
+		<SettingLabel label="furigana">
 			<OptionsSelect
 				name="furigana"
 				options={FURIGANA_OPTIONS}
@@ -23,6 +22,6 @@ export const FuriganaSettings: FC = () => {
 				onChange={updateFurigana}
 				variant="rectangle"
 			/>
-		</div>
+		</SettingLabel>
 	)
 }
