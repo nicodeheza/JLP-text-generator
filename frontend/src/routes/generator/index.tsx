@@ -8,7 +8,10 @@ export const Route = createFileRoute('/generator/')({
 
 function RouteComponent() {
 	return (
-		<AiPage explanation={'Enter a prompt and choose a difficulty level to generate Japanese text. The AI will create annotated text with furigana, translations, and dictionary definitions on word click.'}>
+		<AiPage
+			toolTitle="Generate Text"
+			toolDescription="Generate level-appropriate Japanese reding material with AI."
+		>
 			<TextGenerator />
 		</AiPage>
 	)

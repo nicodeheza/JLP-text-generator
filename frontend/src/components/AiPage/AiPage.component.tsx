@@ -3,22 +3,27 @@ import {useGetIsAiSetUp} from '../../services/user.service'
 import {AiKeyModal, type AiKeyModalHandle} from '../AiKeyModal/AiKeyModal.component'
 import {Button} from '../Button/Button.component'
 import styles from './AiPage.module.css'
+import {ToolDescription} from '../ToolDesciption/ToolDescription.component'
+import {ErrorMessage} from '../ErrorMessage/ErrorMessage.component'
+import {LoadingDots} from '../LoadingDots/LoadingDots.component'
+import {Card} from '../Card/Card.component'
 
 interface Props {
-	explanation: ReactNode
+	toolTitle: string
+	toolDescription: string
 	children: ReactNode
 }
 
-export const AiPage: FC<Props> = ({explanation, children}) => {
+export const AiPage: FC<Props> = ({toolDescription, toolTitle, children}) => {
 	const modalRef = useRef<AiKeyModalHandle>(null)
 	const isAiSetUpRes = useGetIsAiSetUp()
 
 	if (isAiSetUpRes.status === 'loading') {
-		return <p className={styles.loading}>Loading...</p>
+		return <LoadingDots />
 	}
 
-	if (isAiSetUpRes.status === 'error') {
-		return <p className={styles.error}>Something went wrong. Please try again later.</p>
+	if (isAiSetUpRes.status == 'error') {
+		return <ErrorMessage message="Something went wrong. Please try again later." />
 	}
 
 	if (isAiSetUpRes.data === true) {
@@ -27,9 +32,9 @@ export const AiPage: FC<Props> = ({explanation, children}) => {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.explanation}>{explanation}</div>
+			<ToolDescription title={toolTitle} descriptions={toolDescription} />
 
-			<div className={styles.instructions}>
+			<Card className={styles.instructions}>
 				<h3 className={styles.instructionsTitle}>
 					Set up your free Google Gemini API key
 				</h3>
@@ -63,7 +68,7 @@ export const AiPage: FC<Props> = ({explanation, children}) => {
 				</div>
 
 				<Button onClick={() => modalRef.current?.open()}>Set up API Key</Button>
-			</div>
+			</Card>
 
 			<AiKeyModal ref={modalRef} />
 		</div>

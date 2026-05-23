@@ -8,6 +8,7 @@ import {
 } from 'react'
 import {Modal} from '../Modal/Modal.component'
 import {Button} from '../Button/Button.component'
+import {Icon} from '../Icon/Icons.component'
 import {useGetIsAiSetUp, useSetAiKey, useDeleteAiKey} from '../../services/user.service'
 import styles from './AiKeyModal.module.css'
 
@@ -76,11 +77,11 @@ export const AiKeyModal = forwardRef<AiKeyModalHandle>((_, ref) => {
 	}, [setRes, deleteRes])
 
 	return (
-		<Modal ref={dialogRef} onClose={handleClose} className={styles.modal}>
+		<Modal ref={dialogRef} onClose={handleClose}>
 			<div className={styles.header}>
 				<h2 className={styles.title}>AI API Key</h2>
 				<button className={styles.closeButton} onClick={handleClose} aria-label="Close">
-					×
+					<Icon icon="close" />
 				</button>
 			</div>
 

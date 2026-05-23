@@ -9,7 +9,7 @@ import {MdOutlineInsertChart} from 'react-icons/md'
 import {FaRegTrashAlt} from 'react-icons/fa'
 import {BsLightningCharge} from 'react-icons/bs'
 import {MdOutlineUploadFile} from 'react-icons/md'
-import {MdOutlineTranslate, MdErrorOutline} from 'react-icons/md'
+import {MdOutlineTranslate, MdErrorOutline, MdClose} from 'react-icons/md'
 
 export type IconName =
 	| 'gear'
@@ -23,6 +23,7 @@ export type IconName =
 	| 'upload'
 	| 'translate'
 	| 'error-circle'
+	| 'close'
 
 const icons: Record<IconName, IconType> = {
 	gear: PiGear,
@@ -35,7 +36,8 @@ const icons: Record<IconName, IconType> = {
 	lightning: BsLightningCharge,
 	upload: MdOutlineUploadFile,
 	translate: MdOutlineTranslate,
-	'error-circle': MdErrorOutline
+	'error-circle': MdErrorOutline,
+	close: MdClose
 }
 
 interface Props {

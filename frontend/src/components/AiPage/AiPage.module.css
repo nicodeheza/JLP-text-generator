@@ -7,24 +7,15 @@
 	padding: 24px;
 }
 
-.explanation {
-	color: #d0d0d0;
-}
-
 .instructions {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	background-color: #1e1e1e;
-	border: 1px solid #3a3a3a;
-	border-radius: 8px;
-	padding: 20px;
 }
 
 .instructionsTitle {
 	margin: 0;
 	font-size: 1rem;
-	color: white;
 }
 
 .steps {
@@ -33,7 +24,6 @@
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
-	color: #d0d0d0;
 	font-size: 0.95rem;
 }
 
@@ -55,21 +45,4 @@
 .notes p {
 	margin: 0;
 	font-size: 0.88rem;
-	color: #9f9f9f;
-}
-
-.notes strong {
-	color: #d0d0d0;
-}
-
-.loading {
-	color: #9f9f9f;
-	font-size: 0.9rem;
-	padding: 24px;
-}
-
-.error {
-	color: #d9534f;
-	font-size: 0.9rem;
-	padding: 24px;
 }
