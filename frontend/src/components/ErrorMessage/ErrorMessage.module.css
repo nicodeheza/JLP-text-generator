@@ -1,0 +1,46 @@
+.error {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 16px 20px;
+	color: var(--error);
+	background-color: var(--error-bg);
+	border: 1px solid var(--error-border);
+	border-left: 4px solid var(--error);
+	border-radius: 8px;
+	font-size: 0.95rem;
+}
+
+.message {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.message svg {
+	flex-shrink: 0;
+	font-size: 1.3rem;
+}
+
+.message p {
+	margin: 0;
+}
+
+.refreshButton {
+	background: transparent;
+	border: 1px solid var(--error-border);
+	color: var(--error);
+	border-radius: 6px;
+	padding: 6px 14px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.refreshButton:hover {
+	background-color: var(--error-bg);
+	border-color: var(--error);
+}

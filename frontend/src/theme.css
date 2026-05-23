@@ -38,6 +38,11 @@
 	/* dictionary tooltip */
 	--dic-border: #e5e5e1;
 	--dic-kanji: #ab5f12;
+
+	/* error */
+	--error: #b91c1c;
+	--error-bg: #fef2f2;
+	--error-border: #fca5a5;
 }
 
 .dark {
@@ -80,4 +85,9 @@
 	/* dictionary tooltip */
 	--dic-border: #c0c1ff;
 	--dic-kanji: #feb367;
+
+	/* error */
+	--error: #fca5a5;
+	--error-bg: #1f1010;
+	--error-border: #7f1d1d;
 }
