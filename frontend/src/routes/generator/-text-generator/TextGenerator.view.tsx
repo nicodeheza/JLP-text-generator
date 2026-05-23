@@ -8,6 +8,7 @@ import {Button} from '../../../components/Button/Button.component'
 import {Translation} from './components/translation/Translation.component'
 import {ToolDescription} from '../../../components/ToolDesciption/ToolDescription.component'
 import {Card} from '../../../components/Card/Card.component'
+import {Icon} from '../../../components/Icon/Icons.component'
 
 export const TextGenerator: FC = () => {
 	const {
@@ -75,18 +76,25 @@ export const TextGenerator: FC = () => {
 					<p>Generating text...</p>
 				</div>
 			)}
-			<form className={styles.prompt} onSubmit={onSendPrompt}>
-				<textarea
-					value={userPrompt}
-					onChange={(e) => setUserPrompt(e.target.value)}
-					disabled={!canSendReq}
-					placeholder="Ex: Create a story abut a cat."
-					required
-				/>
-				<Button variant="primary" type="submit" disabled={!canSendReq}>
-					Generate new text
-				</Button>
-			</form>
+			<Card>
+				<form className={styles.prompt} onSubmit={onSendPrompt}>
+					<textarea
+						value={userPrompt}
+						onChange={(e) => setUserPrompt(e.target.value)}
+						disabled={!canSendReq}
+						placeholder="Ex: Create a story abut a cat."
+						required
+					/>
+					<Button
+						variant="primary"
+						type="submit"
+						disabled={!canSendReq}
+						className={styles.submit}
+					>
+						Generate new text <Icon icon="stars" />
+					</Button>
+				</form>
+			</Card>
 		</div>
 	)
 }
