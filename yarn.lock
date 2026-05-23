@@ -1501,13 +1501,6 @@ function-bind@^1.1.2:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.2.tgz#2c02d864d97f3ea6c8830c464cbd11ab6eab7a1c"
   integrity sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==
 
-furigana@^0.19.3:
-  version "0.19.3"
-  resolved "https://registry.yarnpkg.com/furigana/-/furigana-0.19.3.tgz#b6510ee84b746ac6a4a423223d98fca929285dd5"
-  integrity sha512-Glc8eJzxFTes4OVAfy8CyDxJkAoJdO6s+mSFEdwlNDlNVEXvycDzqOIsCQF/P1oI336xRlx9Wa79gbKee86ywA==
-  dependencies:
-    kyarakuta "^0.19.3"
-
 gaxios@^6.0.0, gaxios@^6.1.1:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/gaxios/-/gaxios-6.7.1.tgz#ebd9f7093ede3ba502685e73390248bb5b7f71fb"
@@ -1712,11 +1705,6 @@ jws@^4.0.0:
   dependencies:
     jwa "^2.0.0"
     safe-buffer "^5.0.1"
-
-kyarakuta@^0.19.3:
-  version "0.19.3"
-  resolved "https://registry.yarnpkg.com/kyarakuta/-/kyarakuta-0.19.3.tgz#d0824fdfa33f46212a294e03f8740feb2caf3b45"
-  integrity sha512-Vafj6dEcD50CiKkA9WBzlFmVB2uY4OvJnCp27LqEZWmfNoEZwyIlRUZYdscj3/1sC3EVq+Y3lugCT5rUnkecRA==
 
 libsql@^0.5.22:
   version "0.5.22"

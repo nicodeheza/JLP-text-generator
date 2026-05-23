@@ -248,7 +248,7 @@ describe('Analyzer Routes', () => {
 					original: '名前',
 					mecabPos: '名詞',
 					basicForm: '名前',
-					furigana: '名[な] 前[まえ]',
+					furigana: '名前[なまえ]',
 					dictIds: ['1002']
 				},
 				{
