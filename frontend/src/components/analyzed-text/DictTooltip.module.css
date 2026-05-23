@@ -1,11 +1,15 @@
 .children[data-state='open'] {
-	background-color: white;
-	color: black;
+	background-color: var(--j-text-selected-bg);
+	color: var(--j-text-selected-color);
 }
 
 .children:hover {
-	background-color: white;
-	color: black;
+	background-color: var(--j-text-selected-bg);
+	color: var(--j-text-selected-color);
+}
+
+.children > ruby > rt {
+	color: var(--text);
 }
 
 .content {
@@ -13,10 +17,12 @@
 }
 
 .card {
-	background-color: black;
-	border: solid 1px white;
+	background-color: var(--element-bg);
+	border: solid 1px var(--dic-border);
 	padding: 24px;
 	border-radius: 6px;
+
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
 	max-height: 25vh;
 	max-width: 80vw;
@@ -32,9 +38,9 @@
 }
 
 .kanji {
-	font-weight: 700;
+	font-weight: 600;
 
-	color: rgb(254, 179, 103);
+	color: var(--dic-kanji);
 	font-size: 1.3rem;
 }
 

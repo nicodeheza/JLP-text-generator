@@ -30,6 +30,14 @@
 	--button-secondary-bg: transparent;
 	--button-secondary-color: #1b1c1a;
 	--button-secondary-border: #75777f;
+
+	/* japanese text */
+	--j-text-selected-color: #c7c4d7;
+	--j-text-selected-bg: #141b2d;
+
+	/* dictionary tooltip */
+	--dic-border: #e5e5e1;
+	--dic-kanji: #ab5f12;
 }
 
 .dark {
@@ -64,4 +72,12 @@
 	--button-secondary-bg: transparent;
 	--button-secondary-color: #dfe2ef;
 	--button-secondary-border: #908fa0;
+
+	/* japanese text */
+	--j-text-selected-color: #44474e;
+	--j-text-selected-bg: #ffffff;
+
+	/* dictionary tooltip */
+	--dic-border: #c0c1ff;
+	--dic-kanji: #feb367;
 }
