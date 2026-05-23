@@ -6,6 +6,7 @@ import {LevelSettings} from '../../../components/settings/LevelSettings.componen
 import {AnalyzedText} from '../../../components/analyzed-text/AnalyzedText.component'
 import {Button} from '../../../components/Button/Button.component'
 import {Translation} from './components/translation/Translation.component'
+import {ToolDescription} from '../../../components/ToolDesciption/ToolDescription.component'
 
 export const TextGenerator: FC = () => {
 	const {
@@ -41,6 +42,10 @@ export const TextGenerator: FC = () => {
 
 	return (
 		<div className={styles.result}>
+			<ToolDescription
+				title="Generate Text"
+				descriptions="Generate level-appropriate Japanese reding material with AI."
+			/>
 			<div className={styles.settings}>
 				<LevelSettings value={level} onChange={setLevel} />
 				<FuriganaSettings />
