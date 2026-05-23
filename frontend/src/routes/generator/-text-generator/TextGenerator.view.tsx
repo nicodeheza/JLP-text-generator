@@ -42,13 +42,15 @@ export const TextGenerator: FC = () => {
 
 	return (
 		<div className={styles.result}>
-			<ToolDescription
-				title="Generate Text"
-				descriptions="Generate level-appropriate Japanese reding material with AI."
-			/>
-			<div className={styles.settings}>
-				<LevelSettings value={level} onChange={setLevel} />
-				<FuriganaSettings />
+			<div className={styles.header}>
+				<ToolDescription
+					title="Generate Text"
+					descriptions="Generate level-appropriate Japanese reding material with AI."
+				/>
+				<div className={styles.settings}>
+					<LevelSettings value={level} onChange={setLevel} />
+					<FuriganaSettings />
+				</div>
 			</div>
 			<div>
 				{paragraphs.map((p, i) => (
