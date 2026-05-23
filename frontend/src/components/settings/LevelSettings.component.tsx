@@ -25,6 +25,7 @@ export const LevelSettings: FC<LevelSettingsProps> = ({value, onChange}) => {
 				options={LEVEL_OPTIONS}
 				value={value}
 				onChange={onChange}
+				variant="pills"
 			/>
 		</div>
 	)

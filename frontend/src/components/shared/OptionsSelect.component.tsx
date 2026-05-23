@@ -5,18 +5,20 @@ interface Props<V extends string> {
 	options: Record<string, V>
 	value: V
 	onChange: (v: V) => void
+	variant?: 'pills' | 'rectangle'
 }
 
 export const OptionsSelect = <V extends string>({
 	name,
 	options,
 	value,
-	onChange
+	onChange,
+	variant = 'pills'
 }: Props<V>) => {
 	return (
-		<div className={styles.radio}>
+		<div className={variant === 'rectangle' ? styles.rectangle : styles.pills}>
 			{Object.entries(options).map(([label, optionValue]) => (
-				<div key={optionValue}>
+				<div key={optionValue} className={styles.option}>
 					<input
 						type="radio"
 						name={name}
@@ -24,8 +26,11 @@ export const OptionsSelect = <V extends string>({
 						value={optionValue}
 						checked={optionValue === value}
 						onChange={() => onChange(optionValue)}
+						className={styles.input}
 					/>
-					<label htmlFor={`${name}-${optionValue}`}>{label}</label>
+					<label htmlFor={`${name}-${optionValue}`} className={styles.label}>
+						{label}
+					</label>
 				</div>
 			))}
 		</div>

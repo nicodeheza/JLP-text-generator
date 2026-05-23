@@ -20,6 +20,8 @@
 	--pill-border: #c5c6cf;
 	--pill-bk-selected: #e5cfcf;
 	--pill-color-selected: #675555;
+	--rect-pill-bk: #ffffff;
+	--rect-pill-color: #031636;
 
 	/* buttons */
 	--button-primary-bg: #031636;
@@ -52,6 +54,8 @@
 	--pill-border: #464554;
 	--pill-bk-selected: #8083ff;
 	--pill-color-selected: #dfe2ef;
+	--rect-pill-bk: #8083ff;
+	--rect-pill-color: #fff;
 
 	/* buttons */
 	--button-primary-bg: #8083ff;
