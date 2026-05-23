@@ -10,6 +10,7 @@ import {ToolDescription} from '../../../components/ToolDesciption/ToolDescriptio
 import {Card} from '../../../components/Card/Card.component'
 import {Icon} from '../../../components/Icon/Icons.component'
 import {ErrorMessage} from '../../../components/ErrorMessage/ErrorMessage.component'
+import {LoadingDots} from '../../../components/LoadingDots/LoadingDots.component'
 
 export const TextGenerator: FC = () => {
 	const {
@@ -62,26 +63,19 @@ export const TextGenerator: FC = () => {
 			</div>
 			{showContentCard && (
 				<Card>
-					<div className={styles.cardContent}>
-						{paragraphs.map((p, i) => (
-							<div className={styles.paragraph} key={i}>
-								<p className={styles.text}>
-									<AnalyzedText tokens={p.tokens} dict={dict} />
-								</p>
-								<Translation translation={p.translation} />
-							</div>
-						))}
-					</div>
-					{isLoading && (
-						<div>
-							<p>Connecting...</p>
+					{!isLoading && (
+						<div className={styles.cardContent}>
+							{paragraphs.map((p, i) => (
+								<div className={styles.paragraph} key={i}>
+									<p className={styles.text}>
+										<AnalyzedText tokens={p.tokens} dict={dict} />
+									</p>
+									<Translation translation={p.translation} />
+								</div>
+							))}
 						</div>
 					)}
-					{isConnected && (
-						<div>
-							<p>Generating text...</p>
-						</div>
-					)}
+					{(isLoading || isConnected) && <LoadingDots />}
 				</Card>
 			)}
 			<Card>
