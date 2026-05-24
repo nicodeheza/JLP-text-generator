@@ -108,7 +108,7 @@ export const AiKeyModal = forwardRef<AiKeyModalHandle>((_, ref) => {
 					Save
 				</Button>
 				{isAiSetUp && (
-					<Button variant="secondary" onClick={handleDelete} disabled={isLoading}>
+					<Button variant="danger" onClick={handleDelete} disabled={isLoading}>
 						Delete key
 					</Button>
 				)}
