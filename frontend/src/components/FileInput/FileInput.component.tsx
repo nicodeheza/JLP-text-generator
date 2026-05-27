@@ -39,7 +39,7 @@ export const FileInput: FC<Props> = ({
 				disabled={disabled}
 				className={styles.fileInput}
 			/>
-			<Button onClick={handleButtonClick} disabled={disabled}>
+			<Button variant="secondary" onClick={handleButtonClick} disabled={disabled}>
 				{file ? file.name : children}
 			</Button>
 		</>

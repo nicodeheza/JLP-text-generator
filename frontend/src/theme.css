@@ -50,6 +50,9 @@
 
 	/* success */
 	--success: #166534;
+
+	/* pdf bar */
+	--pdf-bar-bg: #031636;
 }
 
 .dark {
@@ -104,4 +107,7 @@
 
 	/* success */
 	--success: #86efac;
+
+	/* pdf bar */
+	--pdf-bar-bg: #3a3a60;
 }

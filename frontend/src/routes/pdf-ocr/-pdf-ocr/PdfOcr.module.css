@@ -8,11 +8,17 @@
 	display: flex;
 	align-items: flex-start;
 	justify-content: safe center;
-	margin: 16px;
+	padding: 16px;
 	overflow: auto;
 	height: 100%;
+	border: solid 1px var(--card-border);
+	background-color: var(--element-bg);
 }
 
-.settings {
-	padding: 0 24px;
+.header {
+	padding: 24px;
+
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
 }

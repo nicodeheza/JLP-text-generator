@@ -5,6 +5,7 @@ import styles from './PdfPage.module.css'
 import type {Dict} from '../../../../../types/analyzedText.types'
 import {AnalyzedText} from '../../../../../components/analyzed-text/AnalyzedText.component'
 import classNames from 'classnames'
+import {ErrorMessage} from '../../../../../components/ErrorMessage/ErrorMessage.component'
 
 interface Props {
 	pageNumber: number
@@ -37,7 +38,9 @@ export const PdfPage = forwardRef(function PdfPage(
 				zoom
 			}}
 		>
-			{status === 'error' && <p>{error?.message}</p>}
+			{status === 'error' && (
+				<ErrorMessage message={error?.message || 'Error Loading PDF'} />
+			)}
 			<canvas ref={canvasRef} />
 			{ocrResults && ocrResults.length > 0 && (
 				<div className={styles.overlay}>

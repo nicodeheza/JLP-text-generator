@@ -10,6 +10,7 @@ import {FaRegTrashAlt} from 'react-icons/fa'
 import {BsLightningCharge} from 'react-icons/bs'
 import {MdOutlineUploadFile} from 'react-icons/md'
 import {MdOutlineTranslate, MdErrorOutline, MdClose} from 'react-icons/md'
+import {FaChevronLeft, FaChevronRight} from 'react-icons/fa6'
 
 export type IconName =
 	| 'gear'
@@ -24,6 +25,8 @@ export type IconName =
 	| 'translate'
 	| 'error-circle'
 	| 'close'
+	| 'chevron-left'
+	| 'chevron-right'
 
 const icons: Record<IconName, IconType> = {
 	gear: PiGear,
@@ -37,7 +40,9 @@ const icons: Record<IconName, IconType> = {
 	upload: MdOutlineUploadFile,
 	translate: MdOutlineTranslate,
 	'error-circle': MdErrorOutline,
-	close: MdClose
+	close: MdClose,
+	'chevron-left': FaChevronLeft,
+	'chevron-right': FaChevronRight
 }
 
 interface Props {

@@ -2,6 +2,7 @@ import {useRef, useState, type ChangeEvent, type FC} from 'react'
 import {FileInput} from '../../../../../components/FileInput/FileInput.component'
 import {Button} from '../../../../../components/Button/Button.component'
 import styles from './PdfBar.module.css'
+import {Icon} from '../../../../../components/Icon/Icons.component'
 
 interface Props {
 	file?: File
@@ -59,8 +60,12 @@ export const PdfBar: FC<Props> = ({
 			<FileInput file={file} onFileChange={handleFileSelected} accept={'application/pdf'}>
 				Upload a PDF
 			</FileInput>
-			<Button disabled={!file || !ocrReady || ocrLoading} onClick={onOcr}>
-				{ocrLoading ? 'OCR Loading' : 'OCR Document'}
+			<Button
+				variant="secondary"
+				disabled={!file || !ocrReady || ocrLoading}
+				onClick={onOcr}
+			>
+				<Icon icon="lightning" /> {ocrLoading ? 'Loading OCR' : 'Run OCR'}
 			</Button>
 			<Pages
 				inputValue={inputValue}
@@ -81,12 +86,18 @@ interface PagesProps {
 	onPageInputChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const Pages: FC<PagesProps> = ({inputValue, totalPages, onPrev, onNext, onPageInputChange}) => {
+const Pages: FC<PagesProps> = ({
+	inputValue,
+	totalPages,
+	onPrev,
+	onNext,
+	onPageInputChange
+}) => {
 	return (
 		<div className={styles.pageSelect}>
-			<button disabled={!totalPages} onClick={onPrev}>
-				{'<'}
-			</button>
+			<Button variant="transparent" disabled={!totalPages} onClick={onPrev}>
+				<Icon icon="chevron-left" />
+			</Button>
 			<input
 				aria-label="Page"
 				disabled={!totalPages}
@@ -96,9 +107,9 @@ const Pages: FC<PagesProps> = ({inputValue, totalPages, onPrev, onNext, onPageIn
 			/>
 			{'/'}
 			<output aria-label="Total pages">{totalPages ?? 0}</output>
-			<button disabled={!totalPages} onClick={onNext}>
-				{'>'}
-			</button>
+			<Button variant="transparent" disabled={!totalPages} onClick={onNext}>
+				<Icon icon="chevron-right" />
+			</Button>
 		</div>
 	)
 }

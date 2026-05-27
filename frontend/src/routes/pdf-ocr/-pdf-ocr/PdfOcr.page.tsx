@@ -11,6 +11,9 @@ import {useLoadOcr, useOcrDetect} from './services/ocr.service'
 import styles from './PdfOcr.module.css'
 import {useZoom} from './hooks/useZoom.hook'
 import {FuriganaSettings} from '../../../components/settings/FuriganaSettings.component'
+import {ToolDescription} from '../../../components/ToolDescription/ToolDescription.component'
+import {ErrorMessage} from '../../../components/ErrorMessage/ErrorMessage.component'
+import {LoadingDots} from '../../../components/LoadingDots/LoadingDots.component'
 
 export const PdfOcr: FC = () => {
 	const pageRef = useRef<PageApi>(null)
@@ -44,12 +47,22 @@ export const PdfOcr: FC = () => {
 	}
 
 	if (ocrLoadStatus === 'error' || storeError)
-		return <p>{ocrLoadingError?.message || storeError?.message}</p>
-	if (ocrLoadStatus === 'loading' || isStoreLoading) return <p>Loading...</p>
+		return (
+			<ErrorMessage
+				message={
+					ocrLoadingError?.message || storeError?.message || 'Error loading OCR engin'
+				}
+			/>
+		)
+	if (ocrLoadStatus === 'loading' || isStoreLoading) return <LoadingDots />
 
 	return (
 		<div className={styles.page}>
-			<div className={styles.settings}>
+			<div className={styles.header}>
+				<ToolDescription
+					title="PDF OCR"
+					descriptions="Upload a scanned PDF to extract text and analyze vocabulary with furigana. (Only support horizontal text)"
+				/>
 				<FuriganaSettings />
 			</div>
 			<PdfBar
@@ -66,7 +79,7 @@ export const PdfOcr: FC = () => {
 				{(() => {
 					switch (loadPdfStatus) {
 						case 'idle':
-							return <p>Please load a PDF</p>
+							return <p>Please upload a PDF</p>
 						case 'loading':
 							return <p>Loading...</p>
 						case 'error':
