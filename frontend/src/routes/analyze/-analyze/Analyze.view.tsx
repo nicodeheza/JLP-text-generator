@@ -6,6 +6,7 @@ import {ErrorMessage} from '../../../components/ErrorMessage/ErrorMessage.compon
 import {LoadingDots} from '../../../components/LoadingDots/LoadingDots.component'
 import {ToolDescription} from '../../../components/ToolDescription/ToolDescription.component'
 import {FuriganaSettings} from '../../../components/settings/FuriganaSettings.component'
+import styles from './Analyze.module.css'
 
 export const Analyze: FC = () => {
 	const {status, data, error, analyzeText, removeData} = useAnalyzedText()
@@ -19,8 +20,8 @@ export const Analyze: FC = () => {
 	}
 
 	return (
-		<>
-			<div>
+		<div className={styles.page}>
+			<div className={styles.header}>
 				<ToolDescription
 					title="Analyze Text"
 					descriptions="Insert Japanese text and get furigana and dictionary definitions."
@@ -33,6 +34,6 @@ export const Analyze: FC = () => {
 			) : (
 				<InputPage onSubmit={analyzeText} />
 			)}
-		</>
+		</div>
 	)
 }

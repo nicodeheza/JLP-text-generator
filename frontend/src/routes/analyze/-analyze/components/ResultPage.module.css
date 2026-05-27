@@ -6,9 +6,15 @@
 	align-items: center;
 }
 
+.buttonContainer {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
 .text {
 	margin-bottom: 50px;
 
-	font-size: 1rem;
+	font-size: 1.3rem;
 	text-align: left;
 }
