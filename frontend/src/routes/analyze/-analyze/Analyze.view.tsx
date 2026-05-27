@@ -2,23 +2,37 @@ import type {FC} from 'react'
 import {useAnalyzedText} from './analyze.service'
 import {InputPage} from './components/InputPage.component'
 import {ResultPage} from './components/ResultPage.component'
-import styles from './Analyze.module.css'
+import {ErrorMessage} from '../../../components/ErrorMessage/ErrorMessage.component'
+import {LoadingDots} from '../../../components/LoadingDots/LoadingDots.component'
+import {ToolDescription} from '../../../components/ToolDescription/ToolDescription.component'
+import {FuriganaSettings} from '../../../components/settings/FuriganaSettings.component'
 
 export const Analyze: FC = () => {
 	const {status, data, error, analyzeText, removeData} = useAnalyzedText()
 
 	if (status === 'loading') {
-		return <p>Loading...</p>
+		return <LoadingDots />
 	}
 
 	if (status === 'error' && error) {
-		return <p className={styles.error}>{error.message}</p>
+		return <ErrorMessage message={error.message} />
 	}
 
-	if (status === 'success' && data) {
-		return <ResultPage data={data} onClear={removeData} />
-	}
+	return (
+		<>
+			<div>
+				<ToolDescription
+					title="Analyze Text"
+					descriptions="Insert Japanese text and get furigana and dictionary definitions."
+				/>
+				<FuriganaSettings />
+			</div>
 
-	// inactive state
-	return <InputPage onSubmit={analyzeText} />
+			{status === 'success' ? (
+				<ResultPage data={data} onClear={removeData} />
+			) : (
+				<InputPage onSubmit={analyzeText} />
+			)}
+		</>
+	)
 }

@@ -6,7 +6,7 @@ import {LevelSettings} from '../../../components/settings/LevelSettings.componen
 import {AnalyzedText} from '../../../components/analyzed-text/AnalyzedText.component'
 import {Button} from '../../../components/Button/Button.component'
 import {Translation} from './components/translation/Translation.component'
-import {ToolDescription} from '../../../components/ToolDesciption/ToolDescription.component'
+import {ToolDescription} from '../../../components/ToolDescription/ToolDescription.component'
 import {Card} from '../../../components/Card/Card.component'
 import {Icon} from '../../../components/Icon/Icons.component'
 import {ErrorMessage} from '../../../components/ErrorMessage/ErrorMessage.component'

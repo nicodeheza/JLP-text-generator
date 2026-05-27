@@ -1,5 +1,4 @@
 import type {FC} from 'react'
-import {FuriganaSettings} from '../../../../components/settings/FuriganaSettings.component'
 import {AnalyzedText} from '../../../../components/analyzed-text/AnalyzedText.component'
 import {Button} from '../../../../components/Button/Button.component'
 import type {AnalyzeData} from '../analyze.types'
@@ -13,9 +12,6 @@ interface Props {
 export const ResultPage: FC<Props> = ({data, onClear}) => {
 	return (
 		<div className={styles.container}>
-			<div className={styles.furiganaSettingsContainer}>
-				<FuriganaSettings />
-			</div>
 			<div>
 				<p className={styles.text}>
 					<AnalyzedText tokens={data.tokens} dict={data.dict} />

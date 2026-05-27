@@ -1,5 +1,5 @@
 import type {FC} from 'react'
-import styles from './ToolDesciption.module.css'
+import styles from './ToolDescription.module.css'
 
 interface Props {
 	title: string
