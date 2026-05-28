@@ -12,6 +12,9 @@
 	font-size: 1rem;
 
 	outline: none;
+
+	padding: 8px;
+	box-sizing: border-box;
 }
 .textarea:focus {
 	outline: solid 1px var(--card-border);
@@ -25,5 +28,11 @@
 
 	button {
 		padding: 8px 24px;
+	}
+}
+
+@media (max-width: 700px) {
+	.textarea {
+		font-size: 0.8rem;
 	}
 }
