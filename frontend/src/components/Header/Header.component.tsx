@@ -21,8 +21,12 @@ export const Header: FC = () => {
 				<NavLink to={'/pdf-ocr'}>PDF OCR</NavLink>
 			</nav>
 			<div className={styles.right}>
-				<Button variant="secondary" onClick={() => aiKeyModalRef.current?.open()}>
-					<Icon icon="gear" /> AI Settings
+				<Button
+					variant="secondary"
+					onClick={() => aiKeyModalRef.current?.open()}
+					className={styles.iaSettings}
+				>
+					<Icon icon="gear" /> <span>AI Settings</span>
 				</Button>
 				<ThemeToggle />
 				<a
