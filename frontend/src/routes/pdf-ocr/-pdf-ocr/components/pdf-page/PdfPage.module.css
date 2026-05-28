@@ -31,8 +31,10 @@
 
 .line:hover,
 .line:has([data-state*='open']) {
-	background-color: black;
-	color: white;
+	background-color: var(--bg);
+	color: var(--text);
+	border: solid 1px var(--dic-border);
+	border-radius: 10px;
 	opacity: 1;
 	z-index: var(--selected-ocr-z-index);
 	rt {
