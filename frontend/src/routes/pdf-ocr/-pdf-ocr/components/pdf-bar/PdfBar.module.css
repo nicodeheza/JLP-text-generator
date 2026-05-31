@@ -3,6 +3,7 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 6px;
+	gap: 6px;
 
 	border-radius: 8px 8px 0 0;
 	background-color: var(--pdf-bar-bg);
@@ -29,9 +30,19 @@
 	}
 }
 
-@media (max-width: 450px) {
+@media (max-width: 550px) {
 	.bar {
 		flex-wrap: wrap;
+		gap: 6px;
+	}
+	.pageSelect {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 450px) {
+	.bar {
 		justify-content: center;
 		gap: 6px;
 	}
