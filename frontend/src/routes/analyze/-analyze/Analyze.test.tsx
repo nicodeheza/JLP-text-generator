@@ -66,7 +66,7 @@ describe('Analyze', () => {
 		await user.click(screen.getByRole('button', {name: /analice/i}))
 
 		await waitFor(() => {
-			expect(screen.getByText('Loading...')).toBeInTheDocument()
+			expect(screen.getByRole('status', {name: 'Loading'})).toBeInTheDocument()
 		})
 	})
 
@@ -148,7 +148,7 @@ describe('Analyze', () => {
 
 		await waitFor(() => {
 			// Check for furigana settings radio buttons
-			expect(screen.getByText('Furigana:')).toBeInTheDocument()
+			expect(screen.getByText('furigana')).toBeInTheDocument()
 			expect(screen.getByLabelText('Show')).toBeInTheDocument()
 			expect(screen.getByLabelText('Hide')).toBeInTheDocument()
 			expect(screen.getByLabelText('Hover')).toBeInTheDocument()

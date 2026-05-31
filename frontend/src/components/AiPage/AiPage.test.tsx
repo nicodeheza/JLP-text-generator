@@ -31,7 +31,7 @@ describe('AiPage', () => {
 		vi.mocked(userApi.getAiAuth).mockResolvedValue({auth: true})
 
 		render(
-			<AiPage explanation={<p>You need AI to use this.</p>}>
+			<AiPage toolTitle="AI Tool" toolDescription="You need AI to use this.">
 				<p>AI content</p>
 			</AiPage>
 		)
@@ -41,14 +41,16 @@ describe('AiPage', () => {
 		})
 
 		expect(screen.queryByText('You need AI to use this.')).not.toBeInTheDocument()
-		expect(screen.queryByRole('button', {name: /set up api key/i})).not.toBeInTheDocument()
+		expect(
+			screen.queryByRole('button', {name: /set up api key/i})
+		).not.toBeInTheDocument()
 	})
 
 	it('shows explanation and instructions when no API key', async () => {
 		vi.mocked(userApi.getAiAuth).mockResolvedValue({auth: false})
 
 		render(
-			<AiPage explanation={<p>You need AI to use this.</p>}>
+			<AiPage toolTitle="AI Tool" toolDescription="You need AI to use this.">
 				<p>AI content</p>
 			</AiPage>
 		)
@@ -68,7 +70,7 @@ describe('AiPage', () => {
 		vi.mocked(userApi.setAiAuth).mockResolvedValue(undefined)
 
 		render(
-			<AiPage explanation={<p>You need AI to use this.</p>}>
+			<AiPage toolTitle="AI Tool" toolDescription="You need AI to use this.">
 				<p>AI content</p>
 			</AiPage>
 		)

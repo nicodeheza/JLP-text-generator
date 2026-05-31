@@ -95,7 +95,12 @@ const Pages: FC<PagesProps> = ({
 }) => {
 	return (
 		<div className={styles.pageSelect}>
-			<Button variant="transparent" disabled={!totalPages} onClick={onPrev}>
+			<Button
+				variant="transparent"
+				disabled={!totalPages}
+				onClick={onPrev}
+				aria-label="previous page"
+			>
 				<Icon icon="chevron-left" />
 			</Button>
 			<input
@@ -107,7 +112,12 @@ const Pages: FC<PagesProps> = ({
 			/>
 			{'/'}
 			<output aria-label="Total pages">{totalPages ?? 0}</output>
-			<Button variant="transparent" disabled={!totalPages} onClick={onNext}>
+			<Button
+				variant="transparent"
+				disabled={!totalPages}
+				onClick={onNext}
+				aria-label="next page"
+			>
 				<Icon icon="chevron-right" />
 			</Button>
 		</div>

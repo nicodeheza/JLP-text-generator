@@ -390,7 +390,7 @@ describe('Text Generator', () => {
 
 		expect(textarea).toBeDisabled()
 		expect(submitButton).toBeDisabled()
-		expect(screen.getByText(/connecting/i)).toBeInTheDocument()
+		expect(screen.getByRole('status', {name: 'Loading'})).toBeInTheDocument()
 	})
 
 	it('generates text and displays paragraphs on successful generation', async () => {
@@ -403,13 +403,16 @@ describe('Text Generator', () => {
 		await user.type(textarea, 'Test prompt')
 		await user.click(submitButton)
 
-		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith('Test prompt', 'N5')
+		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith(
+			'Test prompt',
+			'N5'
+		)
 
 		// Simulate connection opened
 		mockEventSource.onopen?.({} as Event)
 
 		await waitFor(() => {
-			expect(screen.getByText(/generating text/i)).toBeInTheDocument()
+			expect(screen.getByRole('status', {name: 'Loading'})).toBeInTheDocument()
 		})
 
 		// Simulate receiving a paragraph
@@ -578,7 +581,10 @@ describe('Text Generator', () => {
 		await user.type(textarea, 'Test prompt')
 		await user.click(screen.getByRole('button', {name: 'Generate new text'}))
 
-		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith('Test prompt', 'N2')
+		expect(vi.mocked(generatorApi.generateEvent)).toHaveBeenCalledWith(
+			'Test prompt',
+			'N2'
+		)
 	})
 
 	it('saves level to storage when level changes', async () => {

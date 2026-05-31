@@ -43,7 +43,7 @@ async function uploadPdf(user: ReturnType<typeof userEvent.setup>) {
 	const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!
 	await user.upload(fileInput, testFile)
 	await waitFor(() => {
-		expect(screen.getByRole('button', {name: '>'})).not.toBeDisabled()
+		expect(screen.getByRole('button', {name: 'next page'})).not.toBeDisabled()
 	})
 }
 
@@ -80,7 +80,7 @@ describe('PdfOcr', () => {
 
 		// PDF loaded — nav buttons become enabled
 		await waitFor(() => {
-			expect(screen.getByRole('button', {name: '>'})).not.toBeDisabled()
+			expect(screen.getByRole('button', {name: 'next page'})).not.toBeDisabled()
 		})
 	})
 
@@ -94,7 +94,7 @@ describe('PdfOcr', () => {
 		await uploadPdf(user)
 
 		// Navigate to page 2
-		await user.click(screen.getByRole('button', {name: '>'}))
+		await user.click(screen.getByRole('button', {name: 'next page'}))
 		expect(screen.getByRole('spinbutton', {name: 'Page'})).toHaveValue(2)
 
 		// Simulate a full page refresh:
@@ -166,7 +166,7 @@ describe('PdfOcr', () => {
 
 		expect(screen.getByRole('spinbutton', {name: 'Page'})).toHaveValue(1)
 
-		await user.click(screen.getByRole('button', {name: '>'}))
+		await user.click(screen.getByRole('button', {name: 'next page'}))
 
 		const canvas = document.querySelector('canvas')
 		expect(mockPdf.renderPage).toHaveBeenCalledWith(canvas, 2)
@@ -182,11 +182,13 @@ describe('PdfOcr', () => {
 		})
 		await uploadPdf(user)
 
-		await user.click(screen.getByRole('button', {name: '>'}))
+		await user.click(screen.getByRole('button', {name: 'next page'}))
 		expect(screen.getByRole('spinbutton', {name: 'Page'})).toHaveValue(2)
 
 		const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!
-		const secondFile = new File(['pdf content 2'], 'second.pdf', {type: 'application/pdf'})
+		const secondFile = new File(['pdf content 2'], 'second.pdf', {
+			type: 'application/pdf'
+		})
 		await user.upload(fileInput, secondFile)
 
 		await waitFor(() => {
@@ -204,7 +206,7 @@ describe('PdfOcr', () => {
 		await uploadPdf(user)
 
 		// Navigate to page 2
-		await user.click(screen.getByRole('button', {name: '>'}))
+		await user.click(screen.getByRole('button', {name: 'next page'}))
 		expect(screen.getByRole('spinbutton', {name: 'Page'})).toHaveValue(2)
 
 		// Simulate navigating away — unmount without resetting the store,
@@ -236,13 +238,13 @@ describe('PdfOcr', () => {
 		await uploadPdf(user)
 
 		// Advance to page 2
-		await user.click(screen.getByRole('button', {name: '>'}))
+		await user.click(screen.getByRole('button', {name: 'next page'}))
 		const canvas = document.querySelector('canvas')
 		expect(mockPdf.renderPage).toHaveBeenCalledWith(canvas, 2)
 		expect(screen.getByRole('spinbutton', {name: 'Page'})).toHaveValue(2)
 
 		// Go back to page 1
-		await user.click(screen.getByRole('button', {name: '<'}))
+		await user.click(screen.getByRole('button', {name: 'previous page'}))
 		expect(mockPdf.renderPage).toHaveBeenCalledWith(canvas, 1)
 		expect(screen.getByRole('spinbutton', {name: 'Page'})).toHaveValue(1)
 	})
@@ -337,14 +339,14 @@ describe('PdfOcr', () => {
 			await uploadPdf(user)
 
 			await waitFor(() => {
-				expect(screen.getByRole('button', {name: 'OCR Document'})).not.toBeDisabled()
+				expect(screen.getByRole('button', {name: 'Run OCR'})).not.toBeDisabled()
 			})
 
 			vi.mocked(ocrInfrastructure.detect).mockReturnValue(new Promise(() => {}))
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
-			const ocrButton = screen.getByRole('button', {name: 'OCR Loading'})
+			const ocrButton = screen.getByRole('button', {name: 'Loading OCR'})
 			expect(ocrButton).toBeDisabled()
 		})
 
@@ -358,10 +360,10 @@ describe('PdfOcr', () => {
 			await uploadPdf(user)
 
 			await waitFor(() => {
-				expect(screen.getByRole('button', {name: 'OCR Document'})).not.toBeDisabled()
+				expect(screen.getByRole('button', {name: 'Run OCR'})).not.toBeDisabled()
 			})
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
 			await waitFor(() => {
 				expect(screen.getByText('認識')).toBeInTheDocument()
@@ -379,10 +381,10 @@ describe('PdfOcr', () => {
 			await uploadPdf(user)
 
 			await waitFor(() => {
-				expect(screen.getByRole('button', {name: 'OCR Document'})).not.toBeDisabled()
+				expect(screen.getByRole('button', {name: 'Run OCR'})).not.toBeDisabled()
 			})
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
 			await waitFor(() => {
 				expect(screen.getByText('認識')).toBeInTheDocument()
@@ -411,7 +413,7 @@ describe('PdfOcr', () => {
 				]
 			})
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
 			await waitFor(() => {
 				expect(screen.getByText('新しい')).toBeInTheDocument()
@@ -430,10 +432,10 @@ describe('PdfOcr', () => {
 			await uploadPdf(user)
 
 			await waitFor(() => {
-				expect(screen.getByRole('button', {name: 'OCR Document'})).not.toBeDisabled()
+				expect(screen.getByRole('button', {name: 'Run OCR'})).not.toBeDisabled()
 			})
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
 			await waitFor(() => {
 				expect(screen.getByText('認識')).toBeInTheDocument()
@@ -464,10 +466,10 @@ describe('PdfOcr', () => {
 			await uploadPdf(user)
 
 			await waitFor(() => {
-				expect(screen.getByRole('button', {name: 'OCR Document'})).not.toBeDisabled()
+				expect(screen.getByRole('button', {name: 'Run OCR'})).not.toBeDisabled()
 			})
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
 			await waitFor(() => {
 				expect(analyzeApi.getBulkTextAnalyzedRes).toHaveBeenCalledWith(['認識', 'テスト'])
@@ -489,10 +491,10 @@ describe('PdfOcr', () => {
 			await uploadPdf(user)
 
 			await waitFor(() => {
-				expect(screen.getByRole('button', {name: 'OCR Document'})).not.toBeDisabled()
+				expect(screen.getByRole('button', {name: 'Run OCR'})).not.toBeDisabled()
 			})
 
-			await user.click(screen.getByRole('button', {name: 'OCR Document'}))
+			await user.click(screen.getByRole('button', {name: 'Run OCR'}))
 
 			await waitFor(() => {
 				expect(screen.getByText('認識')).toBeInTheDocument()
