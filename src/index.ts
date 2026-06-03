@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import routes from './routes.js'
 import {CONFIG} from './config.js'
+import {logger, httpLogger} from './utils/logger.js'
 import {join, dirname} from 'path'
 import {fileURLToPath} from 'url'
 const __filename = fileURLToPath(import.meta.url)
@@ -16,7 +17,7 @@ function onExit() {
 			try {
 				DictDb.close()
 			} catch (e) {
-				console.error(e)
+				logger.error(e, 'Error closing database on exit')
 			} finally {
 				process.exit()
 			}
@@ -33,6 +34,7 @@ async function main() {
 	setup()
 	const app = express()
 
+	app.use(httpLogger)
 	app.use(express.json())
 	app.use(cookieParser())
 
@@ -50,8 +52,8 @@ async function main() {
 	}
 
 	app.listen(CONFIG.PORT, () => {
-		console.log(`App listening on port ${CONFIG.PORT}`)
+		logger.info(`App listening on port ${CONFIG.PORT}`)
 	})
 }
 
-main().catch(console.error)
+main().catch((err) => logger.error(err, 'Fatal error'))

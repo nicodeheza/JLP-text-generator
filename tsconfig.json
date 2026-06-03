@@ -3,6 +3,7 @@
 		"target": "es2020",
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
+		"moduleDetection": "force",
 		"allowImportingTsExtensions": false,
 		"rootDir": "./src",
 		"outDir": "./dist",

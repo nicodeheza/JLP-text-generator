@@ -8,5 +8,6 @@ export const CONFIG = {
 	PORT: process.env.NODE_ENV === 'production' ? process.env.PORT : '4000',
 	IS_PROD: process.env.NODE_ENV === 'production',
 	AI_KEY_SECRET: requireEnv('AI_KEY_SECRET'),
-	FRONTEND_URL: process.env.FRONTEND_URL ?? 'http://localhost:5173'
+	FRONTEND_URL: process.env.FRONTEND_URL ?? 'http://localhost:5173',
+	LOG_LEVEL: process.env.LOG_LEVEL ?? 'info'
 } as const

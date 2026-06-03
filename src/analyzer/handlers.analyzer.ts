@@ -1,6 +1,7 @@
 import {Request, Response} from 'express'
 import {analyzeText, analyzeBulk} from './service.analyzer.js'
 import {isStringArray} from './validations.analyzer.js'
+import {logger} from '../utils/logger.js'
 
 export async function analyzeTextHandler(req: Request, res: Response) {
 	const {text} = req.body as {text?: string}
@@ -15,7 +16,7 @@ export async function analyzeTextHandler(req: Request, res: Response) {
 		const result = await analyzeText(text)
 		res.json(result)
 	} catch (error) {
-		console.error(error)
+		logger.error(error, 'Error analyzing text')
 		res.status(500).json({error: 'Internal server error'})
 	}
 }
@@ -32,7 +33,7 @@ export async function analyzeBulkHandler(req: Request, res: Response) {
 		const result = await analyzeBulk(texts)
 		res.json(result)
 	} catch (error) {
-		console.error(error)
+		logger.error(error, 'Error analyzing bulk texts')
 		res.status(500).json({error: 'Internal server error'})
 	}
 }

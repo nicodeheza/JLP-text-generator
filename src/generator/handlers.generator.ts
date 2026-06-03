@@ -3,6 +3,7 @@ import {generateAnalizadStoryStream} from './service.generator.js'
 import {getSseMessage} from '../utils/utils.js'
 import {isValidJLPTLevel} from './validations.generator.js'
 import {AiKeyLocals} from '../middleware/decrypt-ai-key.middleware.js'
+import {logger} from '../utils/logger.js'
 
 export async function generateStoryHandler(req: Request, res: Response<any, AiKeyLocals>) {
 	const {p: prompt, l: level} = req.query as Record<string, string>
@@ -25,7 +26,7 @@ export async function generateStoryHandler(req: Request, res: Response<any, AiKe
 
 		res.end(getSseMessage(JSON.stringify({message: 'done'})))
 	} catch (error) {
-		console.error(error)
+		logger.error(error, 'Error generating story')
 		res.end(getSseMessage(JSON.stringify({message: 'error', error})))
 	}
 }
