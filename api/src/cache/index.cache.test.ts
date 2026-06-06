@@ -1,5 +1,5 @@
-import {describe, it, expect, beforeEach} from 'vitest'
-import {Cache} from './index.cache.js'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { Cache } from './index.cache.js'
 
 describe('Cache', () => {
   let cache: Cache<string>
@@ -186,9 +186,9 @@ describe('Cache', () => {
     })
 
     it('should work with object values', () => {
-      const objCache = new Cache<{name: string}>(2)
-      objCache.add('user', {name: 'Alice'})
-      expect(objCache.get('user')).toEqual({name: 'Alice'})
+      const objCache = new Cache<{ name: string }>(2)
+      objCache.add('user', { name: 'Alice' })
+      expect(objCache.get('user')).toEqual({ name: 'Alice' })
     })
   })
 })

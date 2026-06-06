@@ -1,3 +1,3 @@
 export interface AiAuthBody {
-	apiKey: string
+  apiKey: string
 }

@@ -1,18 +1,18 @@
 .container {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-	flex: 1 1 0;
+  flex: 1 1 0;
 
-	h1 {
-		font-family: Noto Serif;
-		color: var(--text-accent);
-		margin: 0;
-		text-wrap: nowrap;
-	}
+  h1 {
+    font-family: Noto Serif;
+    color: var(--text-accent);
+    margin: 0;
+    text-wrap: nowrap;
+  }
 
-	p {
-		margin: 0;
-	}
+  p {
+    margin: 0;
+  }
 }

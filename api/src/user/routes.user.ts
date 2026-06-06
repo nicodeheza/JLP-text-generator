@@ -1,5 +1,5 @@
-import {Router} from 'express'
-import {aiAuthHandler, getAiAuthHandler, deleteAiAuthHandler} from './handlers.user.js'
+import { Router } from 'express'
+import { aiAuthHandler, getAiAuthHandler, deleteAiAuthHandler } from './handlers.user.js'
 
 const router = Router()
 

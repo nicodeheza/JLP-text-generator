@@ -1,4 +1,4 @@
-import {Router} from 'express'
+import { Router } from 'express'
 import generatorRoutes from './generator/routes.generator.js'
 import analyzerRoutes from './analyzer/routes.analyzer.js'
 import userRoutes from './user/routes.user.js'

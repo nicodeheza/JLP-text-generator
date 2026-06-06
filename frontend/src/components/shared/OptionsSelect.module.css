@@ -1,87 +1,87 @@
 /* Visually hide the radio input while keeping it accessible */
 .input {
-	position: absolute;
-	opacity: 0;
-	width: 0;
-	height: 0;
-	margin: 0;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
 }
 
 /* ─── Pills variant ─────────────────────────────────────────────────────── */
 
 .pills {
-	display: flex;
-	align-items: center;
-	gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .pills .option {
-	display: flex;
+  display: flex;
 }
 
 .pills .label {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 6px 16px;
-	border-radius: 999px;
-	border: 1px solid var(--pill-border);
-	background: var(--pill-bk);
-	color: var(--pill-color);
-	font-size: 0.875rem;
-	font-weight: 600;
-	cursor: pointer;
-	user-select: none;
-	transition:
-		background 0.15s,
-		color 0.15s,
-		border-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--pill-border);
+  background: var(--pill-bk);
+  color: var(--pill-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
 
 .pills .input:checked + .label {
-	background: var(--pill-bk-selected);
-	color: var(--pill-color-selected);
-	border-color: var(--pill-bk-selected);
+  background: var(--pill-bk-selected);
+  color: var(--pill-color-selected);
+  border-color: var(--pill-bk-selected);
 }
 
 /* ─── Rectangle (segmented control) variant ─────────────────────────────── */
 
 .rectangle {
-	display: flex;
-	align-items: center;
-	gap: 0;
-	background: var(--pill-bk);
-	border: 1px solid var(--pill-border);
-	border-radius: 8px;
-	padding: 3px;
-	width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--pill-bk);
+  border: 1px solid var(--pill-border);
+  border-radius: 8px;
+  padding: 3px;
+  width: fit-content;
 }
 
 .rectangle .option {
-	display: flex;
+  display: flex;
 }
 
 .rectangle .label {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 5px 14px;
-	border-radius: 6px;
-	background: transparent;
-	color: var(--pill-color);
-	font-size: 0.875rem;
-	font-weight: 600;
-	cursor: pointer;
-	user-select: none;
-	transition:
-		background 0.15s,
-		color 0.15s,
-		box-shadow 0.15s;
-	white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--pill-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
+  white-space: nowrap;
 }
 
 .rectangle .input:checked + .label {
-	background: var(--rect-pill-bk);
-	color: var(--rect-pill-color);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--rect-pill-bk);
+  color: var(--rect-pill-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }

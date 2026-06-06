@@ -1,95 +1,95 @@
 .result {
-	padding: 24px;
+  padding: 24px;
 
-	display: flex;
-	flex-direction: column;
-	gap: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
 .header {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .settings {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .cardContent {
-	padding: 0 5vw 3rem 5vw;
+  padding: 0 5vw 3rem 5vw;
 }
 
 .paragraph {
-	text-align: left;
+  text-align: left;
 }
 
 .text {
-	font-size: 1.3rem;
-	text-align: left;
+  font-size: 1.3rem;
+  text-align: left;
 }
 
 .prompt {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	gap: 20px;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
 }
 
 .prompt > textarea {
-	box-sizing: border-box;
-	width: 100%;
-	height: 6rem;
-	resize: none;
-	border: none;
-	background-color: var(--element-bg);
-	color: var(--text);
-	border-radius: 10px;
-	padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 6rem;
+  resize: none;
+  border: none;
+  background-color: var(--element-bg);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px;
 
-	font-size: 1rem;
+  font-size: 1rem;
 }
 
 .prompt > textarea:focus {
-	outline: 1px solid var(--card-border);
+  outline: 1px solid var(--card-border);
 }
 
 .submit {
-	padding: 10px 20px;
+  padding: 10px 20px;
 }
 
 @media (max-width: 1167px) {
-	.result {
-		gap: 25px;
-	}
-	.header {
-		align-items: flex-start;
-	}
-	.settings {
-		flex: 0 1;
-	}
+  .result {
+    gap: 25px;
+  }
+  .header {
+    align-items: flex-start;
+  }
+  .settings {
+    flex: 0 1;
+  }
 }
 @media (max-width: 700px) {
-	.text {
-		font-size: 1rem;
-	}
-	.prompt {
-		textarea {
-			font-size: 0.8rem;
-			height: 8rem;
-		}
-	}
+  .text {
+    font-size: 1rem;
+  }
+  .prompt {
+    textarea {
+      font-size: 0.8rem;
+      height: 8rem;
+    }
+  }
 }
 
 @media (max-width: 400px) {
-	.prompt {
-		align-items: center;
-	}
+  .prompt {
+    align-items: center;
+  }
 }

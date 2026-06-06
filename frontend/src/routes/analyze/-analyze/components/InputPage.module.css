@@ -1,38 +1,38 @@
 .textarea {
-	width: 100%;
-	max-width: 100%;
-	min-height: 60svh;
+  width: 100%;
+  max-width: 100%;
+  min-height: 60svh;
 
-	color: var(--text);
-	background-color: transparent;
+  color: var(--text);
+  background-color: transparent;
 
-	border: none;
-	border-radius: 10px;
+  border: none;
+  border-radius: 10px;
 
-	font-size: 1rem;
+  font-size: 1rem;
 
-	outline: none;
+  outline: none;
 
-	padding: 8px;
-	box-sizing: border-box;
+  padding: 8px;
+  box-sizing: border-box;
 }
 .textarea:focus {
-	outline: solid 1px var(--card-border);
+  outline: solid 1px var(--card-border);
 }
 
 .buttonContainer {
-	padding-top: 12px;
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
+  padding-top: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 
-	button {
-		padding: 8px 24px;
-	}
+  button {
+    padding: 8px 24px;
+  }
 }
 
 @media (max-width: 700px) {
-	.textarea {
-		font-size: 0.8rem;
-	}
+  .textarea {
+    font-size: 0.8rem;
+  }
 }

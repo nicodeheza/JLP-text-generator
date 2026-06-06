@@ -1,50 +1,50 @@
-import {CONFIG} from '../config'
-import {post} from './base.api'
+import { CONFIG } from '../config'
+import { post } from './base.api'
 
 export function getTextAnalyzeRes(text: string): Promise<AnalyzeRes> {
-	return post<AnalyzeRes>(
-		`${CONFIG.API_URL}/analyze`,
-		{text},
-		{default: 'Error getting analyzed text'}
-	)
+  return post<AnalyzeRes>(
+    `${CONFIG.API_URL}/analyze`,
+    { text },
+    { default: 'Error getting analyzed text' }
+  )
 }
 
 export function getBulkTextAnalyzedRes(texts: string[]): Promise<BulkAnalyzeRes> {
-	return post<BulkAnalyzeRes>(`${CONFIG.API_URL}/analyze/bulk`, texts, {
-		default: 'Error getting analyzed text'
-	})
+  return post<BulkAnalyzeRes>(`${CONFIG.API_URL}/analyze/bulk`, texts, {
+    default: 'Error getting analyzed text',
+  })
 }
 
 interface AnalyzeRes {
-	tokens: Token[]
-	dict: Dict
+  tokens: Token[]
+  dict: Dict
 }
 interface BulkAnalyzeRes {
-	dict: Dict
-	result: Token[][]
+  dict: Dict
+  result: Token[][]
 }
 
 type Token =
-	| {
-			original: string
-			isWord: true
-			basicForm: string
-			furigana?: string
-			dictIds: string[]
-	  }
-	| {
-			original: string
-			isWord: false
-	  }
+  | {
+      original: string
+      isWord: true
+      basicForm: string
+      furigana?: string
+      dictIds: string[]
+    }
+  | {
+      original: string
+      isWord: false
+    }
 
-type Dict = {[id: string]: Word}
+type Dict = { [id: string]: Word }
 
 interface Word {
-	kana: string[]
-	kanji: string[]
-	sense: Sense[]
+  kana: string[]
+  kanji: string[]
+  sense: Sense[]
 }
 interface Sense {
-	pos: string[]
-	gloss: string[]
+  pos: string[]
+  gloss: string[]
 }

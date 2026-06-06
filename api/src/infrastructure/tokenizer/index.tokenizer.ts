@@ -1,4 +1,4 @@
-import {tokenize as mecabTokenize, Token} from '@enjoyjs/node-mecab'
+import { tokenize as mecabTokenize, Token } from '@enjoyjs/node-mecab'
 
 export type MecabToken = Pick<Token, 'id' | 'surface' | 'feature'>
 

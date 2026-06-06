@@ -1,5 +1,5 @@
 export const env = {
-	wasm: {
-		numThreads: 1
-	}
+  wasm: {
+    numThreads: 1,
+  },
 }

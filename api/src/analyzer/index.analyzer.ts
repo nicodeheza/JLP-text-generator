@@ -1,1 +1,1 @@
-export {analyzeText} from './service.analyzer.js'
+export { analyzeText } from './service.analyzer.js'

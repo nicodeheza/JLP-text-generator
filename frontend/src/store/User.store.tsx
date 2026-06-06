@@ -1,22 +1,22 @@
-import {create} from 'zustand'
-import type {IsAiSetup} from '../types/user.types'
+import { create } from 'zustand'
+import type { IsAiSetup } from '../types/user.types'
 
 interface UserStore {
-	aiEnabled: IsAiSetup
-	updateAiEnabled: (update: IsAiSetup) => void
+  aiEnabled: IsAiSetup
+  updateAiEnabled: (update: IsAiSetup) => void
 }
 
 const useStore = create<UserStore>((set) => ({
-	aiEnabled: undefined,
-	updateAiEnabled: (update) => {
-		set({aiEnabled: update})
-	}
+  aiEnabled: undefined,
+  updateAiEnabled: (update) => {
+    set({ aiEnabled: update })
+  },
 }))
 
 export function useUserStore() {
-	return useStore((store) => store)
+  return useStore((store) => store)
 }
 
 export function clearUserStore() {
-	useStore.setState({aiEnabled: undefined})
+  useStore.setState({ aiEnabled: undefined })
 }

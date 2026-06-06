@@ -1,47 +1,43 @@
 interface ErrorsMap {
-	default: string
-	[status: number]: string
+  default: string
+  [status: number]: string
 }
 
 export async function get<T>(url: string, errorMap: ErrorsMap): Promise<T> {
-	const res = await fetch(url, {credentials: 'include'})
-	return getData(res, errorMap)
+  const res = await fetch(url, { credentials: 'include' })
+  return getData(res, errorMap)
 }
 
 export async function del<T>(url: string, errorMap: ErrorsMap): Promise<T> {
-	const res = await fetch(url, {method: 'DELETE', credentials: 'include'})
-	return getData(res, errorMap)
+  const res = await fetch(url, { method: 'DELETE', credentials: 'include' })
+  return getData(res, errorMap)
 }
 
-export async function post<T>(
-	url: string,
-	body: object,
-	errorMap: ErrorsMap
-): Promise<T> {
-	const res = await fetch(url, {
-		method: 'POST',
-		body: JSON.stringify(body),
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		credentials: 'include'
-	})
+export async function post<T>(url: string, body: object, errorMap: ErrorsMap): Promise<T> {
+  const res = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
 
-	return getData(res, errorMap)
+  return getData(res, errorMap)
 }
 
 async function getData<T>(res: Response, errorMap: ErrorsMap): Promise<T> {
-	const data = await res.json()
+  const data = await res.json()
 
-	if (!res.ok) {
-		console.error({
-			status: res.status,
-			data: data
-		})
+  if (!res.ok) {
+    console.error({
+      status: res.status,
+      data: data,
+    })
 
-		const error = errorMap[res.status] ?? errorMap.default
-		throw new Error(error)
-	}
+    const error = errorMap[res.status] ?? errorMap.default
+    throw new Error(error)
+  }
 
-	return data
+  return data
 }

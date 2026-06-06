@@ -1,45 +1,45 @@
 .button {
-	border-radius: 6px;
-	padding: 4px 16px;
-	cursor: pointer;
+  border-radius: 6px;
+  padding: 4px 16px;
+  cursor: pointer;
 
-	white-space: nowrap;
-	width: fit-content;
+  white-space: nowrap;
+  width: fit-content;
 
-	font-weight: 600;
+  font-weight: 600;
 
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .button:disabled {
-	background-color: #6f6f6f;
-	border: solid 1px #9f9f9f;
+  background-color: #6f6f6f;
+  border: solid 1px #9f9f9f;
 
-	cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .primary {
-	background-color: var(--button-primary-bg);
-	color: var(--button-primary-color);
-	border: none;
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
+  border: none;
 }
 
 .secondary {
-	background: var(--button-secondary-bg);
-	color: var(--button-secondary-color);
-	border: solid 1px var(--button-secondary-border);
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-color);
+  border: solid 1px var(--button-secondary-border);
 }
 
 .transparent {
-	background-color: transparent;
-	border: none;
-	color: var(--text-label);
+  background-color: transparent;
+  border: none;
+  color: var(--text-label);
 }
 
 .danger {
-	background-color: var(--button-danger-bg);
-	color: var(--button-danger-color);
-	border: solid 1px var(--button-danger-border);
+  background-color: var(--button-danger-bg);
+  color: var(--button-danger-color);
+  border: solid 1px var(--button-danger-border);
 }

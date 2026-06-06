@@ -1,22 +1,22 @@
 .translation {
-	display: flex;
-	gap: 12px;
-	align-items: flex-start;
-	max-height: fit-content;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  max-height: fit-content;
 
-	min-height: 2rem;
+  min-height: 2rem;
 }
 
 .translation > p {
-	padding: 4px;
-	margin: 0;
+  padding: 4px;
+  margin: 0;
 }
 
 @media (max-width: 950px) {
-	.translation {
-		flex-direction: column;
-		align-items: flex-start;
-		font-size: 0.8rem;
-		gap: 0;
-	}
+  .translation {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.8rem;
+    gap: 0;
+  }
 }

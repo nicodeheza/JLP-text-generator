@@ -1,1 +1,1 @@
-export {getByKanaAndMecabPos, getByKanjiAndMecabPos} from './service.dict.js'
+export { getByKanaAndMecabPos, getByKanjiAndMecabPos } from './service.dict.js'

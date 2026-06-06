@@ -1,14 +1,14 @@
 .page {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 50px;
 }
 .header {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-between;
-	padding-top: 24px;
-	flex-wrap: wrap;
-	gap: 12px 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 24px;
+  flex-wrap: wrap;
+  gap: 12px 24px;
 }

@@ -1,5 +1,5 @@
-import {Router} from 'express'
-import {analyzeTextHandler, analyzeBulkHandler} from './handlers.analyzer.js'
+import { Router } from 'express'
+import { analyzeTextHandler, analyzeBulkHandler } from './handlers.analyzer.js'
 
 const router = Router()
 

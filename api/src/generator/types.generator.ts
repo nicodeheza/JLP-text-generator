@@ -1,48 +1,48 @@
 export type AiStreamingResponse = AsyncGenerator<string>
 export interface AiTextGenerationArgs {
-	prompt: string
-	systemInstructions: string
+  prompt: string
+  systemInstructions: string
 }
 
 type Token =
-	| {
-			original: string
-			isWord: true
-			basicForm: string
-			furigana?: string
-			dictIds: string[]
-	  }
-	| {
-			original: string
-			isWord: false
-	  }
+  | {
+      original: string
+      isWord: true
+      basicForm: string
+      furigana?: string
+      dictIds: string[]
+    }
+  | {
+      original: string
+      isWord: false
+    }
 
 interface Word {
-	kana: string[]
-	kanji: string[]
-	sense: Sense[]
+  kana: string[]
+  kanji: string[]
+  sense: Sense[]
 }
 interface Sense {
-	pos: string[]
-	gloss: string[]
+  pos: string[]
+  gloss: string[]
 }
 
 export interface Dict {
-	[id: string]: Word
+  [id: string]: Word
 }
 
 export interface Analyzed {
-	tokens: Token[]
-	dict: Dict
+  tokens: Token[]
+  dict: Dict
 }
 
 export interface AnalyzedStoryChunk {
-	paragraph: {
-		text: string
-		translation: string
-		tokens: Token[]
-	}
-	dict: Dict
+  paragraph: {
+    text: string
+    translation: string
+    tokens: Token[]
+  }
+  dict: Dict
 }
 
 export const VALID_LEVELS = ['N1', 'N2', 'N3', 'N4', 'N5'] as const

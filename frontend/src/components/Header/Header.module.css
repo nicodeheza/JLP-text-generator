@@ -1,63 +1,63 @@
 .header {
-	padding: 15px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .nav {
-	display: flex;
-	gap: 24px;
-	flex-wrap: wrap;
-	justify-content: center;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .link {
-	font-style: normal;
-	text-decoration: none;
-	color: var(--text);
-	padding-bottom: 0.3rem;
-	text-wrap: nowrap;
+  font-style: normal;
+  text-decoration: none;
+  color: var(--text);
+  padding-bottom: 0.3rem;
+  text-wrap: nowrap;
 }
 .active {
-	font-weight: 700;
-	color: var(--text-accent);
-	border-bottom: solid;
+  font-weight: 700;
+  color: var(--text-accent);
+  border-bottom: solid;
 }
 
 .gitHub {
-	color: var(--text-accent);
-	font-size: 1.5rem;
+  color: var(--text-accent);
+  font-size: 1.5rem;
 }
 
 .right {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 @media (max-width: 800px) {
-	.iaSettings {
-		border: none !important;
-		padding: 5px !important;
-		font-size: 1.2rem;
-		span {
-			display: none;
-		}
-	}
+  .iaSettings {
+    border: none !important;
+    padding: 5px !important;
+    font-size: 1.2rem;
+    span {
+      display: none;
+    }
+  }
 }
 
 @media (max-width: 700px) {
-	.header {
-		flex-wrap: wrap;
-		padding: 0;
-	}
+  .header {
+    flex-wrap: wrap;
+    padding: 0;
+  }
 
-	.nav {
-		order: 3;
-		width: 100%;
-		gap: 16px;
+  .nav {
+    order: 3;
+    width: 100%;
+    gap: 16px;
 
-		/* padding-top: 6px; */
-	}
+    /* padding-top: 6px; */
+  }
 }
