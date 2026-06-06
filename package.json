@@ -6,6 +6,7 @@
     "dev": "pnpm --parallel -r dev",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "format": "pnpm -r format"
+    "format": "pnpm -r format",
+    "check": "pnpm -r check"
   }
 }

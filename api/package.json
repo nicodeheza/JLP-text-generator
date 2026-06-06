@@ -11,7 +11,8 @@
     "dict:push": "drizzle-kit push --config drizzle.config.dict.ts",
     "test": "vitest",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "check": "tsc --noEmit && prettier --check . && eslint ."
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
