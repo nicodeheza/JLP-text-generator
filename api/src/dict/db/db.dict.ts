@@ -7,7 +7,7 @@ import * as schema from './schema.dict.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-export const DB_PATH = join(__dirname, '../../jmDict/dictDb.db')
+export const DB_PATH = join(__dirname, '../../../jmDict/dictDb.db')
 
 export class DictDb {
 	private static db: Database.Database | undefined

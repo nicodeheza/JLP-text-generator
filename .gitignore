@@ -1,10 +1,9 @@
-api/node_modules
+**/node_modules
 api/jmDict
 api/dist
-frontend/node_modules
 frontend/dist
 .vscode
-yarn-error.log
+pnpm-debug.log
 frontend/src/assets/*
 
 plan.md
