@@ -15,5 +15,5 @@
 		"skipLibCheck": true,
 		"typeRoots": ["./src/types", "./node_modules/@types"]
 	},
-	"exclude": ["frontend", "drizzle.config.dict.ts", "**/*.test.ts"]
+	"exclude": ["drizzle.config.dict.ts", "**/*.test.ts"]
 }

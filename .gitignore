@@ -1,9 +1,11 @@
-node_modules
-.env
-jmDict
-dist
+api/node_modules
+api/jmDict
+api/dist
+frontend/node_modules
+frontend/dist
 .vscode
 yarn-error.log
 frontend/src/assets/*
 
 plan.md
+.env

@@ -45,9 +45,10 @@ async function main() {
 	app.use('/api', routes)
 
 	if (CONFIG.IS_PROD) {
-		app.use(express.static(join(__dirname, '..', 'frontend', 'dist')))
+		// TODO: remove static frontend serving — frontend will be a separate app
+		app.use(express.static(join(__dirname, '../../..', 'frontend', 'dist')))
 		app.get('/', (req, res) =>
-			res.sendFile(join(__dirname, '..', 'frontend', 'dist', 'index.html'))
+			res.sendFile(join(__dirname, '../../..', 'frontend', 'dist', 'index.html'))
 		)
 	}
 
