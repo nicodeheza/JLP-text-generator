@@ -5,7 +5,7 @@ import { isValidJLPTLevel } from './validations.generator.js'
 import { AiKeyLocals } from '../middleware/decrypt-ai-key.middleware.js'
 import { logger } from '../utils/logger.js'
 
-export async function generateStoryHandler(req: Request, res: Response<any, AiKeyLocals>) {
+export async function generateStoryHandler(req: Request, res: Response<unknown, AiKeyLocals>) {
   const { p: prompt, l: level } = req.query as Record<string, string>
 
   if (!isValidJLPTLevel(level)) {

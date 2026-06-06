@@ -9,7 +9,7 @@ function buildApp() {
   const app = express()
   app.use(cookieParser())
   app.use(decryptAiKeyMiddleware)
-  app.get('/test', (req: Request, res: Response<any, AiKeyLocals>) => {
+  app.get('/test', (req: Request, res: Response<unknown, AiKeyLocals>) => {
     res.status(200).json({ aiKey: res.locals.aiKey })
   })
   return app

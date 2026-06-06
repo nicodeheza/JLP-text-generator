@@ -71,7 +71,7 @@ async function getDictWords(word: string, pos: string) {
     const { id, ...rest } = r
     return {
       ...acc,
-      [r.id]: rest,
+      [id]: rest,
     }
   }, {} satisfies Dict)
 
@@ -84,7 +84,7 @@ async function getDictResult(
 ): Promise<{ ids: string[]; dict: Dict }[]> {
   const wordEntries: WordEntry[] = []
 
-  mecabTokens.forEach((mecabToken, i) => {
+  mecabTokens.forEach((mecabToken) => {
     const pos = getPos(mecabToken)
     if (pos && !noWord.has(pos)) {
       wordEntries.push({

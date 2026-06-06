@@ -7,7 +7,7 @@ export type AiKeyLocals = {
 
 export function decryptAiKeyMiddleware(
   req: Request,
-  res: Response<any, AiKeyLocals>,
+  res: Response<unknown, AiKeyLocals>,
   next: NextFunction
 ): void {
   const encrypted = req.cookies?.['ai_key']
