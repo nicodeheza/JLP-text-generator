@@ -1,0 +1,15 @@
+# Exclude everything by default
+**
+
+# Only include the api/ source directores
+!api/src/
+!api/jmDict/
+api/jmDict/**
+!api/drizzle.config.dict.ts
+!api/package.json
+!api/tsconfig.json
+
+# Include pnpm files an package.json
+!pnpm-lock.yaml
+!package.json
+!pnpm-workspace.yaml
