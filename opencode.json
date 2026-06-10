@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "agents-md": {
+      "description": "Create or update AGENTS.md files for the project and its packages",
+      "template": "You are generating AGENTS.md files for a pnpm workspace project called ja-tools.\\n\\n## Rules\\n- Be concise - write the minimum necessary content\\n- Use inline comments in file trees (e.g., src/ # source code)\\n- Update existing files if they exist, create if they don't\\n- All AGENTS.md files should be as short as possible\\n\\n## Root AGENTS.md\\nCreate at ./AGENTS.md with:\\n- Project name as title\\n- 1-2 line description\\n- Project tree (first level only, inline comments)\\n- pnpm workspace note\\n- Useful commands table (install, dev, test, lint, check)\\n- Links to package AGENTS.md files\\n\\n## Package AGENTS.md files\\nCreate/update AGENTS.md in each package found in the pnpm workspace (use pnpm list --depth -1 to discover packages). With:\\n- Package name as title\\n- 1-2 line description\\n- Useful commands table using pnpm --filter <package> pattern\\n- File tree with inline comments (include important nested files)\\n\\nStart by reading any existing AGENTS.md files and running pnpm list --depth -1 to discover all packages, then generate all AGENTS.md files.",
+      "agent":"build"
+    }
+  }
+}
