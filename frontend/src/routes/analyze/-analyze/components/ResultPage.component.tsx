@@ -3,7 +3,6 @@ import { AnalyzedText } from '../../../../components/analyzed-text/AnalyzedText.
 import { Button } from '../../../../components/Button/Button.component'
 import type { AnalyzeData } from '../analyze.types'
 import styles from './ResultPage.module.css'
-import { Card } from '../../../../components/Card/Card.component'
 import { Icon } from '../../../../components/Icon/Icons.component'
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
 
 export const ResultPage: FC<Props> = ({ data, onClear }) => {
   return (
-    <Card className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.buttonContainer}>
         <Button variant="transparent" onClick={onClear}>
           <Icon icon="trash" /> Clear
@@ -24,6 +23,6 @@ export const ResultPage: FC<Props> = ({ data, onClear }) => {
           <AnalyzedText tokens={data.tokens} dict={data.dict} />
         </p>
       </div>
-    </Card>
+    </div>
   )
 }

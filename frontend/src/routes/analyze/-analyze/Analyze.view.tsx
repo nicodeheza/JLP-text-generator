@@ -7,13 +7,10 @@ import { LoadingDots } from '../../../components/LoadingDots/LoadingDots.compone
 import { ToolDescription } from '../../../components/ToolDescription/ToolDescription.component'
 import { FuriganaSettings } from '../../../components/settings/FuriganaSettings.component'
 import styles from './Analyze.module.css'
+import { Card } from '../../../components/Card/Card.component'
 
 export const Analyze: FC = () => {
   const { status, data, error, analyzeText, removeData } = useAnalyzedText()
-
-  if (status === 'loading') {
-    return <LoadingDots />
-  }
 
   if (status === 'error' && error) {
     return <ErrorMessage message={error.message} />
@@ -29,11 +26,15 @@ export const Analyze: FC = () => {
         <FuriganaSettings />
       </div>
 
-      {status === 'success' ? (
-        <ResultPage data={data} onClear={removeData} />
-      ) : (
-        <InputPage onSubmit={analyzeText} />
-      )}
+      <Card>
+        {status === 'loading' ? (
+          <LoadingDots />
+        ) : status === 'success' ? (
+          <ResultPage data={data} onClear={removeData} />
+        ) : (
+          <InputPage onSubmit={analyzeText} />
+        )}
+      </Card>
     </div>
   )
 }
