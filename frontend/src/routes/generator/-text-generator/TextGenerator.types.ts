@@ -1,9 +1,9 @@
-import type { Dict, Token } from '../../../types/analyzedText.types'
+import type { TokenRes, Dict } from '../../../types/analyzedText.types'
 
 export interface Paragraph {
   text: string
   translation: string
-  tokens: Token[]
+  tokens: TokenRes[]
 }
 
 interface AnalyzedStoryChunk {

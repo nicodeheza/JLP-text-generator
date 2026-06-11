@@ -1,9 +1,9 @@
 import type { FC } from 'react'
-import type { Dict, Token } from '../../types/analyzedText.types'
+import type { Dict, TokenRes } from '../../types/analyzedText.types'
 import { TokenComponent } from './Token.component'
 
 interface Props {
-  tokens: Token[]
+  tokens: TokenRes[]
   dict: Dict
 }
 

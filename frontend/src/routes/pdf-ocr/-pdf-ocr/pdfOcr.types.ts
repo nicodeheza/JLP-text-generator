@@ -1,4 +1,4 @@
-import type { Dict, Token } from '../../../types/analyzedText.types'
+import type { TokenRes, Dict } from '../../../types/analyzedText.types'
 
 export interface PdfData {
   totalPages: number
@@ -19,7 +19,7 @@ export interface OcrResult {
 
 export interface AnalyzedOcrResult {
   data: {
-    tokens: Token[]
+    tokens: TokenRes[]
     box: Box
   }[]
   dict: Dict

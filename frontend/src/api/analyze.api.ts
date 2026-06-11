@@ -1,5 +1,6 @@
 import { CONFIG } from '../config'
 import { post } from './base.api'
+import type { AnalyzeRes, BulkAnalyzeRes } from '@ja-tools/share-types'
 
 export function getTextAnalyzeRes(text: string): Promise<AnalyzeRes> {
   return post<AnalyzeRes>(
@@ -13,38 +14,4 @@ export function getBulkTextAnalyzedRes(texts: string[]): Promise<BulkAnalyzeRes>
   return post<BulkAnalyzeRes>(`${CONFIG.API_URL}/analyze/bulk`, texts, {
     default: 'Error getting analyzed text',
   })
-}
-
-interface AnalyzeRes {
-  tokens: Token[]
-  dict: Dict
-}
-interface BulkAnalyzeRes {
-  dict: Dict
-  result: Token[][]
-}
-
-type Token =
-  | {
-      original: string
-      isWord: true
-      basicForm: string
-      furigana?: string
-      dictIds: string[]
-    }
-  | {
-      original: string
-      isWord: false
-    }
-
-type Dict = { [id: string]: Word }
-
-interface Word {
-  kana: string[]
-  kanji: string[]
-  sense: Sense[]
-}
-interface Sense {
-  pos: string[]
-  gloss: string[]
 }

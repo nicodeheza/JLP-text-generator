@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import type { JlptLevel } from '../../../types/Settings.types'
+import type { JLPTLevel } from '../../../types/Settings.types'
 import { SelectedLevelStorage } from './TextGenerator.storage'
 
-export function useSelectedLevel(): [JlptLevel, (v: JlptLevel) => void] {
-  const [level, setLevelState] = useState<JlptLevel>(() => SelectedLevelStorage.getData() ?? 'N5')
+export function useSelectedLevel(): [JLPTLevel, (v: JLPTLevel) => void] {
+  const [level, setLevelState] = useState<JLPTLevel>(() => SelectedLevelStorage.getData() ?? 'N5')
 
-  const setLevel = (v: JlptLevel) => {
+  const setLevel = (v: JLPTLevel) => {
     setLevelState(v)
     SelectedLevelStorage.saveData(v)
   }

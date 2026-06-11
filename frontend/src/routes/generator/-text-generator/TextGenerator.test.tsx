@@ -4,8 +4,8 @@ import userEvent from '@testing-library/user-event'
 import { TextGenerator } from './TextGenerator.view'
 import * as generatorApi from '../../../api/generator.api'
 import { GeneratedTextStorage, SelectedLevelStorage } from './TextGenerator.storage'
-import type { EventData, Paragraph } from './TextGenerator.types'
-import type { Dict } from '../../../types/analyzedText.types'
+import type { EventData } from './TextGenerator.types'
+import type { Paragraph, Dict } from '../../../types/analyzedText.types'
 
 vi.mock('../../../api/generator.api')
 vi.mock('./TextGenerator.storage', () => ({
@@ -66,6 +66,7 @@ describe('Text Generator', () => {
         tokens: [
           {
             original: '猫',
+            mecabPos: '',
             furigana: 'ねこ',
             isWord: true,
             basicForm: '猫',
@@ -74,6 +75,7 @@ describe('Text Generator', () => {
           { original: 'が', isWord: false },
           {
             original: '好き',
+            mecabPos: '',
             furigana: 'すき',
             isWord: true,
             basicForm: '好き',
@@ -117,6 +119,7 @@ describe('Text Generator', () => {
         tokens: [
           {
             original: '東京',
+            mecabPos: '',
             furigana: '東京[とうきょう]',
             isWord: true,
             basicForm: '東京',
@@ -125,6 +128,7 @@ describe('Text Generator', () => {
           { original: 'に', isWord: false },
           {
             original: '行',
+            mecabPos: '',
             furigana: '行[い]きました',
             isWord: true,
             basicForm: '行く',
@@ -185,6 +189,7 @@ describe('Text Generator', () => {
         tokens: [
           {
             original: '猫',
+            mecabPos: '',
             furigana: '猫[ねこ]',
             isWord: true,
             basicForm: '猫',
@@ -193,6 +198,7 @@ describe('Text Generator', () => {
           { original: 'が', isWord: false },
           {
             original: '好き',
+            mecabPos: '',
             furigana: '好[す]き',
             isWord: true,
             basicForm: '好き',
@@ -246,6 +252,7 @@ describe('Text Generator', () => {
         tokens: [
           {
             original: '猫',
+            mecabPos: '',
             furigana: '猫[ねこ]',
             isWord: true,
             basicForm: '猫',
@@ -254,6 +261,7 @@ describe('Text Generator', () => {
           { original: 'が', isWord: false },
           {
             original: '好き',
+            mecabPos: '',
             furigana: '好[す]き',
             isWord: true,
             basicForm: '好き',
@@ -307,6 +315,7 @@ describe('Text Generator', () => {
         tokens: [
           {
             original: '猫',
+            mecabPos: '',
             furigana: '猫[ねこ]',
             isWord: true,
             basicForm: '猫',
@@ -315,6 +324,7 @@ describe('Text Generator', () => {
           { original: 'が', isWord: false },
           {
             original: '好き',
+            mecabPos: '',
             furigana: '好[す]き',
             isWord: true,
             basicForm: '好き',
@@ -413,6 +423,7 @@ describe('Text Generator', () => {
       tokens: [
         {
           original: '猫',
+          mecabPos: '',
           furigana: 'ねこ',
           isWord: true,
           basicForm: '猫',
@@ -421,6 +432,7 @@ describe('Text Generator', () => {
         { original: 'が', isWord: false },
         {
           original: '好き',
+          mecabPos: '',
           furigana: 'すき',
           isWord: true,
           basicForm: '好き',

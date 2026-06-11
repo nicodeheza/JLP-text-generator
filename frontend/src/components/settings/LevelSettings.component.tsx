@@ -1,9 +1,9 @@
 import type { FC } from 'react'
-import type { JlptLevel } from '../../types/Settings.types'
+import type { JLPTLevel } from '../../types/Settings.types'
 import { OptionsSelect } from '../shared/OptionsSelect.component'
 import { SettingLabel } from './SettingLabel/SettigLabel.component'
 
-const LEVEL_OPTIONS: Record<string, JlptLevel> = {
+const LEVEL_OPTIONS: Record<string, JLPTLevel> = {
   N5: 'N5',
   N4: 'N4',
   N3: 'N3',
@@ -12,8 +12,8 @@ const LEVEL_OPTIONS: Record<string, JlptLevel> = {
 }
 
 interface LevelSettingsProps {
-  value: JlptLevel
-  onChange: (v: JlptLevel) => void
+  value: JLPTLevel
+  onChange: (v: JLPTLevel) => void
 }
 
 export const LevelSettings: FC<LevelSettingsProps> = ({ value, onChange }) => {

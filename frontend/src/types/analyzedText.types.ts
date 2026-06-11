@@ -1,4 +1,20 @@
-export type Token = WordToken | NoWordToken
+import type {
+  Token,
+  Word,
+  Sense,
+  Dict,
+  AnalyzeRes,
+  BulkAnalyzeRes,
+  JLPTLevel,
+  Paragraph,
+  AnalyzedStoryChunk,
+} from '@ja-tools/share-types'
+
+export type { Token, Word, Sense, Dict, AnalyzeRes, BulkAnalyzeRes, JLPTLevel, Paragraph, AnalyzedStoryChunk }
+
+export type TokenRes =
+  | Omit<Extract<Token, { isWord: true }>, 'mecabPos'>
+  | Extract<Token, { isWord: false }>
 
 export interface WordToken {
   original: string
@@ -11,17 +27,4 @@ export interface WordToken {
 export interface NoWordToken {
   original: string
   isWord: false
-}
-
-export type Dict = { [id: string]: Word }
-
-export interface Word {
-  kana: string[]
-  kanji: string[]
-  sense: Sense[]
-}
-
-interface Sense {
-  pos: string[]
-  gloss: string[]
 }

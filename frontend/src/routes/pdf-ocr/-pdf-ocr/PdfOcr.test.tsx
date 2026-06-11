@@ -306,6 +306,7 @@ describe('PdfOcr', () => {
             isWord: true as const,
             basicForm: '認識',
             dictIds: ['entry-1'],
+            mecabPos: '名詞',
           },
         ],
         [
@@ -315,6 +316,7 @@ describe('PdfOcr', () => {
             isWord: true as const,
             basicForm: 'テスト',
             dictIds: ['entry-2'],
+            mecabPos: '名詞',
           },
         ],
       ],
@@ -406,6 +408,7 @@ describe('PdfOcr', () => {
               isWord: true as const,
               basicForm: '新しい',
               dictIds: ['entry-3'],
+              mecabPos: '形容詞',
             },
           ],
         ],

@@ -4,10 +4,9 @@ import {
   isEventFinished,
   type ConnectionState,
   type EventData,
-  type Paragraph,
 } from './TextGenerator.types'
 import { GeneratedTextStorage } from './TextGenerator.storage'
-import type { Dict } from '../../../types/analyzedText.types'
+import type { Dict, Paragraph } from '../../../types/analyzedText.types'
 import { generateEvent } from '../../../api/generator.api'
 import { useSelectedLevel } from './useSelectedLevel'
 

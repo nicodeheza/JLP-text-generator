@@ -1,7 +1,8 @@
-import type { Dict, Token } from '../../../types/analyzedText.types'
+import type { Dict } from '../../../types/analyzedText.types'
+import type { TokenRes } from '../../../types/analyzedText.types'
 
 export interface AnalyzeData {
   text: string
-  tokens: Token[]
+  tokens: TokenRes[]
   dict: Dict
 }

@@ -1,6 +1,7 @@
 packages:
   - api
   - frontend
+  - packages/share/types
 
 allowBuilds:
   '@google/genai': true

@@ -1,41 +1,6 @@
-export type Token =
-  | {
-      original: string
-      isWord: true
-      basicForm: string
-      mecabPos: string
-      furigana?: string
-      dictIds: string[]
-    }
-  | {
-      original: string
-      isWord: false
-    }
+import type { Token, Sense, Dict, AnalyzeRes, BulkAnalyzeRes, Word, JLPTLevel } from '@ja-tools/share-types'
 
-export type Dict = { [id: string]: Omit<Word, 'id'> }
-
-export interface AnalyzeRes {
-  tokens: Token[]
-  dict: Dict
-}
-
-export interface BulkAnalyzeRes {
-  dict: Dict
-  result: Token[][]
-}
-
-interface Word {
-  id: string
-  kana: string[]
-  kanji: string[]
-  mecabPos: string[]
-  sense: Sense[]
-}
-
-interface Sense {
-  pos: string[]
-  gloss: string[]
-}
+export type { Token, Sense, Dict, AnalyzeRes, BulkAnalyzeRes, Word, JLPTLevel }
 
 export type DictWord = Omit<Word, 'mecabPos'>
 

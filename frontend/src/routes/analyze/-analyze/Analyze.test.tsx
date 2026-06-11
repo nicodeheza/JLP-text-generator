@@ -6,6 +6,7 @@ import { clearAnalyzedTextStore } from './analyze.service'
 import * as analyzeApi from '../../../api/analyze.api'
 import { analyzeStorage } from './analyze.storage'
 import type { AnalyzeData } from './analyze.types'
+import type { Token } from '../../../types/analyzedText.types'
 
 vi.mock('../../../api/analyze.api')
 vi.mock('./analyze.storage')
@@ -15,7 +16,7 @@ describe('Analyze', () => {
     // Set up default mocks (fresh state with no cached data)
     vi.mocked(analyzeStorage.getData).mockReturnValue(undefined)
     vi.mocked(analyzeApi.getTextAnalyzeRes).mockResolvedValue({
-      tokens: mockAnalyzeData.tokens,
+      tokens: mockAnalyzeData.tokens as Token[],
       dict: mockAnalyzeData.dict,
     })
     vi.mocked(analyzeStorage.saveData).mockImplementation(() => {})

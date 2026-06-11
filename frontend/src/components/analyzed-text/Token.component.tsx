@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { Dict, NoWordToken, Token, WordToken } from '../../types/analyzedText.types'
+import type { Dict, NoWordToken, TokenRes, WordToken } from '../../types/analyzedText.types'
 import { Furigana } from './Furigana.component'
 import { DictTooltip } from './DictTooltip.component'
 
 interface Props {
-  token: Token
+  token: TokenRes
   dict: Dict
 }
 

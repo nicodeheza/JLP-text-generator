@@ -29,7 +29,7 @@ export const DictTooltip: FC<Props> = ({ dict, ids, children }) => {
 }
 
 interface DictEntryProps {
-  word: Word
+  word: Omit<Word, 'id'>
 }
 
 const DictEntry: FC<DictEntryProps> = ({ word }) => {
