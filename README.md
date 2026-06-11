@@ -9,7 +9,6 @@ This project offers different tools to help with the study of the Japanese langu
 - **AI-Powered Text Generation:** Generates Japanese text based on user prompts, with selectable difficulty level, furigana annotation, streaming responses, and dictionary definitions on word click.
 - **Text Analyzer:** Accepts any Japanese text and returns a tokenized, annotated version. Furigana can be displayed above each word, and clicking on a word shows its dictionary definition (kana, kanji, part-of-speech, and English glosses).
 - **PDF OCR:** Upload a scanned PDF document and run OCR on any selected page. Hovering over detected text regions displays an analyzed overlay with the same furigana and dictionary features as the Text Analyzer.
-- **Furigana Support:** Automatically adds furigana (reading aids) above kanji across all tools.
 
 ## Technologies Used
 
@@ -19,15 +18,27 @@ This project offers different tools to help with the study of the Japanese langu
   - TypeScript
   - Google GenAI
   - @enjoyjs/node-mecab
-  - Furigana
-  - Wanakana
   - better-sqlite3
   - Drizzle orm
 - **Frontend:**
   - React
   - Vite
   - Zustand
-  - @radix-ui/react-popover
+
+## Use of AI Features
+
+This application uses a **bring your own API key** model. The AI features are powered by **Google Gemini** (specifically Gemma 4), a free model with generous usage limits, so you can use the app without paying for API credits.
+
+### Getting a Gemini API Key
+
+1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy the generated key
+
+### Security
+
+Your API key is encrypted (AES-256-GCM) and stored in an **HTTP-only cookie** in your browser. The encryption key is derived from a secret that only the server knows. Your key never leaves your browser except when making requests directly to Google's AI services.
 
 ## Prerequisites
 
@@ -46,53 +57,55 @@ Also, you need to set up the dictionary
 3. Run the script to generate the dictionary database
 
 ```bash
-yarn push:dict
-yarn setup
+pnpm --filter api dict:push
+pnpm --filter api dict:setup
 ```
 
 ## Setup Instructions
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
 
-    ```bash
-    git clone https://github.com/nicodeheza/JLP-text-generator.git
-    cd japanese-text-generator
-    ```
+   ```bash
+   git clone https://github.com/nicodeheza/ja-tools.git
+   cd ja-tools
+   ```
 
-2.  **Install dependencies:**
+2. **Install dependencies:**
 
-    ```bash
-    yarn
-    cd frontend
-    yarn
-    cd ..
-    ```
+   ```bash
+   pnpm install
+   ```
 
-3.  **Set up environment variables:**
-    - Create a `.env` file in the root directory and add your AI API key:
+3. **Set up environment variables:**
+   - Create an `api/.env` file with a secret key for encrypting user-provided API keys:
 
-      ```
-      GEMINI_API_KEY=<your_api_key>
-      ```
+     ```
+     AI_KEY_SECRET=<your_64_char_hex_secret_key>
+     ```
 
-    - Create a `frontend/.env` file and add the backend API base URL used during development:
+   The secret key must be a 64-character hex string (256-bit). Generate one with:
 
-      ```
-      VITE_DEV_API=<dev_api_base_url>
-      ```
+   ```bash
+   openssl rand -hex 32
+   ```
 
-      For example: `VITE_DEV_API=http://localhost:4000/api`
+   Note: This app uses a "bring your own API key" model. Users provide their own Google Gemini API key which is encrypted (AES-256-GCM) and stored securely in an HTTP-only cookie in their browser. You only need the secret key above to encrypt/decrypt user keys.
 
-4.  **Build the frontend:**
+   Optional variables:
+   - `FRONTEND_URL` - Frontend URL (defaults to `http://localhost:5173`)
+   - `LOG_LEVEL` - Logging level (defaults to `info`)
+   - `PORT` - Server port (defaults to `4000` in development)
 
-    ```bash
-    cd frontend
-    yarn build
-    cd ..
-    ```
+   - Create a `frontend/.env` file and add the backend API base URL used during development:
 
-5.  **Run the application:**
+     ```
+     VITE_DEV_API=http://localhost:4000/api
+     ```
 
-    ```bash
-    yarn start
-    ```
+4. **Run the application:**
+
+   ```bash
+   pnpm dev
+   ```
+
+This starts both the backend (API) and frontend in development mode.
