@@ -3,9 +3,10 @@
 Japanese language learning tools monorepo (pnpm workspace).
 
 ```
-.agents/           # opencode skills
-api/               # backend API package
-frontend/          # React frontend package
+.agents/              # opencode skills
+api/                  # backend API
+frontend/             # React frontend
+packages/share/types/ # shared TypeScript types
 pnpm-workspace.yaml
 ```
 
@@ -23,3 +24,4 @@ pnpm-workspace.yaml
 
 - [api/AGENTS.md](/api/AGENTS.md) — Backend API
 - [frontend/AGENTS.md](/frontend/AGENTS.md) — React frontend
+- [packages/share/types/AGENTS.md](/packages/share/types/AGENTS.md) — Shared types
