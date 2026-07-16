@@ -15,6 +15,11 @@ export default defineConfig({
     wasm(),
     topLevelAwait(),
   ],
+  resolve: {
+    alias: {
+      'onnxruntime-web': 'onnxruntime-web/wasm',
+    },
+  },
   optimizeDeps: {
     exclude: ['onnxruntime-web'],
   },
