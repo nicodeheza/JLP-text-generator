@@ -1,10 +1,4 @@
-import type { TokenRes, Dict } from '../../../types/analyzedText.types'
-
-export interface Paragraph {
-  text: string
-  translation: string
-  tokens: TokenRes[]
-}
+import type { Dict, Paragraph } from '../../../types/analyzedText.types'
 
 interface AnalyzedStoryChunk {
   message: undefined
