@@ -13,3 +13,7 @@ api/jmDict/**
 !pnpm-lock.yaml
 !package.json
 !pnpm-workspace.yaml
+
+# Include shared types source (api imports @ja-tools/share-types from it)
+!packages/share/types/src/
+!packages/share/types/package.json
