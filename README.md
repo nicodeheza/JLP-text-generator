@@ -99,7 +99,7 @@ pnpm --filter api dict:setup
    - Create a `frontend/.env` file and add the backend API base URL used during development:
 
      ```
-     VITE_DEV_API=http://localhost:4000/api
+      VITE_API=http://localhost:4000/api
      ```
 
 4. **Run the application:**
