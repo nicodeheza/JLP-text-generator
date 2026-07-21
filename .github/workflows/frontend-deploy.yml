@@ -48,6 +48,8 @@ jobs:
         run: pnpm --filter frontend test -- --run
 
       - name: build
+        env:
+          VITE_API: ${{ vars.VITE_API }}
         run: pnpm --filter frontend build
 
       - name: Upload frontend dist
