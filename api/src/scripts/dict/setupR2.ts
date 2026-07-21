@@ -26,7 +26,10 @@ export function getR2Config(): {
   const bucket = parsed.pathname.replace(/^\//, '')
   const endpoint = parsed.origin
 
-  if (!bucket) throw new Error('R2_ENDPOINT_URL must include the bucket name as the path (e.g. https://<id>.r2.cloudflarestorage.com/my-bucket)')
+  if (!bucket)
+    throw new Error(
+      'R2_ENDPOINT_URL must include the bucket name as the path (e.g. https://<id>.r2.cloudflarestorage.com/my-bucket)'
+    )
 
   const client = new S3Client({
     region: 'auto',

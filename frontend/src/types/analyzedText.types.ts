@@ -10,7 +10,17 @@ import type {
   AnalyzedStoryChunk,
 } from '@ja-tools/share-types'
 
-export type { Token, Word, Sense, Dict, AnalyzeRes, BulkAnalyzeRes, JLPTLevel, Paragraph, AnalyzedStoryChunk }
+export type {
+  Token,
+  Word,
+  Sense,
+  Dict,
+  AnalyzeRes,
+  BulkAnalyzeRes,
+  JLPTLevel,
+  Paragraph,
+  AnalyzedStoryChunk,
+}
 
 export type TokenRes =
   | Omit<Extract<Token, { isWord: true }>, 'mecabPos'>
