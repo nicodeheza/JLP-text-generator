@@ -1,0 +1,51 @@
+name: frontend-ci
+
+on:
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - 'packages/share/types/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '.github/workflows/frontend-ci.yml'
+
+concurrency:
+  group: frontend-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache Vite
+        uses: actions/cache@v4
+        with:
+          path: frontend/node_modules/.vite
+          key: ${{ runner.os }}-vite-${{ hashFiles('frontend/package.json', 'pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
+
+      - name: check
+        run: pnpm --filter frontend check
+
+      - name: test
+        run: pnpm --filter frontend test -- --run
+
+      - name: build
+        run: pnpm --filter frontend build
