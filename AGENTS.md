@@ -4,6 +4,7 @@ Japanese language learning tools monorepo (pnpm workspace).
 
 ```
 .agents/              # opencode skills
+.github/workflows/    # GitHub Actions CI/CD
 api/                  # backend API
 frontend/             # React frontend
 packages/share/types/ # shared TypeScript types
