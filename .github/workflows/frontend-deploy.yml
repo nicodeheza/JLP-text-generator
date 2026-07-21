@@ -23,17 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          run_install: false
+          version: 11.5.2
+          run_install: |
+            - args: [--frozen-lockfile, --filter, frontend...]
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Cache Vite
         uses: actions/cache@v4
@@ -66,14 +64,16 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: frontend-dist
           path: dist
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          run_install: false
+          version: 11.5.2
 
       - uses: actions/setup-node@v4
         with:
