@@ -1,4 +1,12 @@
-import type { Token, Sense, Dict, AnalyzeRes, BulkAnalyzeRes, Word, JLPTLevel } from '@ja-tools/share-types'
+import type {
+  Token,
+  Sense,
+  Dict,
+  AnalyzeRes,
+  BulkAnalyzeRes,
+  Word,
+  JLPTLevel,
+} from '@ja-tools/share-types'
 
 export type { Token, Sense, Dict, AnalyzeRes, BulkAnalyzeRes, Word, JLPTLevel }
 

@@ -1,0 +1,68 @@
+name: api-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/**'
+      - 'packages/share/types/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '.github/workflows/api-deploy.yml'
+
+concurrency:
+  group: api-deploy-main
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: check
+        run: pnpm --filter api check
+
+      - name: test
+        run: pnpm --filter api test -- --run
+
+      - name: build
+        run: pnpm --filter api build
+
+  deploy:
+    name: deploy
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Trigger Dokploy deploy
+        env:
+          DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
+          DOKPLOY_WEBHOOK_TOKEN: ${{ secrets.DOKPLOY_WEBHOOK_TOKEN }}
+          DOKPLOY_APPLICATION_ID: ${{ secrets.DOKPLOY_APPLICATION_ID }}
+        run: |
+          if [ -z "$DOKPLOY_WEBHOOK_URL" ] || [ -z "$DOKPLOY_WEBHOOK_TOKEN" ] || [ -z "$DOKPLOY_APPLICATION_ID" ]; then
+            echo "::error::DOKPLOY_WEBHOOK_URL, DOKPLOY_WEBHOOK_TOKEN, and DOKPLOY_APPLICATION_ID secrets must be set"
+            exit 1
+          fi
+          curl -fsS \
+            -X POST \
+            -H "accept: application/json" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $DOKPLOY_WEBHOOK_TOKEN" \
+            -d "{\"applicationId\":\"$DOKPLOY_APPLICATION_ID\"}" \
+            "$DOKPLOY_WEBHOOK_URL/api/application.deploy"

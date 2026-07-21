@@ -1,0 +1,43 @@
+name: api-ci
+
+on:
+  pull_request:
+    paths:
+      - 'api/**'
+      - 'packages/share/types/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '.github/workflows/api-ci.yml'
+
+concurrency:
+  group: api-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: check
+        run: pnpm --filter api check
+
+      - name: test
+        run: pnpm --filter api test -- --run
+
+      - name: build
+        run: pnpm --filter api build
