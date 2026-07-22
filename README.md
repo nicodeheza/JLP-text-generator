@@ -4,11 +4,13 @@
 
 This project offers different tools to help with the study of the Japanese language, especially with reading. It includes AI-powered text generation, a text analyzer with furigana and dictionary support, and a PDF OCR tool for scanned documents.
 
+> **Try it live → [jatools.cc](https://jatools.cc)**
+
 ## Features
 
 - **AI-Powered Text Generation:** Generates Japanese text based on user prompts, with selectable difficulty level, furigana annotation, streaming responses, and dictionary definitions on word click.
 - **Text Analyzer:** Accepts any Japanese text and returns a tokenized, annotated version. Furigana can be displayed above each word, and clicking on a word shows its dictionary definition (kana, kanji, part-of-speech, and English glosses).
-- **PDF OCR:** Upload a scanned PDF document and run OCR on any selected page. Hovering over detected text regions displays an analyzed overlay with the same furigana and dictionary features as the Text Analyzer.
+- **PDF OCR:** Upload a scanned PDF document and run OCR on any selected page (horizontal text only). Hovering over detected text regions displays an analyzed overlay with the same furigana and dictionary features as the Text Analyzer.
 
 ## Technologies Used
 
@@ -22,8 +24,11 @@ This project offers different tools to help with the study of the Japanese langu
   - Drizzle orm
 - **Frontend:**
   - React
+  - TanStack Router
   - Vite
   - Zustand
+  - **UI:** Radix UI Popover, react-icons
+  - **PDF / OCR:** PDF.js, Gutenye OCR (@gutenye/ocr-browser), ONNX Runtime Web
 
 ## Use of AI Features
 
@@ -31,7 +36,7 @@ This application uses a **bring your own API key** model. The AI features are po
 
 ### Getting a Gemini API Key
 
-1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
+1. Go to [Google AI Studio](https://aistudio.google.com/app/api-keys)
 2. Sign in with your Google account
 3. Click "Create API Key"
 4. Copy the generated key
