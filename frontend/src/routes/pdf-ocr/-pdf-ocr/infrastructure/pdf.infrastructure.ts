@@ -4,6 +4,43 @@ import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
+type AssetKind = 'wasmUrl' | 'cMapUrl' | 'standardFontDataUrl'
+
+const wasmUrlMap: Record<string, string> = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('/node_modules/pdfjs-dist/wasm/*.{wasm,js}', {
+      eager: true,
+      query: '?url',
+      import: 'default',
+    }) as Record<string, string>
+  ).map(([path, url]) => [path.split('/').pop()!, url])
+)
+
+const cMapUrlMap: Record<string, string> = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('/node_modules/pdfjs-dist/cmaps/*.bcmap', {
+      eager: true,
+      query: '?url',
+      import: 'default',
+    }) as Record<string, string>
+  ).map(([path, url]) => [path.split('/').pop()!, url])
+)
+
+class PdfjsBinaryDataFactory {
+  async fetch({ kind, filename }: { kind: AssetKind; filename: string }): Promise<Uint8Array> {
+    const tables: Record<AssetKind, Record<string, string>> = {
+      wasmUrl: wasmUrlMap,
+      cMapUrl: cMapUrlMap,
+      standardFontDataUrl: {},
+    }
+    const url = tables[kind]?.[filename]
+    if (!url) throw new Error(`Unknown pdfjs asset: ${kind}/${filename}`)
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+    return new Uint8Array(await response.arrayBuffer())
+  }
+}
+
 export interface IPdf {
   renderPage: (canvas: HTMLCanvasElement, page: number) => Promise<void>
   totalPages: number
@@ -31,7 +68,11 @@ class Pdf implements IPdf {
           const arrayBuffer = event.target?.result
           if (!arrayBuffer) throw new Error('Failed to load PDF document')
 
-          const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer })
+          const loadingTask = pdfjsLib.getDocument({
+            data: arrayBuffer,
+            useWorkerFetch: false,
+            BinaryDataFactory: PdfjsBinaryDataFactory,
+          })
           const pdfDoc = await loadingTask.promise
 
           this.document = pdfDoc
