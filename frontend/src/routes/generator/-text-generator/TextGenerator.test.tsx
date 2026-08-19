@@ -171,11 +171,11 @@ describe('Text Generator', () => {
 
     expect(tokyoRuby).toBeInTheDocument()
 
-    const verbRuby = screen
-      .getAllByText((_content, element) => {
-        return element?.textContent === '行いきました'
-      })
-      .find((el) => el.tagName === 'RUBY')
+    const verbRuby = screen.getAllByText((_content, element) => {
+      // `行` is now nested in its own <ruby> with `い` as <rt>; the
+      // trailing `きました` is a sibling, not part of the ruby base.
+      return element?.textContent === '行い' && element.tagName === 'RUBY'
+    })[0]
 
     expect(verbRuby).toBeInTheDocument()
   })

@@ -63,8 +63,14 @@ function buildFurigana(original: string, reading: string): string {
   const nextKana = rest.slice(0, nextKanaEnd)
 
   // Locate that kana segment inside the remaining reading to know where the
-  // kanji reading ends
-  const splitPos = reading.indexOf(nextKana)
+  // kanji reading ends. The kanji reading is always at least as long as the
+  // kanji block (each kanji contributes ≥1 reading char), so a splitPos
+  // smaller than the kanji block length is necessarily wrong — it would put
+  // the boundary inside the kanji reading (e.g. `お祝い` / `いわい`).
+  // In that case fall back to lastIndexOf, which lands on the actual suffix.
+  const minSplitPos = kanjiBlock.length
+  const idxOf = reading.indexOf(nextKana)
+  const splitPos = idxOf === -1 ? -1 : idxOf >= minSplitPos ? idxOf : reading.lastIndexOf(nextKana)
   if (splitPos === -1) {
     // Fallback: wrap everything remaining as one block
     return kanjiBlock + '[' + reading + ']' + rest

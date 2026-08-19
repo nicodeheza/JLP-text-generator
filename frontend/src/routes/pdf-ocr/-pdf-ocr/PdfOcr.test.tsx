@@ -417,7 +417,18 @@ describe('PdfOcr', () => {
       await user.click(screen.getByRole('button', { name: 'Run OCR' }))
 
       await waitFor(() => {
-        expect(screen.getByText('新しい')).toBeInTheDocument()
+        // The furigana rendering now nests the kanji `新` in its own <ruby>
+        // with `あたら` as <rt>, leaving `しい` as a sibling text node. To
+        // detect the assembled "新しい" across those siblings we strip all
+        // <rt> elements from a clone before comparing textContent.
+        expect(
+          screen.getAllByText((_content, element) => {
+            if (!element) return false
+            const clone = element.cloneNode(true) as Element
+            clone.querySelectorAll('rt').forEach((rt) => rt.remove())
+            return clone.textContent === '新しい'
+          }).length
+        ).toBeGreaterThan(0)
         expect(screen.queryByText('認識')).not.toBeInTheDocument()
         expect(screen.queryByText('テスト')).not.toBeInTheDocument()
       })

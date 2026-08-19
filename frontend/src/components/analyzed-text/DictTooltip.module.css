@@ -8,7 +8,7 @@
   color: var(--j-text-selected-color);
 }
 
-.children > ruby > rt {
+.children rt {
   color: var(--text);
 }
 

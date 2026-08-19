@@ -13,7 +13,7 @@ export const DictTooltip: FC<Props> = ({ dict, ids, children }) => {
   return (
     <Root>
       <Trigger asChild>
-        <samp className={styles.children}>{children}</samp>
+        <span className={styles.children}>{children}</span>
       </Trigger>
       <Portal>
         <Content className={styles.content}>
